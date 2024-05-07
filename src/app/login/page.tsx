@@ -1,6 +1,4 @@
 import LoginForm from "@/components/custom/LoginForm";
-import Spinner from "@/components/custom/Spinner";
-import React from "react";
 
 const Login = () => {
   return (

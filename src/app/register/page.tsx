@@ -1,5 +1,4 @@
 import RegistrationForm from "@/components/custom/RegistrationForm";
-import React from "react";
 
 const Register = () => {
   return (
