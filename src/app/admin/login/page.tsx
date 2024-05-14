@@ -1,3 +1,4 @@
+"use client";
 import LoginForm from "@/components/custom/LoginForm";
 import React from "react";
 

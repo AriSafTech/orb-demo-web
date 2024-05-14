@@ -1,0 +1,16 @@
+{
+    "login": {
+      "title": "ログイン",
+      "email": "ユーザー名",
+      "password": "パスワード",
+      "button": "ログイン"
+    },
+    "register": {
+      "title": "登録",
+      "username": "ユーザー名",
+      "password": "パスワード",
+      "confirmPassword": "パスワード確認",
+      "button": "登録"
+    }
+  }
+  

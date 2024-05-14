@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
 import { useRouter } from "next/navigation";
-
+import { LanguageData } from "@/type";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
+import useLanguageStore from "@/stores/languageStore";
 
 type FormData = {
   email: string;
@@ -39,18 +40,20 @@ const LoginForm = () => {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // console.log(values);
     if (values) {
       router.push("/");
     }
   }
-
+  // language data
+  // const { data }: { data: LanguageData } = useLanguageStore();
+  const { data }: any = useLanguageStore();
+  const { login } = data;
   return (
     <Form {...form}>
       <div className="w-full flex justify-center">
         <Card className="w-[450px] shadow-md">
           <CardHeader>
-            <CardTitle className="text-center">Sign in</CardTitle>
+            <CardTitle className="text-center">{login.title}</CardTitle>
           </CardHeader>
           <CardContent>
             <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
@@ -59,10 +62,10 @@ const LoginForm = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>{login.email}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Email"
+                        placeholder={login.email}
                         {...field}
                         type="email"
                         // style={{
@@ -81,10 +84,10 @@ const LoginForm = () => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>{login.password}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Password"
+                        placeholder={login.password}
                         {...field}
                         type="password"
                       />
@@ -94,7 +97,7 @@ const LoginForm = () => {
                 )}
               />
               <Button type="submit" className="w-full">
-                Submit
+                {login.button}
               </Button>
             </form>
             <p className="text-center mt-2 text-sm">

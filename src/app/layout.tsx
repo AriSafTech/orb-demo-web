@@ -3,6 +3,7 @@ import { Inter as FontSans } from "next/font/google";
 import "@/app/globals.css";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner";
+import LanguageSwitcher from "@/components/custom/LanguageSwitcher";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -27,7 +28,10 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <main className="h-full w-full">{children}</main>
+        <main className="h-full w-full">
+          <LanguageSwitcher />
+          {children}
+        </main>
         <Toaster />
       </body>
     </html>
