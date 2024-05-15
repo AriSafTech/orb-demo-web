@@ -1,21 +1,34 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, PersistOptions } from "zustand/middleware";
 import enData from "@/dictionaries/en.json";
 import jaData from "@/dictionaries/ja.json";
 
+const translationData = {
+  en: enData,
+  ja: jaData,
+};
+
+type TranslationData = typeof translationData;
+
+interface LanguageStore {
+  language: keyof TranslationData;
+  data: TranslationData[keyof TranslationData];
+  setLanguage: (lang: keyof TranslationData) => void;
+}
+
 const useLanguageStore = create(
-  persist(
+  persist<LanguageStore>(
     (set) => ({
       language: "en",
       data: enData,
-      setLanguage: (lang: string) => {
-        const data = lang === "en" ? enData : lang === "ja" ? jaData : enData;
+      setLanguage: (lang) => {
+        const data = translationData[lang];
         set({ language: lang, data });
       },
     }),
     {
       name: "language-store",
-    },
+    } as PersistOptions<LanguageStore>,
   ),
 );
 

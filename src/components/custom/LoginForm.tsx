@@ -46,14 +46,17 @@ const LoginForm = () => {
   }
   // language data
   // const { data }: { data: LanguageData } = useLanguageStore();
-  const { data }: any = useLanguageStore();
-  const { login } = data;
+  // const { data } = useLanguageStore();
+  // const { login } = data;
+
+  const { data: t } = useLanguageStore();
+
   return (
     <Form {...form}>
       <div className="w-full flex justify-center">
         <Card className="w-[450px] shadow-md">
           <CardHeader>
-            <CardTitle className="text-center">{login.title}</CardTitle>
+            <CardTitle className="text-center">{t.login.title}</CardTitle>
           </CardHeader>
           <CardContent>
             <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
@@ -62,10 +65,10 @@ const LoginForm = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{login.email}</FormLabel>
+                    <FormLabel>{t.login.email}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={login.email}
+                        placeholder={t.login.email}
                         {...field}
                         type="email"
                         // style={{
@@ -84,10 +87,10 @@ const LoginForm = () => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{login.password}</FormLabel>
+                    <FormLabel>{t.login.password}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={login.password}
+                        placeholder={t.login.password}
                         {...field}
                         type="password"
                       />
@@ -97,7 +100,7 @@ const LoginForm = () => {
                 )}
               />
               <Button type="submit" className="w-full">
-                {login.button}
+                {t.login.button}
               </Button>
             </form>
             <p className="text-center mt-2 text-sm">
