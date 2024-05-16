@@ -1,0 +1,100 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "paths": {
+    "/api/register": {
+      "post": {
+        "operationId": "Register",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {}
+          }
+        },
+        "responses": {}
+      }
+    },
+    "/api/login": {
+      "post": {
+        "operationId": "Login",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {}
+          }
+        },
+        "responses": {}
+      }
+    },
+    "/api/v1/me": {
+      "get": {
+        "operationId": "getProfile",
+        "responses": {}
+      }
+    },
+    "/api/v1/payments": {
+      "post": {
+        "operationId": "payments",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {}
+          }
+        },
+        "responses": {}
+      }
+    },
+    "/api/v1/transactions": {
+      "get": {
+        "operationId": "getAllTransactions",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/recharge": {
+      "post": {
+        "operationId": "recharge",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {}
+          }
+        },
+        "responses": {}
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "200": {
+        "content": {
+          "application/json": {}
+        }
+      },
+      "201": {
+        "content": {
+          "application/json": {}
+        }
+      },
+      "401": {
+        "content": {
+          "application/json": {}
+        }
+      },
+      "422": {
+        "content": {
+          "application/json": {}
+        }
+      }
+    }
+  }
+}
