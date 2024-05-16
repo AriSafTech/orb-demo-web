@@ -1,0 +1,1069 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "ORB Demo Application API Documentation",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User register.",
+                "description": "User registration",
+                "operationId": "Register",
+                "requestBody": {
+                    "description": "New User details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegistrationRequestAttribute"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User has been registered successfully."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "user": {
+                                                    "$ref": "#/components/schemas/UserResponseAttribute"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 401
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User login.",
+                "description": "Login user",
+                "operationId": "Login",
+                "requestBody": {
+                    "description": "Login details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequestAttribute"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User has been logged in successfully."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "user": {
+                                                    "$ref": "#/components/schemas/LoginResponseAttribute"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 401
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/me": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Get user profile",
+                "description": "Retrieve user profile information.",
+                "operationId": "getProfile",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Current authenticated user info."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "user": {
+                                                    "$ref": "#/components/schemas/UserResponseAttribute"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 401
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/payments": {
+            "post": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Payment to another account.",
+                "description": "payments an account.",
+                "operationId": "payments",
+                "requestBody": {
+                    "description": "Login details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PaymentRequestAttribute"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Transaction list."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "transaction": {
+                                                    "$ref": "#/components/schemas/PaymentResponseAttribute"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 401
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server error."
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "This action is unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 403
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "This action is unauthorized."
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/transactions": {
+            "get": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Get transaction list",
+                "description": "Retrieve user transaction.",
+                "operationId": "getAllTransactions",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "User id",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Transaction list."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "transactions": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/TransactionResponse"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 401
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server error."
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "This action is unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 403
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "This action is unauthorized."
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/recharge": {
+            "post": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Recharge an account",
+                "description": "Recharge an account.",
+                "operationId": "recharge",
+                "requestBody": {
+                    "description": "Login details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RechargeRequestAttribute"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Transaction list."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "transaction": {
+                                                    "$ref": "#/components/schemas/RechargeResponseAttribute"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 401
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server error."
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "This action is unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "statusCode": {
+                                            "type": "integer",
+                                            "example": 403
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "This action is unauthorized."
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "LoginRequestAttribute": {
+                "title": "Login",
+                "description": "Login request.",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "admin@admin.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "password"
+                    }
+                },
+                "type": "object"
+            },
+            "PaymentRequestAttribute": {
+                "title": "Transaction",
+                "description": "Transaction request",
+                "properties": {
+                    "coin": {
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "sender_id": {
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "receiver_id": {
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "amount": {
+                        "type": "integer",
+                        "example": 100
+                    }
+                },
+                "type": "object"
+            },
+            "RechargeRequestAttribute": {
+                "title": "Recharge",
+                "description": "Recharge request.",
+                "properties": {
+                    "receiver_id": {
+                        "type": "numeric",
+                        "example": 1
+                    },
+                    "amount": {
+                        "type": "integer",
+                        "example": 500
+                    }
+                },
+                "type": "object"
+            },
+            "RegistrationRequestAttribute": {
+                "title": "Registration",
+                "description": "Registration request.",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Hasib"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "hasib@hasib.com"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "+8801917200115"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "Abcd1234"
+                    },
+                    "role_name": {
+                        "type": "enum",
+                        "enum": [
+                            "admin",
+                            "consumer"
+                        ],
+                        "example": "consumer"
+                    }
+                },
+                "type": "object"
+            },
+            "LoginResponseAttribute": {
+                "title": "Login",
+                "description": "Login response.",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "integer",
+                        "example": "Hasib"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "hasib@hasib.com"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "+8801917200115"
+                    },
+                    "role": {
+                        "$ref": "#/components/schemas/RoleResponseAttribute"
+                    },
+                    "accessToken": {
+                        "type": "string",
+                        "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5YmZkZDM4YS0xNGU5LTRkZjAtODYyNi1hNDI5MDk3MGJhNDgiLCJqdGkiOiI0NTI2MDU4MzkxNzdlYmM5NjU0N2I1NzMyNGE2NzZkMjljYmUwYWU4MGM5ZDQ4NzNhNzAwMzI3ZGZhMTdlZDNlYzQ4OWE3NjdmMTYyZWIyNCIsImlhdCI6MTcxNTc2Nzk5Mi45MDY2NzUsIm5iZiI6MTcxNTc2Nzk5Mi45MDY2NzgsImV4cCI6MTc0NzMwMzk5Mi44MjYyOTgsInN1YiI6IjIiLCJzY29wZXMiOltdfQ.h5uCmHMwYak3zzt_NBvxZ92qo_PRXocEFgjXlYPP-DWcGH81h__e8F2s-ER59aPj01C49eTzNoXtOo5Pruro01uQcX7-eWkvy-Ecc_Fu3H3iOWpzobXRdsaJKe2Ac8VMIglJ5GcIB8xR8nlgV-ad75VNA339Pok1XniyHdacpglXbYSH_S3XXAa2jEFaT_ed4u-gpotiGlGJUsu9hzvisxlmbBtcHgfkvQ6YX6WqGa-q68tia0NtRvLkRiH-0B7jK6tQqedezK9h1Uz9SsKPAr3kzHRUzSozK7cZN2GChLxckxuj47RAn87dZD1oz36zbNh41sTLqHHiVTfRL_eSZXo6C81JU4MPPogqdf7qzj1zRVMhevQMhbgW589JfPbQZwYMsOqlCjB9l9S0LkXFdnolNQlJRW_7mNiDQk8HybmYUxZYtU9cBR6lISJcLImW-d0S4RGi6Y-C6QVPVcC5Fut8_jHbkgh4YkFvvfg0TjuxTBQBh0kGDkNN2KNoJfLf6D5S-kTUNFsS5gTPNkVZnDERY3cd-jwx49asywJ4QygC47dIL9CHaIJrLQ_Y9IZCmfgkdDec04aqDJZa4zyIoqjDVN4RZCyt03gWwYiE_BktRm5dZD0etviWZhRTrp9WCSEANRB36Y7L0cLF3QLYEowjhCdYBKmYY60yPpBfq08"
+                    }
+                },
+                "type": "object"
+            },
+            "PaymentResponseAttribute": {
+                "title": "Payment",
+                "description": "Payment response.",
+                "properties": {
+                    "transaction_id": {
+                        "type": "string",
+                        "example": "d54c5f88-1c4a-47df-ba9c-8362fc2abeb7"
+                    },
+                    "transaction_status": {
+                        "type": "string",
+                        "example": "COMPLETED"
+                    }
+                },
+                "type": "object"
+            },
+            "RechargeResponseAttribute": {
+                "title": "Recharge",
+                "description": "Recharge response.",
+                "properties": {
+                    "transaction_id": {
+                        "type": "string",
+                        "example": "d54c5f88-1c4a-47df-ba9c-8362fc2abeb7"
+                    },
+                    "transaction_status": {
+                        "type": "string",
+                        "example": "COMPLETED"
+                    }
+                },
+                "type": "object"
+            },
+            "RoleResponseAttribute": {
+                "title": "Role",
+                "description": "Role response.",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "consumer"
+                    }
+                },
+                "type": "object"
+            },
+            "TransactionResponse": {
+                "title": "Transaction",
+                "description": "Transaction response.",
+                "properties": {
+                    "tx_id": {
+                        "type": "string",
+                        "example": "d54c5f88-1c4a-47df-ba9c-8362fc2abeb7"
+                    },
+                    "participants": {
+                        "properties": {
+                            "merchant": {
+                                "type": "string",
+                                "example": "hasib"
+                            },
+                            "consumer": {
+                                "type": "string",
+                                "example": "hasib-01"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "currencies": {
+                        "properties": {
+                            "1": {
+                                "type": "string",
+                                "example": "100"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "currency_details": {
+                        "properties": {
+                            "1": {
+                                "type": "string",
+                                "example": "100"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "group": {
+                        "type": "string",
+                        "example": "payment"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "ctom-payment"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-05-07T07:09:48Z"
+                    }
+                },
+                "type": "object"
+            },
+            "UserResponseAttribute": {
+                "title": "Registration",
+                "description": "Registration response.",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "integer",
+                        "example": "Hasib"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "hasib@hasib.com"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "+8801917200115"
+                    },
+                    "role": {
+                        "$ref": "#/components/schemas/RoleResponseAttribute"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "responses": {
+            "401": {
+                "description": "Unauthorized access.",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "description": "This is the success status of the login.",
+                                    "type": "boolean"
+                                },
+                                "statusCode": {
+                                    "description": "This is the status code ",
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "description": "The response data",
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "description": "The response data",
+                                    "type": "array",
+                                    "items": {}
+                                }
+                            },
+                            "type": "object",
+                            "example": {
+                                "success": false,
+                                "statusCode": 401,
+                                "message": "Unautorized",
+                                "errors": []
+                            }
+                        }
+                    }
+                }
+            },
+            "201": {
+                "description": "Register Successfully",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "description": "This is the success status of the login.",
+                                    "type": "boolean"
+                                },
+                                "statusCode": {
+                                    "description": "This is the status code ",
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "description": "The response data",
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "description": "The response data",
+                                    "type": "array",
+                                    "items": {}
+                                }
+                            },
+                            "type": "object",
+                            "example": {
+                                "success": true,
+                                "statusCode": 200,
+                                "message": "Mutation success message.",
+                                "data": []
+                            }
+                        }
+                    }
+                }
+            },
+            "200": {
+                "description": "Success",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "description": "This is the success status of the login.",
+                                    "type": "boolean"
+                                },
+                                "statusCode": {
+                                    "description": "This is the status code ",
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "description": "The response data",
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "description": "The response data",
+                                    "type": "array",
+                                    "items": {}
+                                }
+                            },
+                            "type": "object",
+                            "example": {
+                                "success": true,
+                                "statusCode": 200,
+                                "message": "Success message.",
+                                "data": []
+                            }
+                        }
+                    }
+                }
+            },
+            "422": {
+                "description": "Validation errors.",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "description": "This is the success status of the login.",
+                                    "type": "boolean"
+                                },
+                                "statusCode": {
+                                    "description": "This is the status code ",
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "description": "The response data",
+                                    "type": "string"
+                                },
+                                "errors": {
+                                    "description": "The response data",
+                                    "type": "array",
+                                    "items": {}
+                                }
+                            },
+                            "type": "object",
+                            "example": {
+                                "success": false,
+                                "statusCode": 422,
+                                "message": "Validation errors",
+                                "errors": []
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
