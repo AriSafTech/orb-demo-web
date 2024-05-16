@@ -1,3 +1,11 @@
-export default function RegularRegisterPage() {
-  return <h1>Regular Register Page</h1>;
-}
+import RegistrationForm from "@/components/custom/RegistrationForm";
+
+const RegularRegistrationPage = () => {
+  return (
+    <div className="h-full flex items-center">
+      <RegistrationForm />
+    </div>
+  );
+};
+
+export default RegularRegistrationPage;

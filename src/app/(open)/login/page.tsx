@@ -1,3 +1,11 @@
-export default function RegularLoginPage() {
-  return <h1>Regular Login Page</h1>;
-}
+import LoginForm from "@/components/custom/LoginForm";
+
+const RegularLoginPage = () => {
+  return (
+    <div className="h-full flex items-center">
+      <LoginForm />
+    </div>
+  );
+};
+
+export default RegularLoginPage;

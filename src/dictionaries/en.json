@@ -1,0 +1,16 @@
+{
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "button": "Login"
+    },
+    "register": {
+      "title": "Register",
+      "username": "Username",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "button": "Register"
+    }
+  }
+  
