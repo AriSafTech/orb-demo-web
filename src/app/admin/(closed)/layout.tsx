@@ -75,7 +75,7 @@ export default function AdminLayout({
         </Button>
       </aside>
       <div className="col-span-2 sm:col-span-9 lg:col-span-10 flex flex-col">
-        <div className="h-20 items-center px-2 flex justify-between bg-primary/5">
+        <div className="h-14 items-center px-2 flex justify-between bg-primary/5">
           <div className="min-w-2">{title}</div>
           <LanguageSwitcher />
         </div>

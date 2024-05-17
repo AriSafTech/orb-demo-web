@@ -737,7 +737,7 @@
             "example": "Abcd1234"
           },
           "role_name": {
-            "type": "enum",
+            "type": "string",
             "enum": ["admin", "consumer"],
             "example": "consumer"
           }

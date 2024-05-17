@@ -14,7 +14,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const authService = {
   useLogin() {
-    const { setData, reset } = useAuthStore();
+    const { setData } = useAuthStore();
     return useMutation({
       mutationKey: [MUTATION_KEYS.login],
       mutationFn: async ({
@@ -73,7 +73,7 @@ export const authService = {
         if (user) {
           setData({
             // @ts-ignore
-            accessToken: user.accessToken,
+            accessToken: user.accessToken!,
             user: {
               email: user.email!,
               // @ts-ignore
