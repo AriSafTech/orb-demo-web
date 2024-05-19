@@ -4,6 +4,7 @@ import { DummyUser, userService } from "@/services/user.service";
 import { useEffect } from "react";
 import Loading from "@/components/custom/Loading";
 import { ColumnDef } from "@tanstack/react-table";
+import { useLanguageStore } from "@/stores/languageStore";
 
 const UsersPage = () => {
   const { data, status } = userService.useAllUsers();
@@ -13,22 +14,27 @@ const UsersPage = () => {
 
   useEffect(() => console.log("USERS:", data), [data]);
 
+  const { data: t } = useLanguageStore();
+  // console.log(t);
+
+  // console.log(t.users);
+
   const columns: ColumnDef<DummyUser>[] = [
     {
       accessorKey: "name",
-      header: "Name",
+      header: t.users.name,
     },
     {
       accessorKey: "email",
-      header: "Email",
+      header: t.users.email,
     },
     {
       accessorKey: "phone",
-      header: "Phone No",
+      header: t.users.phone,
     },
     {
       accessorKey: "userId",
-      header: "User Id",
+      header: t.users.userId,
     },
   ];
 

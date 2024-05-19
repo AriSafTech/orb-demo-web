@@ -1,6 +1,9 @@
 "use client";
 import React, { useEffect } from "react";
-import useLanguageStore from "@/stores/languageStore";
+import {
+  useLanguageStore,
+  getUserPreferredLanguage,
+} from "@/stores/languageStore";
 import {
   Select,
   SelectContent,
@@ -9,34 +12,38 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-type languageType = {
-  language: string;
-  setLanguage: (lang: string) => void;
+// Import translationData to use its types
+import enData from "@/dictionaries/en.json";
+import jaData from "@/dictionaries/ja.json";
+
+const translationData = {
+  en: enData,
+  jp: jaData,
 };
 
 const LanguageSwitcher = () => {
   const { language, setLanguage } = useLanguageStore();
 
+  useEffect(() => {
+    const initialLang = getUserPreferredLanguage();
+
+    setLanguage(initialLang);
+  }, [setLanguage]);
+
   const handleChange = (val: string) => {
-    setLanguage(val as typeof language);
+    setLanguage(val as keyof typeof translationData);
   };
 
   return (
-    // <Select value={language} onChange={handleChange}>
     <Select value={language} onValueChange={handleChange}>
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Language" />
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="en">English</SelectItem>
-        <SelectItem value="ja">日本語</SelectItem>
+        <SelectItem value="jp">日本語</SelectItem>
       </SelectContent>
     </Select>
-
-    // <select value={language} onChange={handleChange}>
-    //   <option value="en">En</option>
-    //   <option value="ja">Ja</option>
-    // </select>
   );
 };
 

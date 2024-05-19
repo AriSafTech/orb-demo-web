@@ -3,7 +3,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
 import { useRouter } from "next/navigation";
-import { LanguageData } from "@/type";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,7 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
-import useLanguageStore from "@/stores/languageStore";
+import { useLanguageStore } from "@/stores/languageStore";
 
 type FormData = {
   email: string;
@@ -44,10 +43,6 @@ const LoginForm = () => {
       router.push("/");
     }
   }
-  // language data
-  // const { data }: { data: LanguageData } = useLanguageStore();
-  // const { data } = useLanguageStore();
-  // const { login } = data;
 
   const { data: t } = useLanguageStore();
 
@@ -104,9 +99,9 @@ const LoginForm = () => {
               </Button>
             </form>
             <p className="text-center mt-2 text-sm">
-              If you don&apos;t have an account, please{" "}
+              {t.login.redirect}{" "}
               <Link href={"register"} className="text-blue-500 hover:underline">
-                Sign up
+                {t.register.title}
               </Link>
             </p>
           </CardContent>

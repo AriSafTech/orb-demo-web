@@ -1,16 +1,27 @@
 {
-    "login": {
-      "title": "Login",
-      "email": "Email",
-      "password": "Password",
-      "button": "Login"
-    },
-    "register": {
-      "title": "Register",
-      "username": "Username",
-      "password": "Password",
-      "confirmPassword": "Confirm Password",
-      "button": "Register"
-    }
+
+  "login": {
+    "title": "Login",
+    "email": "Email",
+    "password": "Password",
+    "button": "Login",
+    "redirect":"If you don't have an account, please"
+  },
+ 
+  "register": {
+    "title": "Register",
+    "name": "Username",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Re-Enter your password",
+    "button": "Register",
+    "redirect":"If you already have an account, please"
+  },
+
+  "users": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "userId": "User ID"
   }
-  
+}

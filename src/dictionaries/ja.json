@@ -3,14 +3,23 @@
       "title": "ログイン",
       "email": "ユーザー名",
       "password": "パスワード",
-      "button": "ログイン"
+      "button": "ログイン",
+      "redirect": "アカウントをお持ちでない方は、こちらをクリックしてください"
     },
     "register": {
       "title": "登録",
-      "username": "ユーザー名",
+      "name": "ユーザー名",
+      "email": "メールアドレス",
       "password": "パスワード",
-      "confirmPassword": "パスワード確認",
-      "button": "登録"
+      "confirmPassword": "パスワードを再入力してください",
+      "button": "登録",
+      "redirect": "すでにアカウントをお持ちの方は、こちらをクリックしてください"
+    },
+    "users":{
+      "name": "名前",
+      "email": "メール",
+      "phone": "電話",
+      "userId": "ユーザーID"
     }
   }
   
