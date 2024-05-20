@@ -18,15 +18,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { useLanguageStore } from "@/stores/languageStore";
 import { authService } from "@/services/auth.service";
+import { AppRole, RegistrationRoles } from "@/api/api-types";
 
-type FormData = {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
-
-const formSchema: ZodType<FormData> = z
+const formSchema = z
   .object({
     name: z.string().min(1, "Name is required").max(50),
     email: z.string().min(1, "Email is required").email("Invalid email"),
@@ -35,24 +29,26 @@ const formSchema: ZodType<FormData> = z
       .min(1, "Password is required")
       .min(6, "Password must have at least 6 characters"),
     confirmPassword: z.string().min(1, "Password confirmation is required"),
+    role: z.enum(["consumer", "merchant"]),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
 
+type FormData = z.infer<typeof formSchema>;
+
 const RegistrationForm = () => {
-  const { mutateAsync: register } = authService.useRegister({
-    role: "merchant",
-  });
+  const { mutateAsync: register } = authService.useRegister();
   const router = useRouter();
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       email: "",
       password: "",
       confirmPassword: "",
+      role: "consumer",
     },
   });
 
@@ -66,6 +62,7 @@ const RegistrationForm = () => {
 
   const { data: t } = useLanguageStore();
 
+  // TODO: add role dropdown
   return (
     <Form {...form}>
       <div className="w-full  flex justify-center items-center">
