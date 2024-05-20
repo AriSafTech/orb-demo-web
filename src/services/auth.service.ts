@@ -1,4 +1,4 @@
-import { AppRole } from "@/api/api-types";
+import { AppRole, RegistrationRoles } from "@/api/api-types";
 import { getApiClient } from "@/api/client";
 import {
   AuthenticationApi,
@@ -14,7 +14,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const authService = {
   useLogin() {
-    const { setData, reset } = useAuthStore();
+    const { setData } = useAuthStore();
     return useMutation({
       mutationKey: [MUTATION_KEYS.login],
       mutationFn: async ({
@@ -48,7 +48,7 @@ export const authService = {
     });
   },
 
-  useRegister({ role }: { role: AppRole }) {
+  useRegister() {
     const { setData } = useAuthStore();
     return useMutation({
       mutationKey: [MUTATION_KEYS.register],
@@ -56,10 +56,12 @@ export const authService = {
         email,
         name,
         password,
+        role,
       }: {
         email: string;
         name: string;
         password: string;
+        role: RegistrationRoles;
       }) => {
         const client = await getApiClient(null);
         const res = await client.paths["/api/register"].post(null, {
@@ -73,7 +75,7 @@ export const authService = {
         if (user) {
           setData({
             // @ts-ignore
-            accessToken: user.accessToken,
+            accessToken: user.accessToken!,
             user: {
               email: user.email!,
               // @ts-ignore

@@ -21,6 +21,7 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { DataTablePagination } from "./DataTablePagination";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -48,7 +49,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div>
+    <>
       {/* search */}
       <div className="flex items-center py-4 justify-between">
         <div className="text-xl font-bold mb-2">{`${pageTitle}`}</div>
@@ -66,7 +67,7 @@ export function DataTable<TData, TValue>({
           className="max-w-sm"
         />
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-md border overflow-auto">
         <Table>
           <TableHeader className="bg-primary">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -117,7 +118,7 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
+        {/* <Button
           variant="outline"
           size="sm"
           onClick={() => table.previousPage()}
@@ -132,8 +133,9 @@ export function DataTable<TData, TValue>({
           disabled={!table.getCanNextPage()}
         >
           Next
-        </Button>
+        </Button> */}
+        <DataTablePagination table={table} />
       </div>
-    </div>
+    </>
   );
 }

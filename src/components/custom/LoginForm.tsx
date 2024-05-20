@@ -1,9 +1,8 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z, ZodType } from "zod";
+import { unknown, z, ZodType } from "zod";
 import { useRouter } from "next/navigation";
-import { LanguageData } from "@/type";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,7 +15,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
-import useLanguageStore from "@/stores/languageStore";
+import { useLanguageStore } from "@/stores/languageStore";
+import { authService } from "@/services/auth.service";
+import { useAuthStore } from "@/stores/authStore";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 type FormData = {
   email: string;
@@ -29,6 +32,14 @@ const formSchema: ZodType<FormData> = z.object({
 });
 
 const LoginForm = () => {
+  const { data: t } = useLanguageStore();
+  const { user } = useAuthStore();
+  console.log(t.errors?.login_wrongCredentials_title);
+
+  const { mutateAsync: login } = authService.useLogin();
+  const { mutateAsync: logout } = authService.useLogout();
+
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,18 +49,43 @@ const LoginForm = () => {
     },
   });
 
+  useEffect(() => {
+    if (user) {
+      if (user.role === "consumer" || user.role === "merchant") {
+        // TODO: redirect to main dashboard
+      } else if (user.role === "admin") {
+        logout();
+        toast.error(t.errors.login_wrongRole_title, {
+          description: t.errors.login_wrongRole_desc,
+        });
+      }
+    }
+  }, [logout, user]);
+
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     if (values) {
-      router.push("/");
+      try {
+        const loginValues = await login(values);
+        console.log("loginValues", loginValues);
+      } catch (e) {
+        // form.setError("email", {
+        //   message: "Login failed. Please check your credentials.",
+        // });
+        if (e) {
+          // @ts-ignore
+          console.log("ERROS STAUS:", e.response.status);
+          toast.error(t.errors.login_wrongCredentials_title, {
+            description: t.errors.login_wrongCredentials_desc,
+          });
+          // setError("Login failed. Please check your credentials");
+          // setError(t.login.errorMessage);
+        }
+      }
+
+      // console.log("submitValue", loginValues);
     }
   }
-  // language data
-  // const { data }: { data: LanguageData } = useLanguageStore();
-  // const { data } = useLanguageStore();
-  // const { login } = data;
-
-  const { data: t } = useLanguageStore();
 
   return (
     <Form {...form}>
@@ -59,6 +95,9 @@ const LoginForm = () => {
             <CardTitle className="text-center">{t.login.title}</CardTitle>
           </CardHeader>
           <CardContent>
+            {error && (
+              <div className="text-sm text-red-500 text-center">{error}</div>
+            )}
             <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
                 control={form.control}
@@ -104,9 +143,9 @@ const LoginForm = () => {
               </Button>
             </form>
             <p className="text-center mt-2 text-sm">
-              If you don&apos;t have an account, please{" "}
+              {t.login.redirect}{" "}
               <Link href={"register"} className="text-blue-500 hover:underline">
-                Sign up
+                {t.register.title}
               </Link>
             </p>
           </CardContent>

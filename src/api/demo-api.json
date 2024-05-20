@@ -1,3 +1,4 @@
+
 {
   "openapi": "3.0.0",
   "info": {
@@ -7,10 +8,12 @@
   "paths": {
     "/api/register": {
       "post": {
-        "tags": ["Authentication"],
+        "tags": [
+          "Authentication"
+        ],
         "summary": "User register.",
         "description": "User registration",
-        "operationId": "Register",
+        "operationId": "register",
         "requestBody": {
           "description": "New User details",
           "required": true,
@@ -87,7 +90,9 @@
     },
     "/api/login": {
       "post": {
-        "tags": ["Authentication"],
+        "tags": [
+          "Authentication"
+        ],
         "summary": "User login.",
         "description": "Login user",
         "operationId": "Login",
@@ -167,7 +172,9 @@
     },
     "/api/v1/me": {
       "get": {
-        "tags": ["Authentication"],
+        "tags": [
+          "Authentication"
+        ],
         "summary": "Get user profile",
         "description": "Retrieve user profile information.",
         "operationId": "getProfile",
@@ -234,14 +241,18 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [
+              
+            ]
           }
         ]
       }
     },
     "/api/v1/payments": {
       "post": {
-        "tags": ["Payments"],
+        "tags": [
+          "Payments"
+        ],
         "summary": "Payment to another account.",
         "description": "payments an account.",
         "operationId": "payments",
@@ -316,33 +327,6 @@
               }
             }
           },
-          "500": {
-            "description": "Server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "statusCode": {
-                      "type": "integer",
-                      "example": 500
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Server error."
-                    },
-                    "errors": {
-                      "type": "object"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            }
-          },
           "403": {
             "description": "This action is unauthorized.",
             "content": {
@@ -369,18 +353,49 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Server error."
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
           }
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [
+              
+            ]
           }
         ]
       }
     },
     "/api/v1/transactions": {
       "get": {
-        "tags": ["Transactions"],
+        "tags": [
+          "Transactions"
+        ],
         "summary": "Get transaction list",
         "description": "Retrieve user transaction.",
         "operationId": "getAllTransactions",
@@ -459,33 +474,6 @@
               }
             }
           },
-          "500": {
-            "description": "Server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "statusCode": {
-                      "type": "integer",
-                      "example": 500
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Server error."
-                    },
-                    "errors": {
-                      "type": "object"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            }
-          },
           "403": {
             "description": "This action is unauthorized.",
             "content": {
@@ -512,18 +500,49 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Server error."
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
           }
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [
+              
+            ]
           }
         ]
       }
     },
     "/api/v1/recharge": {
       "post": {
-        "tags": ["Transactions"],
+        "tags": [
+          "Transactions"
+        ],
         "summary": "Recharge an account",
         "description": "Recharge an account.",
         "operationId": "recharge",
@@ -598,6 +617,33 @@
               }
             }
           },
+          "403": {
+            "description": "This action is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 403
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "This action is unauthorized."
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Server error",
             "content": {
@@ -615,6 +661,99 @@
                     "message": {
                       "type": "string",
                       "example": "Server error."
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v1/users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get user list",
+        "description": "Retrieve user user.",
+        "operationId": "getAllUsers",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Users list."
+                    },
+                    "data": {
+                      "properties": {
+                        "users": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/UserListResponseAttribute"
+                          }
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized"
                     },
                     "errors": {
                       "type": "object"
@@ -651,11 +790,40 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Server error."
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
           }
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [
+              
+            ]
           }
         ]
       }
@@ -664,7 +832,7 @@
   "components": {
     "schemas": {
       "LoginRequestAttribute": {
-        "title": "Login",
+        "title": "Login request",
         "description": "Login request.",
         "properties": {
           "email": {
@@ -679,7 +847,7 @@
         "type": "object"
       },
       "PaymentRequestAttribute": {
-        "title": "Transaction",
+        "title": "Transaction request",
         "description": "Transaction request",
         "properties": {
           "coin": {
@@ -688,11 +856,11 @@
           },
           "sender_id": {
             "type": "integer",
-            "example": 2
+            "example": "9c0fee7c-608f-4e88-8f17-0bac9a8014d9"
           },
           "receiver_id": {
             "type": "integer",
-            "example": 3
+            "example": "9c0fee7c-608f-4e88-8f17-0bac9a8014d9"
           },
           "amount": {
             "type": "integer",
@@ -702,12 +870,12 @@
         "type": "object"
       },
       "RechargeRequestAttribute": {
-        "title": "Recharge",
+        "title": "Recharge request",
         "description": "Recharge request.",
         "properties": {
           "receiver_id": {
-            "type": "number",
-            "example": 1
+            "type": "integer",
+            "example": "9c0fee7c-608f-4e88-8f17-0bac9a8014d9"
           },
           "amount": {
             "type": "integer",
@@ -717,7 +885,7 @@
         "type": "object"
       },
       "RegistrationRequestAttribute": {
-        "title": "Registration",
+        "title": "Registration request",
         "description": "Registration request.",
         "properties": {
           "name": {
@@ -737,23 +905,26 @@
             "example": "Abcd1234"
           },
           "role_name": {
-            "type": "enum",
-            "enum": ["admin", "consumer"],
+            "type": "string",
+            "enum": [
+              "merchant",
+              "consumer"
+            ],
             "example": "consumer"
           }
         },
         "type": "object"
       },
       "LoginResponseAttribute": {
-        "title": "Login",
+        "title": "Login response",
         "description": "Login response.",
         "properties": {
           "id": {
-            "type": "integer",
-            "example": 1
+            "type": "string",
+            "example": "9c0fee7c-608f-4e88-8f17-0bac9a8014d9"
           },
           "name": {
-            "type": "integer",
+            "type": "string",
             "example": "Hasib"
           },
           "email": {
@@ -775,7 +946,7 @@
         "type": "object"
       },
       "PaymentResponseAttribute": {
-        "title": "Payment",
+        "title": "Payment response",
         "description": "Payment response.",
         "properties": {
           "transaction_id": {
@@ -790,7 +961,7 @@
         "type": "object"
       },
       "RechargeResponseAttribute": {
-        "title": "Recharge",
+        "title": "Recharge response",
         "description": "Recharge response.",
         "properties": {
           "transaction_id": {
@@ -805,12 +976,12 @@
         "type": "object"
       },
       "RoleResponseAttribute": {
-        "title": "Role",
+        "title": "Role response",
         "description": "Role response.",
         "properties": {
           "id": {
-            "type": "integer",
-            "example": 1
+            "type": "string",
+            "example": "9c0fee7c-608f-4e88-8f17-0bac9a8014d9"
           },
           "name": {
             "type": "string",
@@ -820,7 +991,7 @@
         "type": "object"
       },
       "TransactionResponse": {
-        "title": "Transaction",
+        "title": "Transaction response",
         "description": "Transaction response.",
         "properties": {
           "tx_id": {
@@ -874,16 +1045,43 @@
         },
         "type": "object"
       },
-      "UserResponseAttribute": {
-        "title": "Registration",
-        "description": "Registration response.",
+      "UserListResponseAttribute": {
+        "title": "User list response",
+        "description": "User list response.",
         "properties": {
           "id": {
-            "type": "integer",
-            "example": 1
+            "type": "string",
+            "example": "9c0fee7c-608f-4e88-8f17-0bac9a8014d9"
           },
           "name": {
-            "type": "integer",
+            "type": "string",
+            "example": "Hasib"
+          },
+          "email": {
+            "type": "string",
+            "example": "hasib@hasib.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+8801917200115"
+          },
+          "balance": {
+            "type": "string",
+            "example": "1600"
+          }
+        },
+        "type": "object"
+      },
+      "UserResponseAttribute": {
+        "title": "User response",
+        "description": "User response.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "9c0fee7c-608f-4e88-8f17-0bac9a8014d9"
+          },
+          "name": {
+            "type": "string",
             "example": "Hasib"
           },
           "email": {
@@ -902,8 +1100,8 @@
       }
     },
     "responses": {
-      "401": {
-        "description": "Unauthorized access.",
+      "200": {
+        "description": "Success",
         "content": {
           "application/json": {
             "schema": {
@@ -923,15 +1121,19 @@
                 "data": {
                   "description": "The response data",
                   "type": "array",
-                  "items": {}
+                  "items": {
+                    
+                  }
                 }
               },
               "type": "object",
               "example": {
-                "success": false,
-                "statusCode": 401,
-                "message": "Unautorized",
-                "errors": []
+                "success": true,
+                "statusCode": 200,
+                "message": "Success message.",
+                "data": [
+                  
+                ]
               }
             }
           }
@@ -958,7 +1160,9 @@
                 "data": {
                   "description": "The response data",
                   "type": "array",
-                  "items": {}
+                  "items": {
+                    
+                  }
                 }
               },
               "type": "object",
@@ -966,14 +1170,16 @@
                 "success": true,
                 "statusCode": 200,
                 "message": "Mutation success message.",
-                "data": []
+                "data": [
+                  
+                ]
               }
             }
           }
         }
       },
-      "200": {
-        "description": "Success",
+      "401": {
+        "description": "Unauthorized access.",
         "content": {
           "application/json": {
             "schema": {
@@ -993,15 +1199,19 @@
                 "data": {
                   "description": "The response data",
                   "type": "array",
-                  "items": {}
+                  "items": {
+                    
+                  }
                 }
               },
               "type": "object",
               "example": {
-                "success": true,
-                "statusCode": 200,
-                "message": "Success message.",
-                "data": []
+                "success": false,
+                "statusCode": 401,
+                "message": "Unautorized",
+                "errors": [
+                  
+                ]
               }
             }
           }
@@ -1028,7 +1238,9 @@
                 "errors": {
                   "description": "The response data",
                   "type": "array",
-                  "items": {}
+                  "items": {
+                    
+                  }
                 }
               },
               "type": "object",
@@ -1036,7 +1248,9 @@
                 "success": false,
                 "statusCode": 422,
                 "message": "Validation errors",
-                "errors": []
+                "errors": [
+                  
+                ]
               }
             }
           }

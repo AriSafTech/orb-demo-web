@@ -7,7 +7,7 @@
   "paths": {
     "/api/register": {
       "post": {
-        "operationId": "Register",
+        "operationId": "register",
         "requestBody": {
           "required": true,
           "content": {
@@ -69,6 +69,19 @@
             "application/json": {}
           }
         },
+        "responses": {}
+      }
+    },
+    "/api/v1/users": {
+      "get": {
+        "operationId": "getAllUsers",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false
+          }
+        ],
         "responses": {}
       }
     }

@@ -2,6 +2,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,15 +16,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
+import { useLanguageStore } from "@/stores/languageStore";
+import { authService } from "@/services/auth.service";
+import { AppRole, RegistrationRoles } from "@/api/api-types";
 
-type FormData = {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
-
-const formSchema: ZodType<FormData> = z
+const formSchema = z
   .object({
     name: z.string().min(1, "Name is required").max(50),
     email: z.string().min(1, "Email is required").email("Invalid email"),
@@ -32,34 +29,46 @@ const formSchema: ZodType<FormData> = z
       .min(1, "Password is required")
       .min(6, "Password must have at least 6 characters"),
     confirmPassword: z.string().min(1, "Password confirmation is required"),
+    role: z.enum(["consumer", "merchant"]),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
 
+type FormData = z.infer<typeof formSchema>;
+
 const RegistrationForm = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
+  const { mutateAsync: register } = authService.useRegister();
+  const router = useRouter();
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       email: "",
       password: "",
       confirmPassword: "",
+      role: "consumer",
     },
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (values) {
+      const registerValue = await register(values);
+      console.log("registerValue", registerValue);
+    }
   }
 
+  const { data: t } = useLanguageStore();
+
+  // TODO: add role dropdown
   return (
     <Form {...form}>
       <div className="w-full  flex justify-center items-center">
         <Card className="w-[450px] shadow-md">
           <CardHeader>
-            <CardTitle className="text-center">Sign up</CardTitle>
+            <CardTitle className="text-center">{t.register.title}</CardTitle>
           </CardHeader>
           <CardContent>
             <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
@@ -68,9 +77,13 @@ const RegistrationForm = () => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>{t.register.name}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Name" {...field} type="text" />
+                      <Input
+                        placeholder={t.register.name}
+                        {...field}
+                        type="text"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -81,9 +94,13 @@ const RegistrationForm = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>{t.register.email}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Email" {...field} type="email" />
+                      <Input
+                        placeholder={t.register.email}
+                        {...field}
+                        type="email"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -94,10 +111,10 @@ const RegistrationForm = () => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>{t.register.password}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Password"
+                        placeholder={t.register.password}
                         {...field}
                         type="password"
                       />
@@ -111,10 +128,10 @@ const RegistrationForm = () => {
                 name="confirmPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Re-Enter your password</FormLabel>
+                    <FormLabel>{t.register.confirmPassword}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Re-Enter your password"
+                        placeholder={t.register.confirmPassword}
                         {...field}
                         type="password"
                       />
@@ -124,13 +141,13 @@ const RegistrationForm = () => {
                 )}
               />
               <Button type="submit" className="w-full">
-                Submit
+                {t.register.button}
               </Button>
             </form>
             <p className="text-center mt-2 text-sm">
-              If you already have an account, please{" "}
+              {t.register.redirect}{" "}
               <Link href={"login"} className="text-blue-500 hover:underline">
-                Sign in
+                {t.login.title}
               </Link>
             </p>
           </CardContent>
