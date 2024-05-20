@@ -49,7 +49,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div>
+    <>
       {/* search */}
       <div className="flex items-center py-4 justify-between">
         <div className="text-xl font-bold mb-2">{`${pageTitle}`}</div>
@@ -67,7 +67,7 @@ export function DataTable<TData, TValue>({
           className="max-w-sm"
         />
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-md border overflow-auto">
         <Table>
           <TableHeader className="bg-primary">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -136,6 +136,6 @@ export function DataTable<TData, TValue>({
         </Button> */}
         <DataTablePagination table={table} />
       </div>
-    </div>
+    </>
   );
 }

@@ -32,19 +32,17 @@ const UsersPage = () => {
     },
   ];
 
-  return (
-    <div className="w-full h-full container mx-auto py-10">
-      {status === "pending" && <Loading />}
-      {status === "success" && (
-        <DataTable
-          columns={columns}
-          data={data}
-          searchParam={searchParam}
-          pageTitle={pageTitle}
-        />
-      )}
-    </div>
-  );
+  if (status === "pending" || status === "error") return <Loading />;
+  else {
+    return (
+      <DataTable
+        columns={columns}
+        data={data}
+        searchParam={searchParam}
+        pageTitle={pageTitle}
+      />
+    );
+  }
 };
 
 export default UsersPage;

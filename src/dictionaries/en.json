@@ -7,7 +7,6 @@
     "redirect": "If you don't have an account, please",
     "errorMessage": "Login failed. Please check your credentials"
   },
-
   "register": {
     "title": "Register",
     "name": "Username",
@@ -39,6 +38,12 @@
     "group": "Group",
     "type": "Type",
     "tx_date": "Tx_date"
+  },
+  "payment": {
+    "title": "Make payment",
+    "coin": "Coin",
+    "receiver": "Receiver",
+    "amount": "Amount"
   },
   "errors": {
     "login_wrongCredentials_title": "Login Failed",

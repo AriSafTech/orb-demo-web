@@ -39,17 +39,12 @@ const TransactionPage = () => {
   const data: any = [];
 
   return (
-    <div className="w-full h-full container mx-auto py-10">
-      {/* {status === "pending" && <Loading />} */}
-      {/* {status === "success" && ( */}
-      <DataTable
-        columns={columns}
-        data={data}
-        searchParam={searchParam}
-        pageTitle={pageTitle}
-      />
-      {/* )} */}
-    </div>
+    <DataTable
+      columns={columns}
+      data={data}
+      searchParam={searchParam}
+      pageTitle={pageTitle}
+    />
   );
 };
 

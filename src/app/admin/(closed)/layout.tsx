@@ -85,7 +85,9 @@ export default function AdminLayout({
           <div className="min-w-2">{title}</div>
           <LanguageSwitcher />
         </div>
-        <div className="flex-grow">{children}</div>
+        <div className="flex flex-col h-[calc(100vh-3.5rem)] w-full container mx-auto py-10 overflow-auto">
+          {children}
+        </div>
       </div>
     </div>
   );

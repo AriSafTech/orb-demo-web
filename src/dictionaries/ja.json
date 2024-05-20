@@ -37,6 +37,12 @@
     "type": "タイプ",
     "tx_date": "取引日"
   },
+  "payment": {
+    "title": "Make payment",
+    "coin": "Coin",
+    "receiver": "Receiver",
+    "amount": "Amount"
+  },
   "errors": {
     "login_wrongCredentials_title": "ログインに失敗しました",
     "login_wrongCredentials_desc": "資格情報を確認してください。",

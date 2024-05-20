@@ -1,8 +1,9 @@
 import { Client } from "./../api/generated-api-types.d";
 import { useAuthStore } from "@/stores/authStore";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/constants/query-keys.constants";
 import { getApiClient } from "@/api/client";
+import { MUTATION_KEYS } from "@/constants/mutation-keys.constants";
 
 export const transactionService = {
   useTransactionList() {
@@ -21,5 +22,34 @@ export const transactionService = {
       //   initialData: [],
     });
     return query;
+  },
+
+  useChargeAccount() {
+    const { accessToken } = useAuthStore();
+    const mutation = useMutation({
+      mutationKey: [MUTATION_KEYS.chargeAccount],
+      mutationFn: async ({
+        amount,
+        coinId,
+        receiverId,
+      }: {
+        amount: number;
+        coinId: string;
+        receiverId: string;
+      }) => {
+        const client = await getApiClient(accessToken);
+        const res = await client.recharge(
+          {},
+          {
+            amount,
+            // @ts-ignore
+            receiver_id: receiverId,
+            // @ts-ignore
+            coin_id: coinId,
+          },
+        );
+        return res.data?.data?.transaction;
+      },
+    });
   },
 };
