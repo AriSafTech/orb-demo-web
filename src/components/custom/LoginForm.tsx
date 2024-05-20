@@ -1,7 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z, ZodType } from "zod";
+import { unknown, z, ZodType } from "zod";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,7 +18,8 @@ import Link from "next/link";
 import { useLanguageStore } from "@/stores/languageStore";
 import { authService } from "@/services/auth.service";
 import { useAuthStore } from "@/stores/authStore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 type FormData = {
   email: string;
@@ -32,9 +33,12 @@ const formSchema: ZodType<FormData> = z.object({
 
 const LoginForm = () => {
   const { data: t } = useLanguageStore();
-  console.log(t.login.errorMessage);
+  const { user } = useAuthStore();
+  console.log(t.errors?.login_wrongCredentials_title);
 
   const { mutateAsync: login } = authService.useLogin();
+  const { mutateAsync: logout } = authService.useLogout();
+
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -44,6 +48,19 @@ const LoginForm = () => {
       password: "",
     },
   });
+
+  useEffect(() => {
+    if (user) {
+      if (user.role === "consumer" || user.role === "merchant") {
+        // TODO: redirect to main dashboard
+      } else if (user.role === "admin") {
+        logout();
+        toast.error(t.errors.login_wrongRole_title, {
+          description: t.errors.login_wrongRole_desc,
+        });
+      }
+    }
+  }, [logout, user]);
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -56,7 +73,12 @@ const LoginForm = () => {
         //   message: "Login failed. Please check your credentials.",
         // });
         if (e) {
-          setError("Login failed. Please check your credentials");
+          // @ts-ignore
+          console.log("ERROS STAUS:", e.response.status);
+          toast.error(t.errors.login_wrongCredentials_title, {
+            description: t.errors.login_wrongCredentials_desc,
+          });
+          // setError("Login failed. Please check your credentials");
           // setError(t.login.errorMessage);
         }
       }

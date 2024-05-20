@@ -1,34 +1,33 @@
 {
-    "login": {
-      "title": "ログイン",
-      "email": "ユーザー名",
-      "password": "パスワード",
-      "button": "ログイン",
-      "redirect": "アカウントをお持ちでない方は、こちらをクリックしてください",
-      "errorMessage": "ログインに失敗しました。資格情報を確認してください。"
-    },
-    "register": {
-      "title": "登録",
-      "name": "ユーザー名",
-      "email": "メールアドレス",
-      "password": "パスワード",
-      "confirmPassword": "パスワードを再入力してください",
-      "button": "登録",
-      "redirect": "すでにアカウントをお持ちの方は、こちらをクリックしてください"
-    },
-    "users":{
-      "title": "すべてのユーザー",
-      "name": "名前",
-      "email": "メール",
-      "phone": "電話",
-      "userId": "ユーザーID"
-    },
-    "adminDashboard": {
-      "users": "ユーザー",
-      "transactions": "取引",
-      "chargeAccount": "口座にチャージ",
-      "owa": "オーブウォレット管理者",
-      "logOut": "ログアウト"
+  "login": {
+    "title": "ログイン",
+    "email": "ユーザー名",
+    "password": "パスワード",
+    "button": "ログイン",
+    "redirect": "アカウントをお持ちでない方は、こちらをクリックしてください"
+  },
+  "register": {
+    "title": "登録",
+    "name": "ユーザー名",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "confirmPassword": "パスワードを再入力してください",
+    "button": "登録",
+    "redirect": "すでにアカウントをお持ちの方は、こちらをクリックしてください"
+  },
+  "users": {
+    "title": "すべてのユーザー",
+    "name": "名前",
+    "email": "メール",
+    "phone": "電話",
+    "userId": "ユーザーID"
+  },
+  "adminDashboard": {
+    "users": "ユーザー",
+    "transactions": "取引",
+    "chargeAccount": "口座にチャージ",
+    "owa": "オーブウォレット管理者",
+    "logOut": "ログアウト"
   },
   "transaction": {
     "title": "取引",
@@ -37,8 +36,11 @@
     "group": "グループ",
     "type": "タイプ",
     "tx_date": "取引日"
+  },
+  "errors": {
+    "login_wrongCredentials_title": "ログインに失敗しました",
+    "login_wrongCredentials_desc": "資格情報を確認してください。",
+    "login_wrongRole_title": "Login Failed",
+    "login_wrongRole_desc": "Admins are not allowed to login in regular dashboard."
   }
-  
-  
-  }
-  
+}

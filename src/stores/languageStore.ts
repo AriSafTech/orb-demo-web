@@ -51,6 +51,7 @@ export const useLanguageStore = create(
     }),
     {
       name: "language-store",
+      partialize: (state) => ({ language: state.language }),
     } as PersistOptions<LanguageStore>,
   ),
 );
