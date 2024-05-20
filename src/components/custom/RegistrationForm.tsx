@@ -2,6 +2,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { useLanguageStore } from "@/stores/languageStore";
+import { authService } from "@/services/auth.service";
 
 type FormData = {
   name: string;
@@ -40,6 +42,10 @@ const formSchema: ZodType<FormData> = z
   });
 
 const RegistrationForm = () => {
+  const { mutateAsync: register } = authService.useRegister({
+    role: "merchant",
+  });
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -51,8 +57,11 @@ const RegistrationForm = () => {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (values) {
+      const registerValue = await register(values);
+      console.log("registerValue", registerValue);
+    }
   }
 
   const { data: t } = useLanguageStore();

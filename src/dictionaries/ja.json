@@ -4,7 +4,8 @@
       "email": "ユーザー名",
       "password": "パスワード",
       "button": "ログイン",
-      "redirect": "アカウントをお持ちでない方は、こちらをクリックしてください"
+      "redirect": "アカウントをお持ちでない方は、こちらをクリックしてください",
+      "errorMessage": "ログインに失敗しました。資格情報を確認してください。"
     },
     "register": {
       "title": "登録",
@@ -16,10 +17,28 @@
       "redirect": "すでにアカウントをお持ちの方は、こちらをクリックしてください"
     },
     "users":{
+      "title": "すべてのユーザー",
       "name": "名前",
       "email": "メール",
       "phone": "電話",
       "userId": "ユーザーID"
-    }
+    },
+    "adminDashboard": {
+      "users": "ユーザー",
+      "transactions": "取引",
+      "chargeAccount": "口座にチャージ",
+      "owa": "オーブウォレット管理者",
+      "logOut": "ログアウト"
+  },
+  "transaction": {
+    "title": "取引",
+    "tx_id": "取引ID",
+    "participants": "参加者",
+    "group": "グループ",
+    "type": "タイプ",
+    "tx_date": "取引日"
+  }
+  
+  
   }
   

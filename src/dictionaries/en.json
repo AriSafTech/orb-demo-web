@@ -5,7 +5,8 @@
     "email": "Email",
     "password": "Password",
     "button": "Login",
-    "redirect":"If you don't have an account, please"
+    "redirect":"If you don't have an account, please",
+    "errorMessage":"Login failed. Please check your credentials"
   },
  
   "register": {
@@ -19,9 +20,25 @@
   },
 
   "users": {
+    "title":"All Users",
     "name": "Name",
     "email": "Email",
     "phone": "Phone",
     "userId": "User ID"
+  },
+  "adminDashboard":{
+    "users":"Users",
+    "transactions":"Transactions",
+    "chargeAccount":"Charge Account",
+    "owa":"Orb Wallet Admin",
+    "logOut":"Logout"
+  },
+  "transaction":{
+    "title":"Transactions",
+    "tx_id":"Tx_id",
+    "participants":"Participants",
+    "group":"Group",
+    "type":"Type",
+    "tx_date":"Tx_date"
   }
 }

@@ -12,6 +12,7 @@ import { FaCoins as ChargeIcon } from "react-icons/fa6";
 import { CiBoxList as TransactionListIcon } from "react-icons/ci";
 import { HiOutlineUsers as UsersIcon } from "react-icons/hi";
 import { cn } from "@/lib/utils";
+import { useLanguageStore } from "@/stores/languageStore";
 
 type NavItem = {
   label: string;
@@ -24,14 +25,19 @@ export default function AdminLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { data: t } = useLanguageStore();
   const ADMIN_NAV_ITEMS = [
-    { label: "Users", path: "/admin/users", icon: UsersIcon },
+    { label: t.adminDashboard.users, path: "/admin/users", icon: UsersIcon },
     {
-      label: "Transactions",
+      label: t.adminDashboard.transactions,
       path: "/admin/transactions",
       icon: TransactionListIcon,
     },
-    { label: "Charge account", path: "/admin/charge", icon: ChargeIcon },
+    {
+      label: t.adminDashboard.chargeAccount,
+      path: "/admin/charge",
+      icon: ChargeIcon,
+    },
   ];
   const pathname = usePathname();
   const isActive = (path: string) => path === pathname;
@@ -46,7 +52,7 @@ export default function AdminLayout({
           href="/"
           className="py-4 w-full px-4 text-2xl transition-all leading-none uppercase tracking-tighter font-black"
         >
-          Orb Wallet Admin
+          {t.adminDashboard.owa}
         </Link>
         <div className="flex-grow w-full">
           {ADMIN_NAV_ITEMS.map((navItem) => (
@@ -71,7 +77,7 @@ export default function AdminLayout({
             logout();
           }}
         >
-          Logout
+          {t.adminDashboard.logOut}
         </Button>
       </aside>
       <div className="col-span-2 sm:col-span-9 lg:col-span-10 flex flex-col">

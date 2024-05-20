@@ -119,7 +119,7 @@ declare namespace Components {
     }
     namespace Schemas {
         /**
-         * Login
+         * Login request
          * Login request.
          */
         export interface LoginRequestAttribute {
@@ -135,20 +135,20 @@ declare namespace Components {
             password?: string;
         }
         /**
-         * Login
+         * Login response
          * Login response.
          */
         export interface LoginResponseAttribute {
             /**
              * example:
-             * 1
+             * 9c0fee7c-608f-4e88-8f17-0bac9a8014d9
              */
-            id?: number;
+            id?: string;
             /**
              * example:
              * Hasib
              */
-            name?: number;
+            name?: string;
             /**
              * example:
              * hasib@hasib.com
@@ -160,7 +160,7 @@ declare namespace Components {
              */
             phone?: string;
             role?: /**
-             * Role
+             * Role response
              * Role response.
              */
             RoleResponseAttribute;
@@ -171,7 +171,7 @@ declare namespace Components {
             accessToken?: string;
         }
         /**
-         * Transaction
+         * Transaction request
          * Transaction request
          */
         export interface PaymentRequestAttribute {
@@ -182,12 +182,12 @@ declare namespace Components {
             coin?: string;
             /**
              * example:
-             * 2
+             * 9c0fee7c-608f-4e88-8f17-0bac9a8014d9
              */
             sender_id?: number;
             /**
              * example:
-             * 3
+             * 9c0fee7c-608f-4e88-8f17-0bac9a8014d9
              */
             receiver_id?: number;
             /**
@@ -197,7 +197,7 @@ declare namespace Components {
             amount?: number;
         }
         /**
-         * Payment
+         * Payment response
          * Payment response.
          */
         export interface PaymentResponseAttribute {
@@ -213,13 +213,13 @@ declare namespace Components {
             transaction_status?: string;
         }
         /**
-         * Recharge
+         * Recharge request
          * Recharge request.
          */
         export interface RechargeRequestAttribute {
             /**
              * example:
-             * 1
+             * 9c0fee7c-608f-4e88-8f17-0bac9a8014d9
              */
             receiver_id?: number;
             /**
@@ -229,7 +229,7 @@ declare namespace Components {
             amount?: number;
         }
         /**
-         * Recharge
+         * Recharge response
          * Recharge response.
          */
         export interface RechargeResponseAttribute {
@@ -245,7 +245,7 @@ declare namespace Components {
             transaction_status?: string;
         }
         /**
-         * Registration
+         * Registration request
          * Registration request.
          */
         export interface RegistrationRequestAttribute {
@@ -273,18 +273,18 @@ declare namespace Components {
              * example:
              * consumer
              */
-            role_name?: "admin" | "consumer";
+            role_name?: "merchant" | "consumer";
         }
         /**
-         * Role
+         * Role response
          * Role response.
          */
         export interface RoleResponseAttribute {
             /**
              * example:
-             * 1
+             * 9c0fee7c-608f-4e88-8f17-0bac9a8014d9
              */
-            id?: number;
+            id?: string;
             /**
              * example:
              * consumer
@@ -292,7 +292,7 @@ declare namespace Components {
             name?: string;
         }
         /**
-         * Transaction
+         * Transaction response
          * Transaction response.
          */
         export interface TransactionResponse {
@@ -344,20 +344,51 @@ declare namespace Components {
             created_at?: string; // date-time
         }
         /**
-         * Registration
-         * Registration response.
+         * User list response
+         * User list response.
          */
-        export interface UserResponseAttribute {
+        export interface UserListResponseAttribute {
             /**
              * example:
-             * 1
+             * 9c0fee7c-608f-4e88-8f17-0bac9a8014d9
              */
-            id?: number;
+            id?: string;
             /**
              * example:
              * Hasib
              */
-            name?: number;
+            name?: string;
+            /**
+             * example:
+             * hasib@hasib.com
+             */
+            email?: string;
+            /**
+             * example:
+             * +8801917200115
+             */
+            phone?: string;
+            /**
+             * example:
+             * 1600
+             */
+            balance?: string;
+        }
+        /**
+         * User response
+         * User response.
+         */
+        export interface UserResponseAttribute {
+            /**
+             * example:
+             * 9c0fee7c-608f-4e88-8f17-0bac9a8014d9
+             */
+            id?: string;
+            /**
+             * example:
+             * Hasib
+             */
+            name?: string;
             /**
              * example:
              * hasib@hasib.com
@@ -369,7 +400,7 @@ declare namespace Components {
              */
             phone?: string;
             role?: /**
-             * Role
+             * Role response
              * Role response.
              */
             RoleResponseAttribute;
@@ -403,10 +434,104 @@ declare namespace Paths {
                 message?: string;
                 data?: {
                     transactions?: /**
-                     * Transaction
+                     * Transaction response
                      * Transaction response.
                      */
                     Components.Schemas.TransactionResponse[];
+                };
+            }
+            export interface $401 {
+                /**
+                 * example:
+                 * false
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 401
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Unauthorized
+                 */
+                message?: string;
+                errors?: {
+                    [key: string]: any;
+                };
+            }
+            export interface $403 {
+                /**
+                 * example:
+                 * false
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 403
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * This action is unauthorized.
+                 */
+                message?: string;
+                errors?: {
+                    [key: string]: any;
+                };
+            }
+            export interface $500 {
+                /**
+                 * example:
+                 * false
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 500
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Server error.
+                 */
+                message?: string;
+                errors?: {
+                    [key: string]: any;
+                };
+            }
+        }
+    }
+    namespace GetAllUsers {
+        namespace Parameters {
+            export type Page = number;
+        }
+        export interface QueryParameters {
+            page?: Parameters.Page;
+        }
+        namespace Responses {
+            export interface $200 {
+                /**
+                 * example:
+                 * true
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 200
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Users list.
+                 */
+                message?: string;
+                data?: {
+                    users?: /**
+                     * User list response
+                     * User list response.
+                     */
+                    Components.Schemas.UserListResponseAttribute[];
                 };
             }
             export interface $401 {
@@ -491,8 +616,8 @@ declare namespace Paths {
                 message?: string;
                 data?: {
                     user?: /**
-                     * Registration
-                     * Registration response.
+                     * User response
+                     * User response.
                      */
                     Components.Schemas.UserResponseAttribute;
                 };
@@ -521,7 +646,7 @@ declare namespace Paths {
     }
     namespace Login {
         export type RequestBody = /**
-         * Login
+         * Login request
          * Login request.
          */
         Components.Schemas.LoginRequestAttribute;
@@ -544,7 +669,7 @@ declare namespace Paths {
                 message?: string;
                 data?: {
                     user?: /**
-                     * Login
+                     * Login response
                      * Login response.
                      */
                     Components.Schemas.LoginResponseAttribute;
@@ -574,7 +699,7 @@ declare namespace Paths {
     }
     namespace Payments {
         export type RequestBody = /**
-         * Transaction
+         * Transaction request
          * Transaction request
          */
         Components.Schemas.PaymentRequestAttribute;
@@ -597,7 +722,7 @@ declare namespace Paths {
                 message?: string;
                 data?: {
                     transaction?: /**
-                     * Payment
+                     * Payment response
                      * Payment response.
                      */
                     Components.Schemas.PaymentResponseAttribute;
@@ -667,7 +792,7 @@ declare namespace Paths {
     }
     namespace Recharge {
         export type RequestBody = /**
-         * Recharge
+         * Recharge request
          * Recharge request.
          */
         Components.Schemas.RechargeRequestAttribute;
@@ -690,7 +815,7 @@ declare namespace Paths {
                 message?: string;
                 data?: {
                     transaction?: /**
-                     * Recharge
+                     * Recharge response
                      * Recharge response.
                      */
                     Components.Schemas.RechargeResponseAttribute;
@@ -760,7 +885,7 @@ declare namespace Paths {
     }
     namespace Register {
         export type RequestBody = /**
-         * Registration
+         * Registration request
          * Registration request.
          */
         Components.Schemas.RegistrationRequestAttribute;
@@ -783,8 +908,8 @@ declare namespace Paths {
                 message?: string;
                 data?: {
                     user?: /**
-                     * Registration
-                     * Registration response.
+                     * User response
+                     * User response.
                      */
                     Components.Schemas.UserResponseAttribute;
                 };
@@ -815,11 +940,11 @@ declare namespace Paths {
 
 export interface OperationMethods {
   /**
-   * Register - User register.
+   * register - User register.
    * 
    * User registration
    */
-  'Register'(
+  'register'(
     parameters?: Parameters<UnknownParamsObject> | null,
     data?: Paths.Register.RequestBody,
     config?: AxiosRequestConfig  
@@ -874,12 +999,22 @@ export interface OperationMethods {
     data?: Paths.Recharge.RequestBody,
     config?: AxiosRequestConfig  
   ): OperationResponse<Paths.Recharge.Responses.$200>
+  /**
+   * getAllUsers - Get user list
+   * 
+   * Retrieve user user.
+   */
+  'getAllUsers'(
+    parameters?: Parameters<Paths.GetAllUsers.QueryParameters> | null,
+    data?: any,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.GetAllUsers.Responses.$200>
 }
 
 export interface PathsDictionary {
   ['/api/register']: {
     /**
-     * Register - User register.
+     * register - User register.
      * 
      * User registration
      */
@@ -948,6 +1083,18 @@ export interface PathsDictionary {
       data?: Paths.Recharge.RequestBody,
       config?: AxiosRequestConfig  
     ): OperationResponse<Paths.Recharge.Responses.$200>
+  }
+  ['/api/v1/users']: {
+    /**
+     * getAllUsers - Get user list
+     * 
+     * Retrieve user user.
+     */
+    'get'(
+      parameters?: Parameters<Paths.GetAllUsers.QueryParameters> | null,
+      data?: any,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.GetAllUsers.Responses.$200>
   }
 }
 

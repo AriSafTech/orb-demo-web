@@ -16,6 +16,9 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { useLanguageStore } from "@/stores/languageStore";
+import { authService } from "@/services/auth.service";
+import { useAuthStore } from "@/stores/authStore";
+import { useState } from "react";
 
 type FormData = {
   email: string;
@@ -28,6 +31,11 @@ const formSchema: ZodType<FormData> = z.object({
 });
 
 const LoginForm = () => {
+  const { data: t } = useLanguageStore();
+  console.log(t.login.errorMessage);
+
+  const { mutateAsync: login } = authService.useLogin();
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,13 +46,24 @@ const LoginForm = () => {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     if (values) {
-      router.push("/");
+      try {
+        const loginValues = await login(values);
+        console.log("loginValues", loginValues);
+      } catch (e) {
+        // form.setError("email", {
+        //   message: "Login failed. Please check your credentials.",
+        // });
+        if (e) {
+          setError("Login failed. Please check your credentials");
+          // setError(t.login.errorMessage);
+        }
+      }
+
+      // console.log("submitValue", loginValues);
     }
   }
-
-  const { data: t } = useLanguageStore();
 
   return (
     <Form {...form}>
@@ -54,6 +73,9 @@ const LoginForm = () => {
             <CardTitle className="text-center">{t.login.title}</CardTitle>
           </CardHeader>
           <CardContent>
+            {error && (
+              <div className="text-sm text-red-500 text-center">{error}</div>
+            )}
             <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
                 control={form.control}

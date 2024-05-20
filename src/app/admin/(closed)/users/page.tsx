@@ -8,17 +8,11 @@ import { useLanguageStore } from "@/stores/languageStore";
 
 const UsersPage = () => {
   const { data, status } = userService.useAllUsers();
-  //   console.log("data", data);
-  const searchParam = "name";
-  const pageTitle = "All Users";
-
-  useEffect(() => console.log("USERS:", data), [data]);
-
   const { data: t } = useLanguageStore();
-  // console.log(t);
+  const searchParam = "name";
+  const pageTitle = t.users.title;
 
-  // console.log(t.users);
-
+  // useEffect(() => console.log("USERS:", data), [data]);
   const columns: ColumnDef<DummyUser>[] = [
     {
       accessorKey: "name",
