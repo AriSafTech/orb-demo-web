@@ -1,7 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { unknown, z, ZodType } from "zod";
+import { z, ZodType } from "zod";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -34,12 +34,9 @@ const formSchema: ZodType<FormData> = z.object({
 const LoginForm = () => {
   const { data: t } = useLanguageStore();
   const { user } = useAuthStore();
-  console.log(t.errors?.login_wrongCredentials_title);
-
   const { mutateAsync: login } = authService.useLogin();
   const { mutateAsync: logout } = authService.useLogout();
-
-  const [error, setError] = useState<string | null>(null);
+  const [errors, setErrors] = useState<any>([]);
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -52,7 +49,7 @@ const LoginForm = () => {
   useEffect(() => {
     if (user) {
       if (user.role === "consumer" || user.role === "merchant") {
-        // TODO: redirect to main dashboard
+        router.push("/");
       } else if (user.role === "admin") {
         logout();
         toast.error(t.errors.login_wrongRole_title, {
@@ -69,17 +66,12 @@ const LoginForm = () => {
         const loginValues = await login(values);
         console.log("loginValues", loginValues);
       } catch (e) {
-        // form.setError("email", {
-        //   message: "Login failed. Please check your credentials.",
-        // });
         if (e) {
           // @ts-ignore
           console.log("ERROS STAUS:", e.response.status);
           toast.error(t.errors.login_wrongCredentials_title, {
             description: t.errors.login_wrongCredentials_desc,
           });
-          // setError("Login failed. Please check your credentials");
-          // setError(t.login.errorMessage);
         }
       }
 
@@ -95,9 +87,6 @@ const LoginForm = () => {
             <CardTitle className="text-center">{t.login.title}</CardTitle>
           </CardHeader>
           <CardContent>
-            {error && (
-              <div className="text-sm text-red-500 text-center">{error}</div>
-            )}
             <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
                 control={form.control}

@@ -10,6 +10,7 @@ import LanguageSwitcher from "@/components/custom/LanguageSwitcher";
 import { usePageStore } from "@/stores/pageStore";
 import { authService } from "@/services/auth.service";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 type NavItem = {
   label: string;
@@ -35,6 +36,7 @@ export default function RegularLayout({
 
   const { title } = usePageStore();
   const { mutateAsync: logout } = authService.useLogout();
+  const router = useRouter();
 
   return (
     <div className="h-full w-full grid grid-cols-12">
@@ -66,6 +68,7 @@ export default function RegularLayout({
           onClick={() => {
             console.log("LOGGING OUT");
             logout();
+            // router.push("/login");
           }}
         >
           Logout

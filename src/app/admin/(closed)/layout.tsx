@@ -13,6 +13,7 @@ import { CiBoxList as TransactionListIcon } from "react-icons/ci";
 import { HiOutlineUsers as UsersIcon } from "react-icons/hi";
 import { cn } from "@/lib/utils";
 import { useLanguageStore } from "@/stores/languageStore";
+import { useRouter } from "next/navigation";
 
 type NavItem = {
   label: string;
@@ -44,6 +45,7 @@ export default function AdminLayout({
 
   const { title } = usePageStore();
   const { mutateAsync: logout } = authService.useLogout();
+  const router = useRouter();
 
   return (
     <div className="h-full w-full grid grid-cols-12">
