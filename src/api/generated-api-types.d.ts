@@ -155,6 +155,52 @@ declare namespace Components {
             RefreshTokenResponseAttribute;
         }
         /**
+         * Coin list response
+         * Coin list response.
+         */
+        export interface CoinListResponseAttribute {
+            /**
+             * example:
+             * d54c5f88-1c4a-47df-ba9c-8362fc2abeb7
+             */
+            id?: string;
+            /**
+             * example:
+             * Event Coin 1
+             */
+            name?: string;
+            /**
+             * example:
+             * event-coin1
+             */
+            coin_id?: string;
+            /**
+             * example:
+             * 120.00
+             */
+            exchange_rate?: string;
+            /**
+             * example:
+             * 2024-05-01
+             */
+            start_date?: string; // date
+            /**
+             * example:
+             * 2030-05-01
+             */
+            validity?: string; // date
+            /**
+             * example:
+             * true
+             */
+            has_start_date?: boolean;
+            /**
+             * example:
+             * true
+             */
+            has_end_date?: boolean;
+        }
+        /**
          * Login request
          * Login request.
          */
@@ -184,12 +230,12 @@ declare namespace Components {
              * example:
              * 9c0fee7c-608f-4e88-8f17-0bac9a8014d9
              */
-            sender_id?: number;
+            sender_id?: string;
             /**
              * example:
              * 9c0fee7c-608f-4e88-8f17-0bac9a8014d9
              */
-            receiver_id?: number;
+            receiver_id?: string;
             /**
              * example:
              * 100
@@ -221,7 +267,7 @@ declare namespace Components {
              * example:
              * 9c0fee7c-608f-4e88-8f17-0bac9a8014d9
              */
-            receiver_id?: number;
+            receiver_id?: string;
             /**
              * example:
              * 500
@@ -441,10 +487,117 @@ declare namespace Components {
              * Role response.
              */
             RoleResponseAttribute;
+            balance?: {
+                /**
+                 * example:
+                 * 1600
+                 */
+                total?: string;
+                amounts?: {
+                    /**
+                     * example:
+                     * 1600
+                     */
+                    "event-coin1"?: string;
+                };
+                /**
+                 * example:
+                 * 2024-05-21T10:16:00.150Z
+                 */
+                date?: string; // date
+            };
         }
     }
 }
 declare namespace Paths {
+    namespace Coins {
+        namespace Responses {
+            export interface $200 {
+                /**
+                 * example:
+                 * true
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 200
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Coins list.
+                 */
+                message?: string;
+                data?: {
+                    coins?: /**
+                     * Coin list response
+                     * Coin list response.
+                     */
+                    Components.Schemas.CoinListResponseAttribute[];
+                };
+            }
+            export interface $401 {
+                /**
+                 * example:
+                 * false
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 401
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Unauthorized
+                 */
+                message?: string;
+                errors?: {
+                    [key: string]: any;
+                };
+            }
+            export interface $403 {
+                /**
+                 * example:
+                 * false
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 403
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * This action is unauthorized.
+                 */
+                message?: string;
+                errors?: {
+                    [key: string]: any;
+                };
+            }
+            export interface $500 {
+                /**
+                 * example:
+                 * false
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 500
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Server error.
+                 */
+                message?: string;
+                errors?: {
+                    [key: string]: any;
+                };
+            }
+        }
+    }
     namespace GetAllTransactions {
         namespace Parameters {
             export type UserId = number;
@@ -998,10 +1151,10 @@ declare namespace Paths {
                 message?: string;
                 data?: {
                     user?: /**
-                     * User response
-                     * User response.
+                     * Login response
+                     * Login response.
                      */
-                    Components.Schemas.UserResponseAttribute;
+                    Components.Schemas.AuthResponseAttribute;
                 };
             }
             export interface $401 {
@@ -1069,6 +1222,16 @@ export interface OperationMethods {
     data?: Paths.RefreshToken.RequestBody,
     config?: AxiosRequestConfig  
   ): OperationResponse<Paths.RefreshToken.Responses.$200>
+  /**
+   * coins - Return the coins list.
+   * 
+   * Return the coins list.
+   */
+  'coins'(
+    parameters?: Parameters<UnknownParamsObject> | null,
+    data?: any,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.Coins.Responses.$200>
   /**
    * payments - Payment to another account.
    * 
@@ -1159,6 +1322,18 @@ export interface PathsDictionary {
       data?: Paths.RefreshToken.RequestBody,
       config?: AxiosRequestConfig  
     ): OperationResponse<Paths.RefreshToken.Responses.$200>
+  }
+  ['/api/v1/coins']: {
+    /**
+     * coins - Return the coins list.
+     * 
+     * Return the coins list.
+     */
+    'post'(
+      parameters?: Parameters<UnknownParamsObject> | null,
+      data?: any,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.Coins.Responses.$200>
   }
   ['/api/v1/payments']: {
     /**

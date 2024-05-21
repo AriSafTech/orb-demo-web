@@ -31,10 +31,15 @@ const formSchema: ZodType<FormData> = z.object({
   password: z.string().min(1, "Password is required"),
 });
 
-const LoginForm = () => {
+type Props = {
+  isAdminPortal?: boolean;
+};
+
+const LoginForm = ({ isAdminPortal }: Props) => {
   const { data: t } = useLanguageStore();
   const { user } = useAuthStore();
-  const { mutateAsync: login } = authService.useLogin();
+  const { mutateAsync: login, isPending: isPendingLogin } =
+    authService.useLogin();
   const { mutateAsync: logout } = authService.useLogout();
   const [errors, setErrors] = useState<any>([]);
   const router = useRouter();
@@ -64,6 +69,11 @@ const LoginForm = () => {
     if (values) {
       try {
         const loginValues = await login(values);
+        if (isAdminPortal) {
+          router.push("/admin");
+        } else {
+          router.push("/");
+        }
         console.log("loginValues", loginValues);
       } catch (e) {
         if (e) {
@@ -127,16 +137,25 @@ const LoginForm = () => {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full">
+              <Button
+                type="submit"
+                className="w-full"
+                isLoading={isPendingLogin}
+              >
                 {t.login.button}
               </Button>
             </form>
-            <p className="text-center mt-2 text-sm">
-              {t.login.redirect}{" "}
-              <Link href={"register"} className="text-blue-500 hover:underline">
-                {t.register.title}
-              </Link>
-            </p>
+            {!isAdminPortal && (
+              <p className="text-center mt-2 text-sm">
+                {t.login.redirect}{" "}
+                <Link
+                  href={"register"}
+                  className="text-blue-500 hover:underline"
+                >
+                  {t.register.title}
+                </Link>
+              </p>
+            )}
           </CardContent>
         </Card>
       </div>

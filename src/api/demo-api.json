@@ -44,7 +44,7 @@
                     "data": {
                       "properties": {
                         "user": {
-                          "$ref": "#/components/schemas/UserResponseAttribute"
+                          "$ref": "#/components/schemas/AuthResponseAttribute"
                         }
                       },
                       "type": "object"
@@ -319,9 +319,140 @@
         }
       }
     },
+    "/api/v1/coins": {
+      "post": {
+        "tags": ["Coins"],
+        "summary": "Return the coins list.",
+        "description": "Return the coins list.",
+        "operationId": "coins",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Coins list."
+                    },
+                    "data": {
+                      "properties": {
+                        "coins": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/CoinListResponseAttribute"
+                          }
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Server error."
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "This action is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 403
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "This action is unauthorized."
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/v1/payments": {
       "post": {
-        "tags": ["Payments"],
+        "tags": ["Transactions"],
         "summary": "Payment to another account.",
         "description": "payments an account.",
         "operationId": "payments",
@@ -396,33 +527,6 @@
               }
             }
           },
-          "403": {
-            "description": "This action is unauthorized.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "statusCode": {
-                      "type": "integer",
-                      "example": 403
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "This action is unauthorized."
-                    },
-                    "errors": {
-                      "type": "object"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            }
-          },
           "500": {
             "description": "Server error",
             "content": {
@@ -440,6 +544,33 @@
                     "message": {
                       "type": "string",
                       "example": "Server error."
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "This action is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 403
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "This action is unauthorized."
                     },
                     "errors": {
                       "type": "object"
@@ -539,33 +670,6 @@
               }
             }
           },
-          "403": {
-            "description": "This action is unauthorized.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "statusCode": {
-                      "type": "integer",
-                      "example": 403
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "This action is unauthorized."
-                    },
-                    "errors": {
-                      "type": "object"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            }
-          },
           "500": {
             "description": "Server error",
             "content": {
@@ -583,6 +687,33 @@
                     "message": {
                       "type": "string",
                       "example": "Server error."
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "This action is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 403
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "This action is unauthorized."
                     },
                     "errors": {
                       "type": "object"
@@ -678,33 +809,6 @@
               }
             }
           },
-          "403": {
-            "description": "This action is unauthorized.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "statusCode": {
-                      "type": "integer",
-                      "example": 403
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "This action is unauthorized."
-                    },
-                    "errors": {
-                      "type": "object"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            }
-          },
           "500": {
             "description": "Server error",
             "content": {
@@ -722,6 +826,33 @@
                     "message": {
                       "type": "string",
                       "example": "Server error."
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "This action is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 403
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "This action is unauthorized."
                     },
                     "errors": {
                       "type": "object"
@@ -821,33 +952,6 @@
               }
             }
           },
-          "403": {
-            "description": "This action is unauthorized.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "statusCode": {
-                      "type": "integer",
-                      "example": 403
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "This action is unauthorized."
-                    },
-                    "errors": {
-                      "type": "object"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            }
-          },
           "500": {
             "description": "Server error",
             "content": {
@@ -865,6 +969,33 @@
                     "message": {
                       "type": "string",
                       "example": "Server error."
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "This action is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 403
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "This action is unauthorized."
                     },
                     "errors": {
                       "type": "object"
@@ -910,11 +1041,11 @@
             "example": "1"
           },
           "sender_id": {
-            "type": "integer",
+            "type": "string",
             "example": "9c0fee7c-608f-4e88-8f17-0bac9a8014d9"
           },
           "receiver_id": {
-            "type": "integer",
+            "type": "string",
             "example": "9c0fee7c-608f-4e88-8f17-0bac9a8014d9"
           },
           "amount": {
@@ -929,7 +1060,7 @@
         "description": "Recharge request.",
         "properties": {
           "receiver_id": {
-            "type": "integer",
+            "type": "string",
             "example": "9c0fee7c-608f-4e88-8f17-0bac9a8014d9"
           },
           "amount": {
@@ -1003,6 +1134,47 @@
           },
           "token": {
             "$ref": "#/components/schemas/RefreshTokenResponseAttribute"
+          }
+        },
+        "type": "object"
+      },
+      "CoinListResponseAttribute": {
+        "title": "Coin list response",
+        "description": "Coin list response.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "d54c5f88-1c4a-47df-ba9c-8362fc2abeb7"
+          },
+          "name": {
+            "type": "string",
+            "example": "Event Coin 1"
+          },
+          "coin_id": {
+            "type": "string",
+            "example": "event-coin1"
+          },
+          "exchange_rate": {
+            "type": "string",
+            "example": "120.00"
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date",
+            "example": "2024-05-01"
+          },
+          "validity": {
+            "type": "string",
+            "format": "date",
+            "example": "2030-05-01"
+          },
+          "has_start_date": {
+            "type": "boolean",
+            "example": "true"
+          },
+          "has_end_date": {
+            "type": "boolean",
+            "example": "true"
           }
         },
         "type": "object"
@@ -1179,14 +1351,37 @@
           },
           "role": {
             "$ref": "#/components/schemas/RoleResponseAttribute"
+          },
+          "balance": {
+            "properties": {
+              "total": {
+                "type": "string",
+                "example": "1600"
+              },
+              "amounts": {
+                "properties": {
+                  "event-coin1": {
+                    "type": "string",
+                    "example": "1600"
+                  }
+                },
+                "type": "object"
+              },
+              "date": {
+                "type": "string",
+                "format": "date",
+                "example": "2024-05-21T10:16:00.150Z"
+              }
+            },
+            "type": "object"
           }
         },
         "type": "object"
       }
     },
     "responses": {
-      "200": {
-        "description": "Success",
+      "401": {
+        "description": "Unauthorized access.",
         "content": {
           "application/json": {
             "schema": {
@@ -1211,10 +1406,10 @@
               },
               "type": "object",
               "example": {
-                "success": true,
-                "statusCode": 200,
-                "message": "Success message.",
-                "data": []
+                "success": false,
+                "statusCode": 401,
+                "message": "Unautorized",
+                "errors": []
               }
             }
           }
@@ -1255,8 +1450,8 @@
           }
         }
       },
-      "401": {
-        "description": "Unauthorized access.",
+      "200": {
+        "description": "Success",
         "content": {
           "application/json": {
             "schema": {
@@ -1281,10 +1476,10 @@
               },
               "type": "object",
               "example": {
-                "success": false,
-                "statusCode": 401,
-                "message": "Unautorized",
-                "errors": []
+                "success": true,
+                "statusCode": 200,
+                "message": "Success message.",
+                "data": []
               }
             }
           }

@@ -135,12 +135,13 @@ const DUMMY_USER_DATA: DummyUser[] = [
 
 export const userService = {
   useAllUsers() {
-    const { accessToken, user } = useAuthStore();
     const query = useQuery({
       queryKey: [QUERY_KEYS.getAllUsers],
       queryFn: async () => {
         // TODO: call actual API endpoint
-        // const client = await getApiClient(accessToken)
+        const client = await getApiClient();
+        const res = await client.getAllUsers();
+        console.log("USERS:", res);
         // return DUMMY_USER_DATA;
         const arr = new Array(6).fill(DUMMY_USER_DATA).flat();
         return arr;

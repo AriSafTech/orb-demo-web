@@ -7,13 +7,13 @@ import { MUTATION_KEYS } from "@/constants/mutation-keys.constants";
 
 export const transactionService = {
   useTransactionList() {
-    const { accessToken, user } = useAuthStore();
+    const { user } = useAuthStore();
     const query = useQuery({
       queryKey: [QUERY_KEYS.getTransactionList],
       queryFn: async () => {
         // TODO: call actual API endpoint
         // const client = await getApiClient(accessToken)
-        const client = await getApiClient(accessToken);
+        const client = await getApiClient();
         const res = await client.getAllTransactions();
         return res;
       },
@@ -25,7 +25,6 @@ export const transactionService = {
   },
 
   useChargeAccount() {
-    const { accessToken } = useAuthStore();
     const mutation = useMutation({
       mutationKey: [MUTATION_KEYS.chargeAccount],
       mutationFn: async ({
@@ -37,7 +36,7 @@ export const transactionService = {
         coinId: string;
         receiverId: string;
       }) => {
-        const client = await getApiClient(accessToken);
+        const client = await getApiClient();
         const res = await client.recharge(
           {},
           {

@@ -21,7 +21,7 @@ type NavItem = {
   icon: IconType;
 };
 
-export default function AdminLayout({
+export default function AdminClosedLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

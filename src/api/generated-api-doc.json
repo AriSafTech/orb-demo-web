@@ -47,6 +47,12 @@
         "responses": {}
       }
     },
+    "/api/v1/coins": {
+      "post": {
+        "operationId": "coins",
+        "responses": {}
+      }
+    },
     "/api/v1/payments": {
       "post": {
         "operationId": "payments",

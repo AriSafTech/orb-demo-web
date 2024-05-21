@@ -24,7 +24,7 @@ export const authService = {
         email: string;
         password: string;
       }) => {
-        const client = await getApiClient(null);
+        const client = await getApiClient();
         const res = await client.login({}, { email, password });
         const user = res.data.data?.user;
         if (user) {
@@ -61,7 +61,7 @@ export const authService = {
         password: string;
         role: RegistrationRoles;
       }) => {
-        const client = await getApiClient(null);
+        const client = await getApiClient();
         const res = await client.paths["/api/register"].post(null, {
           email,
           name,
@@ -77,8 +77,10 @@ export const authService = {
               name: user.name!,
               role: user.role!.name as AppRole,
             },
-            // TODO: replace with token from response
-            tokens: null,
+            tokens: {
+              accessToken: user.token!.access_token!,
+              refreshToken: user.token!.refresh_token!,
+            },
           });
         }
         return user;
@@ -92,7 +94,7 @@ export const authService = {
     return useQuery({
       queryKey: [QUERY_KEYS.getProfile],
       queryFn: async () => {
-        const client = await getApiClient(accessToken!);
+        const client = await getApiClient();
         const res = await client.getProfile();
         return res.data.data?.user;
       },

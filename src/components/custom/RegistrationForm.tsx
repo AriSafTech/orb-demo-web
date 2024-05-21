@@ -48,8 +48,7 @@ const formSchema = z
 type FormData = z.infer<typeof formSchema>;
 
 const RegistrationForm = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { mutateAsync: register } = authService.useRegister();
+  const { mutateAsync: register, isPending } = authService.useRegister();
   const router = useRouter();
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -65,7 +64,6 @@ const RegistrationForm = () => {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (values) {
-      setIsLoading(true);
       try {
         const registerValue = await register(values);
         console.log("registerValue", registerValue);
@@ -77,7 +75,6 @@ const RegistrationForm = () => {
           toast.error(t.errors.unprocessableContent);
         }
       }
-      setIsLoading(false);
     }
   }
   const { data: t } = useLanguageStore();
@@ -187,7 +184,7 @@ const RegistrationForm = () => {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full" isLoading={isPending}>
                 {t.register.button}
               </Button>
             </form>
@@ -199,12 +196,6 @@ const RegistrationForm = () => {
             </p>
           </CardContent>
         </Card>
-        {isLoading && (
-          <div className="loader">
-            {/* <Spinner /> */}
-            <RotateLoader color="#36d7b7" />
-          </div>
-        )}
       </div>
     </Form>
   );
