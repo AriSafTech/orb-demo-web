@@ -2,7 +2,7 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { z } from "zod";
-import { authService } from "../../../services/auth.service";
+import { authService } from "@/services/auth.service";
 import Loading from "@/components/custom/Loading";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

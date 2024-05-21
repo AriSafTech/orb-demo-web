@@ -51,7 +51,7 @@ export default function AdminClosedLayout({
     <div className="h-full w-full grid grid-cols-12">
       <aside className="bg-primary/10 col col-span-10 sm:col-span-3 lg:col-span-2 flex flex-col items-start justify-start">
         <Link
-          href="/"
+          href="/admin"
           className="py-4 w-full px-4 text-2xl transition-all leading-none uppercase tracking-tighter font-black"
         >
           {t.adminDashboard.owa}
@@ -74,9 +74,10 @@ export default function AdminClosedLayout({
         </div>
         <Button
           className="my-2 mx-auto w-40 max-w-[80%]"
-          onClick={() => {
+          onClick={async () => {
             console.log("LOGGING OUT");
-            logout();
+            await logout();
+            router.push("/admin/login");
           }}
         >
           {t.adminDashboard.logOut}
