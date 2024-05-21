@@ -1,18 +1,16 @@
 "use client";
 
 import { IconType } from "react-icons";
+import { GrTransaction as PaymentIcon } from "react-icons/gr";
+import { CiBoxList as TransactionListIcon } from "react-icons/ci";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import LanguageSwitcher from "@/components/custom/LanguageSwitcher";
 import { usePageStore } from "@/stores/pageStore";
 import { authService } from "@/services/auth.service";
-
-import { FaCoins as ChargeIcon } from "react-icons/fa6";
-import { CiBoxList as TransactionListIcon } from "react-icons/ci";
-import { HiOutlineUsers as UsersIcon } from "react-icons/hi";
 import { cn } from "@/lib/utils";
-import { useLanguageStore } from "@/stores/languageStore";
+import { useRouter } from "next/navigation";
 
 type NavItem = {
   label: string;
@@ -20,23 +18,17 @@ type NavItem = {
   icon: IconType;
 };
 
-export default function AdminLayout({
+export default function RegularLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { data: t } = useLanguageStore();
-  const ADMIN_NAV_ITEMS = [
-    { label: t.adminDashboard.users, path: "/admin/users", icon: UsersIcon },
+  const NAV_ITEMS = [
+    { label: "Payment", path: "/payment", icon: PaymentIcon },
     {
-      label: t.adminDashboard.transactions,
-      path: "/admin/transactions",
+      label: "Transactions",
+      path: "/transactions",
       icon: TransactionListIcon,
-    },
-    {
-      label: t.adminDashboard.chargeAccount,
-      path: "/admin/charge",
-      icon: ChargeIcon,
     },
   ];
   const pathname = usePathname();
@@ -44,6 +36,7 @@ export default function AdminLayout({
 
   const { title } = usePageStore();
   const { mutateAsync: logout } = authService.useLogout();
+  const router = useRouter();
 
   return (
     <div className="h-full w-full grid grid-cols-12">
@@ -52,10 +45,10 @@ export default function AdminLayout({
           href="/"
           className="py-4 w-full px-4 text-2xl transition-all leading-none uppercase tracking-tighter font-black"
         >
-          {t.adminDashboard.owa}
+          Orb Wallet
         </Link>
         <div className="flex-grow w-full">
-          {ADMIN_NAV_ITEMS.map((navItem) => (
+          {NAV_ITEMS.map((navItem) => (
             <Link
               key={navItem.path}
               href={navItem.path}
@@ -75,9 +68,10 @@ export default function AdminLayout({
           onClick={() => {
             console.log("LOGGING OUT");
             logout();
+            // router.push("/login");
           }}
         >
-          {t.adminDashboard.logOut}
+          Logout
         </Button>
       </aside>
       <div className="col-span-2 sm:col-span-9 lg:col-span-10 flex flex-col">
@@ -85,9 +79,7 @@ export default function AdminLayout({
           <div className="min-w-2">{title}</div>
           <LanguageSwitcher />
         </div>
-        <div className="flex flex-col h-[calc(100vh-3.5rem)] w-full container mx-auto py-10 overflow-auto">
-          {children}
-        </div>
+        <div className="flex-grow">{children}</div>
       </div>
     </div>
   );

@@ -1,9 +1,8 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z, ZodType } from "zod";
+import { z } from "zod";
 import { useRouter } from "next/navigation";
-
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -13,12 +12,22 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { useLanguageStore } from "@/stores/languageStore";
 import { authService } from "@/services/auth.service";
-import { AppRole, RegistrationRoles } from "@/api/api-types";
+import { toast } from "sonner";
+import { useState } from "react";
+import Spinner from "./Spinner";
+import { RotateLoader } from "react-spinners";
 
 const formSchema = z
   .object({
@@ -39,7 +48,7 @@ const formSchema = z
 type FormData = z.infer<typeof formSchema>;
 
 const RegistrationForm = () => {
-  const { mutateAsync: register } = authService.useRegister();
+  const { mutateAsync: register, isPending } = authService.useRegister();
   const router = useRouter();
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -55,14 +64,20 @@ const RegistrationForm = () => {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (values) {
-      const registerValue = await register(values);
-      console.log("registerValue", registerValue);
+      try {
+        const registerValue = await register(values);
+        console.log("registerValue", registerValue);
+        toast.success("Registered successfully");
+        router.push("/");
+      } catch (e: any) {
+        // @ts-ignore
+        if (e.response.status === 422) {
+          toast.error(t.errors.unprocessableContent);
+        }
+      }
     }
   }
-
   const { data: t } = useLanguageStore();
-
-  // TODO: add role dropdown
   return (
     <Form {...form}>
       <div className="w-full  flex justify-center items-center">
@@ -106,6 +121,35 @@ const RegistrationForm = () => {
                   </FormItem>
                 )}
               />
+              {/* options */}
+              <FormField
+                control={form.control}
+                name="role"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Role</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select role to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="consumer">
+                          {t.register.consumer}
+                        </SelectItem>
+                        <SelectItem value="merchant">
+                          {t.register.merchant}
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="password"
@@ -140,7 +184,7 @@ const RegistrationForm = () => {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full" isLoading={isPending}>
                 {t.register.button}
               </Button>
             </form>

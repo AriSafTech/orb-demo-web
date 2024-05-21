@@ -1,7 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { unknown, z, ZodType } from "zod";
+import { z, ZodType } from "zod";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,15 +31,17 @@ const formSchema: ZodType<FormData> = z.object({
   password: z.string().min(1, "Password is required"),
 });
 
-const LoginForm = () => {
+type Props = {
+  isAdminPortal?: boolean;
+};
+
+const LoginForm = ({ isAdminPortal }: Props) => {
   const { data: t } = useLanguageStore();
   const { user } = useAuthStore();
-  console.log(t.errors?.login_wrongCredentials_title);
-
-  const { mutateAsync: login } = authService.useLogin();
+  const { mutateAsync: login, isPending: isPendingLogin } =
+    authService.useLogin();
   const { mutateAsync: logout } = authService.useLogout();
-
-  const [error, setError] = useState<string | null>(null);
+  const [errors, setErrors] = useState<any>([]);
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -52,7 +54,7 @@ const LoginForm = () => {
   useEffect(() => {
     if (user) {
       if (user.role === "consumer" || user.role === "merchant") {
-        // TODO: redirect to main dashboard
+        router.push("/");
       } else if (user.role === "admin") {
         logout();
         toast.error(t.errors.login_wrongRole_title, {
@@ -67,19 +69,19 @@ const LoginForm = () => {
     if (values) {
       try {
         const loginValues = await login(values);
+        if (isAdminPortal) {
+          router.push("/admin");
+        } else {
+          router.push("/");
+        }
         console.log("loginValues", loginValues);
       } catch (e) {
-        // form.setError("email", {
-        //   message: "Login failed. Please check your credentials.",
-        // });
         if (e) {
           // @ts-ignore
           console.log("ERROS STAUS:", e.response.status);
           toast.error(t.errors.login_wrongCredentials_title, {
             description: t.errors.login_wrongCredentials_desc,
           });
-          // setError("Login failed. Please check your credentials");
-          // setError(t.login.errorMessage);
         }
       }
 
@@ -95,9 +97,6 @@ const LoginForm = () => {
             <CardTitle className="text-center">{t.login.title}</CardTitle>
           </CardHeader>
           <CardContent>
-            {error && (
-              <div className="text-sm text-red-500 text-center">{error}</div>
-            )}
             <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
                 control={form.control}
@@ -138,16 +137,25 @@ const LoginForm = () => {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full">
+              <Button
+                type="submit"
+                className="w-full"
+                isLoading={isPendingLogin}
+              >
                 {t.login.button}
               </Button>
             </form>
-            <p className="text-center mt-2 text-sm">
-              {t.login.redirect}{" "}
-              <Link href={"register"} className="text-blue-500 hover:underline">
-                {t.register.title}
-              </Link>
-            </p>
+            {!isAdminPortal && (
+              <p className="text-center mt-2 text-sm">
+                {t.login.redirect}{" "}
+                <Link
+                  href={"register"}
+                  className="text-blue-500 hover:underline"
+                >
+                  {t.register.title}
+                </Link>
+              </p>
+            )}
           </CardContent>
         </Card>
       </div>

@@ -24,22 +24,20 @@ export const authService = {
         email: string;
         password: string;
       }) => {
-        // const res = await AuthenticationApiFactory(
-        //   undefined,
-        //   process.env.NEXT_PUBLIC_API_BASE_URL,
-        // ).login({ email, password });
-        // return res.data.data?.user;
-        const client = await getApiClient(null);
-        const res = await client.Login({}, { email, password });
+        const client = await getApiClient();
+        const res = await client.login({}, { email, password });
         const user = res.data.data?.user;
         if (user) {
           setData({
-            accessToken: user.accessToken!,
             user: {
               email: user.email!,
               // @ts-ignore
               name: user.name!,
               role: user.role!.name as AppRole,
+            },
+            tokens: {
+              accessToken: user.token!.access_token!,
+              refreshToken: user.token!.refresh_token!,
             },
           });
         }
@@ -63,7 +61,7 @@ export const authService = {
         password: string;
         role: RegistrationRoles;
       }) => {
-        const client = await getApiClient(null);
+        const client = await getApiClient();
         const res = await client.paths["/api/register"].post(null, {
           email,
           name,
@@ -74,13 +72,14 @@ export const authService = {
         const user = res.data.data?.user;
         if (user) {
           setData({
-            // @ts-ignore
-            accessToken: user.accessToken!,
             user: {
               email: user.email!,
-              // @ts-ignore
               name: user.name!,
               role: user.role!.name as AppRole,
+            },
+            tokens: {
+              accessToken: user.token!.access_token!,
+              refreshToken: user.token!.refresh_token!,
             },
           });
         }
@@ -90,11 +89,12 @@ export const authService = {
   },
 
   useProfile() {
-    const { accessToken } = useAuthStore();
+    const { tokens } = useAuthStore();
+    const { accessToken } = tokens || {};
     return useQuery({
       queryKey: [QUERY_KEYS.getProfile],
       queryFn: async () => {
-        const client = await getApiClient(accessToken);
+        const client = await getApiClient();
         const res = await client.getProfile();
         return res.data.data?.user;
       },

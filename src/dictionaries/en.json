@@ -14,7 +14,10 @@
     "password": "Password",
     "confirmPassword": "Re-Enter your password",
     "button": "Register",
-    "redirect": "If you already have an account, please"
+    "redirect": "If you already have an account, please",
+    "role":"Role",
+     "consumer":"Consumer",
+     "merchant":"Merchant"
   },
 
   "users": {
@@ -49,6 +52,7 @@
     "login_wrongCredentials_title": "Login Failed",
     "login_wrongCredentials_desc": "You have input wrong credentials.",
     "login_wrongRole_title": "Login Failed",
-    "login_wrongRole_desc": "Admins are not allowed to login in regular dashboard."
+    "login_wrongRole_desc": "Admins are not allowed to login in regular dashboard.",
+    "unprocessableContent":"Unprocessable Content"
   }
 }

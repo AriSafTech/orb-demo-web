@@ -19,7 +19,7 @@
     },
     "/api/login": {
       "post": {
-        "operationId": "Login",
+        "operationId": "login",
         "requestBody": {
           "required": true,
           "content": {
@@ -32,6 +32,24 @@
     "/api/v1/me": {
       "get": {
         "operationId": "getProfile",
+        "responses": {}
+      }
+    },
+    "/api/refresh": {
+      "post": {
+        "operationId": "refreshToken",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {}
+          }
+        },
+        "responses": {}
+      }
+    },
+    "/api/v1/coins": {
+      "post": {
+        "operationId": "coins",
         "responses": {}
       }
     },

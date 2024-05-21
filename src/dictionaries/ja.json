@@ -13,8 +13,12 @@
     "password": "パスワード",
     "confirmPassword": "パスワードを再入力してください",
     "button": "登録",
-    "redirect": "すでにアカウントをお持ちの方は、こちらをクリックしてください"
-  },
+    "redirect": "すでにアカウントをお持ちの方は、こちらをクリックしてください",
+    "role": "役割",
+   "consumer": "消費者",
+   "merchant": "商人"
+},
+  
   "users": {
     "title": "すべてのユーザー",
     "name": "名前",
@@ -46,7 +50,8 @@
   "errors": {
     "login_wrongCredentials_title": "ログインに失敗しました",
     "login_wrongCredentials_desc": "資格情報を確認してください。",
-    "login_wrongRole_title": "Login Failed",
-    "login_wrongRole_desc": "Admins are not allowed to login in regular dashboard."
+    "login_wrongRole_title": "ログイン失敗",
+    "login_wrongRole_desc": "管理者は通常のダッシュボードにログインすることはできません。",
+    "unprocessableContent": "処理できないコンテンツ"
   }
 }

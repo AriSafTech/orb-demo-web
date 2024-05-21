@@ -5,7 +5,7 @@ import React from "react";
 const AdminLoginPage = () => {
   return (
     <div className="h-full flex items-center">
-      <LoginForm />
+      <LoginForm isAdminPortal />
     </div>
   );
 };

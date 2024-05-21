@@ -1,7 +1,6 @@
 "use client";
 import { DataTable } from "@/components/custom/DataTable";
 import { DummyUser, userService } from "@/services/user.service";
-import { useEffect } from "react";
 import Loading from "@/components/custom/Loading";
 import { ColumnDef } from "@tanstack/react-table";
 import { useLanguageStore } from "@/stores/languageStore";
