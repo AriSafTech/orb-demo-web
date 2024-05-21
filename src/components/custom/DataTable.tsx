@@ -5,6 +5,7 @@ import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
+  // useGlobalFilter,
   useReactTable,
   getPaginationRowModel,
   VisibilityState,

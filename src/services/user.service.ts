@@ -142,7 +142,7 @@ export const userService = {
         // TODO: call actual API endpoint
         // const client = await getApiClient(accessToken)
         // return DUMMY_USER_DATA;
-        const arr = new Array(2).fill(DUMMY_USER_DATA).flat();
+        const arr = new Array(6).fill(DUMMY_USER_DATA).flat();
         return arr;
       },
       //   enabled: !!user && user.role === "admin",
