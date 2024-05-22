@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { useAuthStore } from "@/stores/authStore";
 import { useMemo } from "react";
+import NextTopLoader from "nextjs-toploader";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -41,6 +42,7 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
+        <NextTopLoader />
         <ReactQueryProvider>
           <main className="h-full w-full">
             {isLoggedIn ? (isAdmin ? admin : regular) : open}

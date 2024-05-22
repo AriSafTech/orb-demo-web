@@ -6,16 +6,18 @@ import { getApiClient } from "@/api/client";
 import { MUTATION_KEYS } from "@/constants/mutation-keys.constants";
 
 export const transactionService = {
-  useTransactionList() {
+  useAllTransactions() {
     const { user } = useAuthStore();
     const query = useQuery({
-      queryKey: [QUERY_KEYS.getTransactionList],
+      queryKey: [QUERY_KEYS.getAllTransactions],
       queryFn: async () => {
         // TODO: call actual API endpoint
         // const client = await getApiClient(accessToken)
         const client = await getApiClient();
         const res = await client.getAllTransactions();
-        return res;
+        console.log("trans", res);
+
+        return res.data.data?.transactions;
       },
       //   enabled: !!user && user.role === "admin",
       //   enabled: !!accessToken,
@@ -24,27 +26,31 @@ export const transactionService = {
     return query;
   },
 
+  // TODO: complete this for user (consumer, merchant)
+  useSelfTransactions() {
+    const { user } = useAuthStore();
+  },
+
   useChargeAccount() {
-    const mutation = useMutation({
+    return useMutation({
       mutationKey: [MUTATION_KEYS.chargeAccount],
       mutationFn: async ({
         amount,
         coinId,
-        receiverId,
+        receiverOrbId,
       }: {
         amount: number;
         coinId: string;
-        receiverId: string;
+        receiverOrbId: string;
       }) => {
         const client = await getApiClient();
         const res = await client.recharge(
           {},
           {
             amount,
+            receiver: receiverOrbId,
             // @ts-ignore
-            receiver_id: receiverId,
-            // @ts-ignore
-            coin_id: coinId,
+            coin: coinId,
           },
         );
         return res.data?.data?.transaction;

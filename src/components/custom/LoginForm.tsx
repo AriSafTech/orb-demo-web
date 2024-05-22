@@ -2,7 +2,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -21,29 +21,30 @@ import { useAuthStore } from "@/stores/authStore";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-type FormData = {
-  email: string;
-  password: string;
-};
-
-const formSchema: ZodType<FormData> = z.object({
+const formSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email"),
   password: z.string().min(1, "Password is required"),
 });
+
+type FormData = z.infer<typeof formSchema>;
 
 type Props = {
   isAdminPortal?: boolean;
 };
 
 const LoginForm = ({ isAdminPortal }: Props) => {
+  const searchParams = useSearchParams();
+  const redirectDirty = searchParams.get("redirectTo");
+  const redirect = redirectDirty ? decodeURIComponent(redirectDirty) : null;
+  console.log("REDIR:", redirect);
+
   const { data: t } = useLanguageStore();
   const { user } = useAuthStore();
   const { mutateAsync: login, isPending: isPendingLogin } =
     authService.useLogin();
   const { mutateAsync: logout } = authService.useLogout();
-  const [errors, setErrors] = useState<any>([]);
   const router = useRouter();
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
@@ -69,7 +70,9 @@ const LoginForm = ({ isAdminPortal }: Props) => {
     if (values) {
       try {
         const loginValues = await login(values);
-        if (isAdminPortal) {
+        if (redirect) {
+          router.push(redirect);
+        } else if (isAdminPortal) {
           router.push("/admin");
         } else {
           router.push("/");
@@ -94,7 +97,9 @@ const LoginForm = ({ isAdminPortal }: Props) => {
       <div className="w-full flex justify-center">
         <Card className="w-[450px] shadow-md">
           <CardHeader>
-            <CardTitle className="text-center">{t.login.title}</CardTitle>
+            <CardTitle className="text-center">
+              {isAdminPortal ? t.login.title_admin : t.login.title}
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>

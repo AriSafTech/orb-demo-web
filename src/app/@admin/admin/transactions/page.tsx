@@ -8,19 +8,32 @@ import { DataTable } from "@/components/custom/DataTable";
 
 const TransactionPage = () => {
   const { data: t } = useLanguageStore();
-  //   const { data, status } = transactionService.useTransactionList();
+  const { data: allTransactions, status } =
+    transactionService.useAllTransactions();
   //   useEffect(() => console.log("Lists:", data), [data]);
 
-  const searchParam = "tx_id";
+  // const searchParam = "tx_id";
   const pageTitle = t.transaction.title;
-  const columns: ColumnDef<any>[] = [
+  const columns: ColumnDef<NonNullable<typeof allTransactions>[number]>[] = [
     {
       accessorKey: "tx_id",
       header: t.transaction.tx_id,
     },
     {
-      accessorKey: "participants",
-      header: t.transaction.participants,
+      accessorKey: "participants.consumer",
+      header: t.transaction.sender,
+    },
+    {
+      accessorKey: "participants.merchant",
+      header: t.transaction.receiver,
+      cell: ({ row }) => {
+        return (
+          row.original.participants?.merchant ??
+          // @ts-ignore
+          row.original.participants?.receiver ??
+          ""
+        );
+      },
     },
     {
       accessorKey: "group",
@@ -29,6 +42,7 @@ const TransactionPage = () => {
     {
       accessorKey: "type",
       header: t.transaction.type,
+      // TODO: custom render base on type
     },
     {
       accessorKey: "tx_date",
@@ -36,16 +50,17 @@ const TransactionPage = () => {
     },
   ];
 
-  const data: any = [];
-
-  return (
-    <DataTable
-      columns={columns}
-      data={data}
-      searchParam={searchParam}
-      pageTitle={pageTitle}
-    />
-  );
+  if (status === "pending" || status === "error") return <Loading />;
+  else {
+    return (
+      <DataTable
+        columns={columns}
+        data={allTransactions!}
+        // searchParam={searchParam}
+        pageTitle={pageTitle}
+      />
+    );
+  }
 };
 
 export default TransactionPage;

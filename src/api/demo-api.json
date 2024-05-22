@@ -597,13 +597,13 @@
         "operationId": "getAllTransactions",
         "parameters": [
           {
-            "name": "user_id",
+            "name": "user",
             "in": "query",
-            "description": "User id",
+            "description": "Username",
             "required": false,
             "schema": {
-              "type": "integer",
-              "default": "1"
+              "type": "string",
+              "default": "hasib"
             }
           }
         ],
@@ -1040,13 +1040,13 @@
             "type": "string",
             "example": "1"
           },
-          "sender_id": {
+          "sender": {
             "type": "string",
-            "example": "9c0fee7c-608f-4e88-8f17-0bac9a8014d9"
+            "example": "hasib"
           },
-          "receiver_id": {
+          "receiver": {
             "type": "string",
-            "example": "9c0fee7c-608f-4e88-8f17-0bac9a8014d9"
+            "example": "hasib-01"
           },
           "amount": {
             "type": "integer",
@@ -1059,9 +1059,9 @@
         "title": "Recharge request",
         "description": "Recharge request.",
         "properties": {
-          "receiver_id": {
+          "receiver": {
             "type": "string",
-            "example": "9c0fee7c-608f-4e88-8f17-0bac9a8014d9"
+            "example": "hasib"
           },
           "amount": {
             "type": "integer",
@@ -1093,6 +1093,10 @@
             "type": "string",
             "example": "hasib@hasib.com"
           },
+          "username": {
+            "type": "string",
+            "example": "hasib"
+          },
           "phone": {
             "type": "string",
             "example": "+8801917200115"
@@ -1120,6 +1124,10 @@
           "name": {
             "type": "string",
             "example": "Hasib"
+          },
+          "username": {
+            "type": "string",
+            "example": "hasib"
           },
           "email": {
             "type": "string",
@@ -1314,6 +1322,10 @@
             "type": "string",
             "example": "Hasib"
           },
+          "username": {
+            "type": "string",
+            "example": "hasib"
+          },
           "email": {
             "type": "string",
             "example": "hasib@hasib.com"
@@ -1340,6 +1352,10 @@
           "name": {
             "type": "string",
             "example": "Hasib"
+          },
+          "username": {
+            "type": "string",
+            "example": "hasib"
           },
           "email": {
             "type": "string",

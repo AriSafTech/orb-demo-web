@@ -5,10 +5,11 @@ import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
-  // useGlobalFilter,
   useReactTable,
   getPaginationRowModel,
   VisibilityState,
+  SortingState,
+  getSortedRowModel,
 } from "@tanstack/react-table";
 
 import {
@@ -23,6 +24,7 @@ import { Button } from "../ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { DataTablePagination } from "./DataTablePagination";
+import { useLanguageStore } from "@/stores/languageStore";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -37,8 +39,9 @@ export function DataTable<TData, TValue>({
   searchParam,
   pageTitle,
 }: DataTableProps<TData, TValue>) {
+  const { data: t } = useLanguageStore();
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-
+  const [sorting, setSorting] = useState<SortingState>([]);
   const table = useReactTable({
     data,
     columns,
@@ -46,7 +49,10 @@ export function DataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
-    state: { columnFilters },
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    state: { columnFilters, sorting },
+    globalFilterFn: "includesString",
   });
 
   return (
@@ -54,8 +60,8 @@ export function DataTable<TData, TValue>({
       {/* search */}
       <div className="flex items-center py-4 justify-between">
         <div className="text-xl font-bold mb-2">{`${pageTitle}`}</div>
-        <Input
-          placeholder="Search ..."
+        {/* <Input
+          placeholder={t.dataTable.search}
           value={
             (table.getColumn(`${searchParam}`)?.getFilterValue() as string) ??
             ""
@@ -66,6 +72,12 @@ export function DataTable<TData, TValue>({
               ?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
+        /> */}
+        <Input
+          placeholder={t.dataTable.search}
+          value={(table.getState().globalFilter ?? "") || ""}
+          onChange={(e) => table.setGlobalFilter(e.target.value)}
+          className="max-w-xs"
         />
       </div>
       <div className="rounded-md border overflow-auto">

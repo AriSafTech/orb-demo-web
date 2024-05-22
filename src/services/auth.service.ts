@@ -11,6 +11,8 @@ import { QUERY_KEYS } from "@/constants/query-keys.constants";
 import { ValueOf } from "@/lib/type-utils";
 import { useAuthStore } from "@/stores/authStore";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { coinService } from "./coin.service";
+import { useMemo } from "react";
 
 export const authService = {
   useLogin() {
@@ -88,7 +90,7 @@ export const authService = {
     });
   },
 
-  useProfile() {
+  useMe() {
     const { tokens } = useAuthStore();
     const { accessToken } = tokens || {};
     return useQuery({
@@ -100,6 +102,48 @@ export const authService = {
       },
       enabled: !!accessToken,
     });
+  },
+
+  useProfile() {
+    const profileQuery = this.useMe();
+    const coinsQuery = coinService.useAllCoins();
+
+    const balance = useMemo(() => {
+      if (profileQuery.data && coinsQuery.data) {
+        return Object.fromEntries(
+          coinsQuery.data.map((coin) => [
+            coin.coin_id!,
+            {
+              name: coin.name!,
+              balance: parseFloat(
+                // @ts-ignore
+                profileQuery.data!.balance!.amounts![coin.coin_id!] ?? "0",
+              ),
+            },
+          ]),
+        );
+      } else {
+        return null;
+      }
+    }, [profileQuery.data, coinsQuery.data]);
+
+    const status = useMemo<"success" | "error" | "pending">(() => {
+      if (
+        profileQuery.status === "success" &&
+        coinsQuery.status === "success"
+      ) {
+        return "success";
+      } else if (
+        profileQuery.status === "error" ||
+        coinsQuery.status === "error"
+      ) {
+        return "error";
+      } else {
+        return "pending";
+      }
+    }, [coinsQuery.status, profileQuery.status]);
+
+    return { data: profileQuery.data, balance, status };
   },
 
   useLogout() {

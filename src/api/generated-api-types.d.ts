@@ -135,6 +135,11 @@ declare namespace Components {
             name?: string;
             /**
              * example:
+             * hasib
+             */
+            username?: string;
+            /**
+             * example:
              * hasib@hasib.com
              */
             email?: string;
@@ -228,14 +233,14 @@ declare namespace Components {
             coin?: string;
             /**
              * example:
-             * 9c0fee7c-608f-4e88-8f17-0bac9a8014d9
+             * hasib
              */
-            sender_id?: string;
+            sender?: string;
             /**
              * example:
-             * 9c0fee7c-608f-4e88-8f17-0bac9a8014d9
+             * hasib-01
              */
-            receiver_id?: string;
+            receiver?: string;
             /**
              * example:
              * 100
@@ -265,9 +270,9 @@ declare namespace Components {
         export interface RechargeRequestAttribute {
             /**
              * example:
-             * 9c0fee7c-608f-4e88-8f17-0bac9a8014d9
+             * hasib
              */
-            receiver_id?: string;
+            receiver?: string;
             /**
              * example:
              * 500
@@ -342,6 +347,11 @@ declare namespace Components {
              * hasib@hasib.com
              */
             email?: string;
+            /**
+             * example:
+             * hasib
+             */
+            username?: string;
             /**
              * example:
              * +8801917200115
@@ -443,6 +453,11 @@ declare namespace Components {
             name?: string;
             /**
              * example:
+             * hasib
+             */
+            username?: string;
+            /**
+             * example:
              * hasib@hasib.com
              */
             email?: string;
@@ -472,6 +487,11 @@ declare namespace Components {
              * Hasib
              */
             name?: string;
+            /**
+             * example:
+             * hasib
+             */
+            username?: string;
             /**
              * example:
              * hasib@hasib.com
@@ -600,10 +620,10 @@ declare namespace Paths {
     }
     namespace GetAllTransactions {
         namespace Parameters {
-            export type UserId = number;
+            export type User = string;
         }
         export interface QueryParameters {
-            user_id?: Parameters.UserId;
+            user?: Parameters.User;
         }
         namespace Responses {
             export interface $200 {

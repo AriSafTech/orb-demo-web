@@ -66,7 +66,7 @@ const RegistrationForm = () => {
     if (values) {
       try {
         const registerValue = await register(values);
-        console.log("registerValue", registerValue);
+        // console.log("registerValue", registerValue);
         toast.success("Registered successfully");
         router.push("/");
       } catch (e: any) {
