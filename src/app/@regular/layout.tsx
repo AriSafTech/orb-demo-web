@@ -65,10 +65,10 @@ export default function RegularLayout({
         </div>
         <Button
           className="my-2 mx-auto w-40 max-w-[80%]"
-          onClick={() => {
+          onClick={async () => {
             console.log("LOGGING OUT");
-            logout();
-            // router.push("/login");
+            await logout();
+            router.push("/login");
           }}
         >
           Logout

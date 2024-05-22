@@ -1,7 +1,12 @@
 import { useAuthStore } from "@/stores/authStore";
 import { getApiClient, removeHeaderToken, setHeaderToken } from "./client";
 import { AxiosAuthRefreshRequestConfig } from "axios-auth-refresh";
-import axios from "axios";
+import axios, {
+  AxiosError,
+  AxiosRequestConfig,
+  AxiosResponse,
+  RawAxiosRequestConfig,
+} from "axios";
 
 export const fetchNewToken = async (refreshToken: string) => {
   // const client = await getApiClient();
@@ -35,7 +40,7 @@ export const fetchNewToken = async (refreshToken: string) => {
   }
 };
 
-export const refreshAuth = async (failedReq: any) => {
+export const refreshAuth = async (failedReq: AxiosError) => {
   console.log("FAILED REQ:", failedReq);
   const { refreshToken } = useAuthStore.getState().tokens || {};
   console.log("REFRESHING WITH REFRESH TOKEN:", refreshToken);
@@ -48,6 +53,8 @@ export const refreshAuth = async (failedReq: any) => {
     useAuthStore.setState((draft) => {
       draft.tokens = newTokens;
     });
+    failedReq.response!.config.headers["Authorization"] =
+      `Bearer ${newTokens.accessToken}`;
     await setHeaderToken(newTokens.accessToken);
     return Promise.resolve(newTokens.accessToken);
   } else {

@@ -9,7 +9,7 @@ import { DataTable } from "@/components/custom/DataTable";
 const TransactionPage = () => {
   const { data: t } = useLanguageStore();
   const { data: allTransactions, status } =
-    transactionService.useTransactionList();
+    transactionService.useAllTransactions();
   //   useEffect(() => console.log("Lists:", data), [data]);
 
   // const searchParam = "tx_id";

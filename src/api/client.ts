@@ -29,7 +29,7 @@ export const getApiClient = async () => {
         const refreshToken = useAuthStore.getState().tokens?.refreshToken;
         return !!refreshToken;
       },
-      pauseInstanceWhileRefreshing: false,
+      pauseInstanceWhileRefreshing: true,
     });
   }
   // if (accessToken == null) {
