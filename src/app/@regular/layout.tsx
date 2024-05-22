@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
   SheetHeader,
@@ -68,25 +69,47 @@ export default function RegularLayout({
   const { mutateAsync: logout } = authService.useLogout();
   const router = useRouter();
 
-  const renderNavItems = () => {
-    return (
-      <div className="flex-grow w-full">
-        {NAV_ITEMS.map((navItem) => (
-          <Link
-            key={navItem.path}
-            href={navItem.path}
-            className={cn(
-              "w-full px-4 py-2 flex gap-2 items-center justify-start hover:bg-primary/35",
-              {
-                "bg-primary/25": isActive(navItem.path),
-              },
-            )}
-          >
-            <navItem.icon /> {navItem.label}
-          </Link>
-        ))}
-      </div>
-    );
+  const renderNavItems = (inSheet?: boolean) => {
+    if (inSheet) {
+      return (
+        <div className="flex-grow w-full">
+          {NAV_ITEMS.map((navItem) => (
+            <SheetClose key={navItem.path} asChild>
+              <Link
+                href={navItem.path}
+                className={cn(
+                  "w-full px-4 py-2 flex gap-2 items-center justify-start hover:bg-primary/35",
+                  {
+                    "bg-primary/25": isActive(navItem.path),
+                  },
+                )}
+              >
+                <navItem.icon /> {navItem.label}
+              </Link>
+            </SheetClose>
+          ))}
+        </div>
+      );
+    } else {
+      return (
+        <div className="flex-grow w-full">
+          {NAV_ITEMS.map((navItem) => (
+            <Link
+              key={navItem.path}
+              href={navItem.path}
+              className={cn(
+                "w-full px-4 py-2 flex gap-2 items-center justify-start hover:bg-primary/35",
+                {
+                  "bg-primary/25": isActive(navItem.path),
+                },
+              )}
+            >
+              <navItem.icon /> {navItem.label}
+            </Link>
+          ))}
+        </div>
+      );
+    }
   };
 
   return (
@@ -121,7 +144,7 @@ export default function RegularLayout({
                       Orb Wallet
                     </Link>
                   </SheetTitle>
-                  {renderNavItems()}
+                  {renderNavItems(true)}
                 </SheetHeader>
               </SheetContent>
             </Sheet>
@@ -187,7 +210,10 @@ export default function RegularLayout({
           )}
           {/* <LanguageSwitcher /> */}
         </div>
-        <div className="flex-grow">{children}</div>
+
+        <div className="flex flex-col h-[calc(100vh-3.5rem)] w-full container mx-auto py-10 overflow-auto">
+          {children}
+        </div>
       </div>
     </div>
   );

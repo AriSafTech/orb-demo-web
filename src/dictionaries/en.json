@@ -74,11 +74,15 @@
     "charge_accountNotFound": "Account with ID/Name not found.",
     "charge_chargeFailed_title": "Charge account process failed",
     "charge_chargeFailed_desc": "Failed to charge account. Please wait a while and try again.",
+    "payment_paymentFailed_title": "Payment failed",
+    "payment_paymentFailed_desc": "Failed to make payment. Please wait a while and try again.",
     "unprocessableContent": "Unprocessable Content"
   },
   "info": {
-    "charge_chargeSuccess_title": "Charge account process succeeded",
-    "charge_chargeSuccess_desc": "Successfully charged account."
+    "charge_chargeSuccess_title": "Charge account successful",
+    "charge_chargeSuccess_desc": "Successfully charged account.",
+    "payment_paymentSuccess_title": "Payment successful",
+    "payment_paymentSuccess_desc": "Successfully executed payment transaction"
   },
   "dataTable": {
     "rowsPerPage": "Rows per page",

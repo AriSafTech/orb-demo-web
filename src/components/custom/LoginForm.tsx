@@ -2,7 +2,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -33,6 +33,11 @@ type Props = {
 };
 
 const LoginForm = ({ isAdminPortal }: Props) => {
+  const searchParams = useSearchParams();
+  const redirectDirty = searchParams.get("redirectTo");
+  const redirect = redirectDirty ? decodeURIComponent(redirectDirty) : null;
+  console.log("REDIR:", redirect);
+
   const { data: t } = useLanguageStore();
   const { user } = useAuthStore();
   const { mutateAsync: login, isPending: isPendingLogin } =
@@ -65,7 +70,9 @@ const LoginForm = ({ isAdminPortal }: Props) => {
     if (values) {
       try {
         const loginValues = await login(values);
-        if (isAdminPortal) {
+        if (redirect) {
+          router.push(redirect);
+        } else if (isAdminPortal) {
           router.push("/admin");
         } else {
           router.push("/");

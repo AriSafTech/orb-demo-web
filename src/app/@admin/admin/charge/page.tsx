@@ -48,7 +48,7 @@ import { cn } from "@/lib/utils";
 import { transactionService } from "@/services/transaction.service";
 import { toast } from "sonner";
 
-function PaymentPage() {
+function AdminChargePage() {
   const { data: coinsData, status: coinsStatus } = coinService.useAllCoins();
   const { data: usersData, status: usersStatus } = userService.useAllUsers();
 
@@ -73,7 +73,7 @@ function PaymentPage() {
   }
 }
 
-export default PaymentPage;
+export default AdminChargePage;
 
 type CoinData = {
   id: string;
@@ -98,7 +98,6 @@ function PaymentForm({ coins, users }: ChargeFormProps) {
     receiverId: z.string().min(1, "Receiver ID is required"),
     amount: z.coerce.number().gt(0, "Amount must be more than 0"),
   });
-  const dropdownRef = useRef();
   // .refine((data) => coins[data.coinId] != null, {
   //   message: "Coin ID invalid",
   // })
@@ -255,7 +254,7 @@ function PaymentForm({ coins, users }: ChargeFormProps) {
               name="amount"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t.payment.amount}</FormLabel>
+                  <FormLabel>{t.charge.amount}</FormLabel>
                   <FormControl>
                     <Input {...field} type="number" />
                   </FormControl>
