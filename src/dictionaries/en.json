@@ -55,4 +55,11 @@
     "login_wrongRole_desc": "Admins are not allowed to login in regular dashboard.",
     "unprocessableContent":"Unprocessable Content"
   }
+  ,
+  "dataTable":{
+    "rowsPerPage":"Rows per page",
+    "search" : "Search",
+    "page":"Page",
+    "of" : "of"
+  }
 }

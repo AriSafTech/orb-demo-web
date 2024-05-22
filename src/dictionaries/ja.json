@@ -53,5 +53,10 @@
     "login_wrongRole_title": "ログイン失敗",
     "login_wrongRole_desc": "管理者は通常のダッシュボードにログインすることはできません。",
     "unprocessableContent": "処理できないコンテンツ"
-  }
+  },
+  "dataTable" :  { "rowsPerPage": "ページあたりの行数",
+  "search": "検索",
+  "page": "ページ",
+  "of": "の"
+}
 }

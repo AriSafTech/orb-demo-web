@@ -6,11 +6,12 @@ import { ColumnDef } from "@tanstack/react-table";
 import { useLanguageStore } from "@/stores/languageStore";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+// import { getFuzzyVectorFn } from "@tanstack/match-sorter-utils";
 
 const UsersPage = () => {
   const { data, status } = userService.useAllUsers();
   const { data: t } = useLanguageStore();
-  const searchParam = "name";
+  // const searchParam = "name";
   const pageTitle = t.users.title;
 
   // useEffect(() => console.log("USERS:", data), [data]);
@@ -49,7 +50,7 @@ const UsersPage = () => {
       <DataTable
         columns={columns}
         data={data}
-        searchParam={searchParam}
+        // searchParam={searchParam}
         pageTitle={pageTitle}
       />
     );

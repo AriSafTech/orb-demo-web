@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Button } from "../ui/button";
+import { useLanguageStore } from "@/stores/languageStore";
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;
@@ -23,6 +24,7 @@ interface DataTablePaginationProps<TData> {
 export function DataTablePagination<TData>({
   table,
 }: DataTablePaginationProps<TData>) {
+  const { data: t } = useLanguageStore();
   const maxPageButtons = 5; // Maximum number of page buttons to display
   const [selectedPageSize, setSelectedPageSize] = useState(
     table.getState().pagination.pageSize,
@@ -51,13 +53,13 @@ export function DataTablePagination<TData>({
 
   return (
     <div className="flex items-center justify-between px-2">
-      <div className="flex-1 text-sm text-muted-foreground">
+      {/* <div className="flex-1 text-sm text-muted-foreground">
         {table.getFilteredSelectedRowModel().rows.length} of{" "}
         {table.getFilteredRowModel().rows.length} row(s) selected.
-      </div>
+      </div> */}
       <div className="flex items-center space-x-6 lg:space-x-8">
         <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium">Rows per page</p>
+          <p className="text-sm font-medium">{t.dataTable.rowsPerPage}</p>
           <Select
             value={`${selectedPageSize}`} // Use selectedPageSize here
             onValueChange={(value: any) => {
@@ -79,7 +81,7 @@ export function DataTablePagination<TData>({
           </Select>
         </div>
         <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-          Page {pageIndex + 1} of {pageCount}
+          {t.dataTable.page} {pageIndex + 1} {t.dataTable.of} {pageCount}
         </div>
         <div className="flex items-center space-x-2">
           {pageNumbers[0] > 0 && (
