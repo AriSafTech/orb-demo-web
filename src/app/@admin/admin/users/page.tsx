@@ -4,6 +4,8 @@ import { DummyUser, userService } from "@/services/user.service";
 import Loading from "@/components/custom/Loading";
 import { ColumnDef } from "@tanstack/react-table";
 import { useLanguageStore } from "@/stores/languageStore";
+import { ArrowUpDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const UsersPage = () => {
   const { data, status } = userService.useAllUsers();
@@ -19,7 +21,17 @@ const UsersPage = () => {
     },
     {
       accessorKey: "email",
-      header: t.users.email,
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            {t.users.email}
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
     },
     {
       accessorKey: "phone",
