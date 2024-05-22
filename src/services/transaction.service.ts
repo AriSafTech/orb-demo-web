@@ -6,7 +6,7 @@ import { getApiClient } from "@/api/client";
 import { MUTATION_KEYS } from "@/constants/mutation-keys.constants";
 
 export const transactionService = {
-  useTransactionList() {
+  useAllTransactions() {
     const { user } = useAuthStore();
     const query = useQuery({
       queryKey: [QUERY_KEYS.getTransactionList],
@@ -17,13 +17,18 @@ export const transactionService = {
         const res = await client.getAllTransactions();
         console.log("trans", res);
 
-        return res;
+        return res.data.data?.transactions;
       },
       //   enabled: !!user && user.role === "admin",
       //   enabled: !!accessToken,
       //   initialData: [],
     });
     return query;
+  },
+
+  // TODO: complete this for user (consumer, merchant)
+  useSelfTransactions() {
+    const { user } = useAuthStore();
   },
 
   useChargeAccount() {

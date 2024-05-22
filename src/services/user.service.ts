@@ -13,6 +13,7 @@ export type User = {
 
 export const userService = {
   useAllUsers() {
+    // const { tokens, user } = useAuthStore();
     const query = useQuery({
       queryKey: [QUERY_KEYS.getAllUsers],
       queryFn: async () => {
@@ -21,7 +22,7 @@ export const userService = {
         const res = await client.getAllUsers();
         return res?.data?.data?.users;
       },
-      //   enabled: !!user && user.role === "admin",
+      // enabled: !!tokens && !!user && user.role === "admin",
       //   initialData: [],
     });
     return query;

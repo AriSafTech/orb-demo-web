@@ -13,10 +13,10 @@ interface UseAllUsersResponse {
 }
 
 const UsersPage = () => {
-  const { data, status }: any = userService.useAllUsers();
+  const { data: allUsers, status } = userService.useAllUsers();
   const { data: t } = useLanguageStore();
   const pageTitle = t.users.title;
-  const columns: ColumnDef<User>[] = [
+  const columns: ColumnDef<NonNullable<typeof allUsers>[number]>[] = [
     {
       accessorKey: "name",
       header: t.users.name,
@@ -50,7 +50,7 @@ const UsersPage = () => {
     return (
       <DataTable
         columns={columns}
-        data={data}
+        data={allUsers!}
         // searchParam={searchParam}
         pageTitle={pageTitle}
       />

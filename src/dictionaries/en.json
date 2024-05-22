@@ -15,9 +15,9 @@
     "confirmPassword": "Re-Enter your password",
     "button": "Register",
     "redirect": "If you already have an account, please",
-    "role":"Role",
-     "consumer":"Consumer",
-     "merchant":"Merchant"
+    "role": "Role",
+    "consumer": "Consumer",
+    "merchant": "Merchant"
   },
 
   "users": {
@@ -26,7 +26,7 @@
     "email": "Email",
     "phone": "Phone",
     "userId": "User ID",
-    "balance":"Balance"
+    "balance": "Balance"
   },
   "adminDashboard": {
     "users": "Users",
@@ -37,11 +37,12 @@
   },
   "transaction": {
     "title": "Transactions",
-    "tx_id": "Tx_id",
-    "participants": "Participants",
+    "tx_id": "Transaction ID",
+    "sender": "Sender ",
+    "receiver": "Receiver",
     "group": "Group",
     "type": "Type",
-    "tx_date": "Tx_date"
+    "tx_date": "Transaction Date"
   },
   "payment": {
     "title": "Make payment",
@@ -54,13 +55,12 @@
     "login_wrongCredentials_desc": "You have input wrong credentials.",
     "login_wrongRole_title": "Login Failed",
     "login_wrongRole_desc": "Admins are not allowed to login in regular dashboard.",
-    "unprocessableContent":"Unprocessable Content"
-  }
-  ,
-  "dataTable":{
-    "rowsPerPage":"Rows per page",
-    "search" : "Search",
-    "page":"Page",
-    "of" : "of"
+    "unprocessableContent": "Unprocessable Content"
+  },
+  "dataTable": {
+    "rowsPerPage": "Rows per page",
+    "search": "Search",
+    "page": "Page",
+    "of": "of"
   }
 }

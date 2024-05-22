@@ -15,10 +15,10 @@
     "button": "登録",
     "redirect": "すでにアカウントをお持ちの方は、こちらをクリックしてください",
     "role": "役割",
-   "consumer": "消費者",
-   "merchant": "商人"
-},
-  
+    "consumer": "消費者",
+    "merchant": "商人"
+  },
+
   "users": {
     "title": "すべてのユーザー",
     "name": "名前",
@@ -37,7 +37,8 @@
   "transaction": {
     "title": "取引",
     "tx_id": "取引ID",
-    "participants": "参加者",
+    "sender": "送信者 ",
+    "receiver": "受信者",
     "group": "グループ",
     "type": "タイプ",
     "tx_date": "取引日"
@@ -55,9 +56,10 @@
     "login_wrongRole_desc": "管理者は通常のダッシュボードにログインすることはできません。",
     "unprocessableContent": "処理できないコンテンツ"
   },
-  "dataTable" :  { "rowsPerPage": "ページあたりの行数",
-  "search": "検索",
-  "page": "ページ",
-  "of": "の"
-}
+  "dataTable": {
+    "rowsPerPage": "ページあたりの行数",
+    "search": "検索",
+    "page": "ページ",
+    "of": "の"
+  }
 }

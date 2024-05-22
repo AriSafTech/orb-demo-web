@@ -77,6 +77,8 @@ export default function RegularLayout({
       <div className="col-span-2 sm:col-span-9 lg:col-span-10 flex flex-col">
         <div className="h-14 items-center px-2 flex justify-between bg-primary/5">
           <div className="min-w-2">{title}</div>
+          {/* TODO: create Avatar dropdown */}
+          {/* TODO: create initials from user's name */}
           <LanguageSwitcher />
         </div>
         <div className="flex-grow">{children}</div>
