@@ -7,9 +7,13 @@ import { useLanguageStore } from "@/stores/languageStore";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 // import { getFuzzyVectorFn } from "@tanstack/match-sorter-utils";
+interface UseAllUsersResponse {
+  data: User[];
+  status: string;
+}
 
 const UsersPage = () => {
-  const { data, status } = userService.useAllUsers();
+  const { data, status }: any = userService.useAllUsers();
   const { data: t } = useLanguageStore();
   const pageTitle = t.users.title;
   const columns: ColumnDef<User>[] = [

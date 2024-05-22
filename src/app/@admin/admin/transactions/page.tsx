@@ -11,7 +11,7 @@ const TransactionPage = () => {
   //   const { data, status } = transactionService.useTransactionList();
   //   useEffect(() => console.log("Lists:", data), [data]);
 
-  const searchParam = "tx_id";
+  // const searchParam = "tx_id";
   const pageTitle = t.transaction.title;
   const columns: ColumnDef<any>[] = [
     {
@@ -42,7 +42,7 @@ const TransactionPage = () => {
     <DataTable
       columns={columns}
       data={data}
-      searchParam={searchParam}
+      // searchParam={searchParam}
       pageTitle={pageTitle}
     />
   );

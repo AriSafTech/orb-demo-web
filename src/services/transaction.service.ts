@@ -15,6 +15,8 @@ export const transactionService = {
         // const client = await getApiClient(accessToken)
         const client = await getApiClient();
         const res = await client.getAllTransactions();
+        console.log("trans", res);
+
         return res;
       },
       //   enabled: !!user && user.role === "admin",
