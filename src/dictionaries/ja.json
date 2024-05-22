@@ -1,6 +1,10 @@
 {
+  "layout": {
+    "balance": "バランス"
+  },
   "login": {
     "title": "ログイン",
+    "title_admin": "アドミン・ログイン",
     "email": "ユーザー名",
     "password": "パスワード",
     "button": "ログイン",
@@ -27,7 +31,8 @@
     "userId": "ユーザーID",
     "balance": "均衡"
   },
-  "adminDashboard": {
+  "adminLayout": {
+    "dashboard": "ダッシュボード",
     "users": "ユーザー",
     "transactions": "取引",
     "chargeAccount": "口座にチャージ",
@@ -36,7 +41,7 @@
   },
   "transaction": {
     "title": "取引",
-    "tx_id": "取引ID",
+    "tx_id": "ID",
     "sender": "送信者 ",
     "receiver": "受信者",
     "group": "グループ",
@@ -46,7 +51,18 @@
   "payment": {
     "title": "Make payment",
     "coin": "Coin",
+    "coin_placeholder": "Please select a coin",
+    "receiverId": "Receiver ID",
+    "receiverName": "Receiver Name",
+    "amount": "Amount"
+  },
+  "charge": {
+    "title": "Charge Account",
+    "coin": "Coin",
+    "coin_placeholder": "Please select a coin",
     "receiver": "Receiver",
+    "receiver_placeholder": "Please select receiver",
+    "receiver_search": "Search accounts...",
     "amount": "Amount"
   },
   "errors": {
@@ -54,7 +70,14 @@
     "login_wrongCredentials_desc": "資格情報を確認してください。",
     "login_wrongRole_title": "ログイン失敗",
     "login_wrongRole_desc": "管理者は通常のダッシュボードにログインすることはできません。",
+    "charge_accountNotFound": "Account with ID/Name not found.",
+    "charge_chargeFailed_title": "Charge account process failed",
+    "charge_chargeFailed_desc": "Failed to charge account. Please wait a while and try again.",
     "unprocessableContent": "処理できないコンテンツ"
+  },
+  "info": {
+    "charge_chargeSuccess_title": "Charge account process succeeded",
+    "charge_chargeSuccess_desc": "Successfully charged account."
   },
   "dataTable": {
     "rowsPerPage": "ページあたりの行数",

@@ -21,15 +21,12 @@ import { useAuthStore } from "@/stores/authStore";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-type FormData = {
-  email: string;
-  password: string;
-};
-
-const formSchema: ZodType<FormData> = z.object({
+const formSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email"),
   password: z.string().min(1, "Password is required"),
 });
+
+type FormData = z.infer<typeof formSchema>;
 
 type Props = {
   isAdminPortal?: boolean;
@@ -41,9 +38,8 @@ const LoginForm = ({ isAdminPortal }: Props) => {
   const { mutateAsync: login, isPending: isPendingLogin } =
     authService.useLogin();
   const { mutateAsync: logout } = authService.useLogout();
-  const [errors, setErrors] = useState<any>([]);
   const router = useRouter();
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
@@ -94,7 +90,9 @@ const LoginForm = ({ isAdminPortal }: Props) => {
       <div className="w-full flex justify-center">
         <Card className="w-[450px] shadow-md">
           <CardHeader>
-            <CardTitle className="text-center">{t.login.title}</CardTitle>
+            <CardTitle className="text-center">
+              {isAdminPortal ? t.login.title_admin : t.login.title}
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>

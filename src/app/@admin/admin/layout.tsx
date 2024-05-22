@@ -11,6 +11,7 @@ import { authService } from "@/services/auth.service";
 import { FaCoins as ChargeIcon } from "react-icons/fa6";
 import { CiBoxList as TransactionListIcon } from "react-icons/ci";
 import { HiOutlineUsers as UsersIcon } from "react-icons/hi";
+import { MdSpaceDashboard as DashboardIcon } from "react-icons/md";
 import { cn } from "@/lib/utils";
 import { useLanguageStore } from "@/stores/languageStore";
 import { useRouter } from "next/navigation";
@@ -28,14 +29,19 @@ export default function AdminClosedLayout({
 }>) {
   const { data: t } = useLanguageStore();
   const ADMIN_NAV_ITEMS = [
-    { label: t.adminDashboard.users, path: "/admin/users", icon: UsersIcon },
     {
-      label: t.adminDashboard.transactions,
+      label: t.adminLayout.dashboard,
+      path: "/admin/dashboard",
+      icon: DashboardIcon,
+    },
+    { label: t.adminLayout.users, path: "/admin/users", icon: UsersIcon },
+    {
+      label: t.adminLayout.transactions,
       path: "/admin/transactions",
       icon: TransactionListIcon,
     },
     {
-      label: t.adminDashboard.chargeAccount,
+      label: t.adminLayout.chargeAccount,
       path: "/admin/charge",
       icon: ChargeIcon,
     },
@@ -54,7 +60,7 @@ export default function AdminClosedLayout({
           href="/admin"
           className="py-4 w-full px-4 text-2xl transition-all leading-none uppercase tracking-tighter font-black"
         >
-          {t.adminDashboard.owa}
+          {t.adminLayout.owa}
         </Link>
         <div className="flex-grow w-full">
           {ADMIN_NAV_ITEMS.map((navItem) => (
@@ -80,7 +86,7 @@ export default function AdminClosedLayout({
             router.push("/admin/login");
           }}
         >
-          {t.adminDashboard.logOut}
+          {t.adminLayout.logOut}
         </Button>
       </aside>
       <div className="col-span-2 sm:col-span-9 lg:col-span-10 flex flex-col">

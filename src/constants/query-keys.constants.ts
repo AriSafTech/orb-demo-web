@@ -1,5 +1,6 @@
 export const QUERY_KEYS = {
   getProfile: "get-profile",
   getAllUsers: "get-all-users",
-  getTransactionList: "get-transaction-list",
+  getAllTransactions: "get-all-transactions",
+  getAllCoins: "get-all-coins",
 };

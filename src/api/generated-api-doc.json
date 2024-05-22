@@ -70,7 +70,7 @@
         "operationId": "getAllTransactions",
         "parameters": [
           {
-            "name": "user_id",
+            "name": "user",
             "in": "query",
             "required": false
           }

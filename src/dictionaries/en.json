@@ -1,6 +1,10 @@
 {
+  "layout": {
+    "balance": "Balance"
+  },
   "login": {
     "title": "Login",
+    "title_admin": "Admin Login",
     "email": "Email",
     "password": "Password",
     "button": "Login",
@@ -28,8 +32,9 @@
     "userId": "User ID",
     "balance": "Balance"
   },
-  "adminDashboard": {
+  "adminLayout": {
     "users": "Users",
+    "dashboard": "Dashboard",
     "transactions": "Transactions",
     "chargeAccount": "Charge Account",
     "owa": "Orb Wallet Admin",
@@ -47,7 +52,18 @@
   "payment": {
     "title": "Make payment",
     "coin": "Coin",
+    "coin_placeholder": "Please select a coin",
+    "receiverId": "Receiver ID",
+    "receiverName": "Receiver Name",
+    "amount": "Amount"
+  },
+  "charge": {
+    "title": "Charge Account",
+    "coin": "Coin",
+    "coin_placeholder": "Please select a coin",
     "receiver": "Receiver",
+    "receiver_placeholder": "Please select receiver",
+    "receiver_search": "Search accounts...",
     "amount": "Amount"
   },
   "errors": {
@@ -55,7 +71,14 @@
     "login_wrongCredentials_desc": "You have input wrong credentials.",
     "login_wrongRole_title": "Login Failed",
     "login_wrongRole_desc": "Admins are not allowed to login in regular dashboard.",
+    "charge_accountNotFound": "Account with ID/Name not found.",
+    "charge_chargeFailed_title": "Charge account process failed",
+    "charge_chargeFailed_desc": "Failed to charge account. Please wait a while and try again.",
     "unprocessableContent": "Unprocessable Content"
+  },
+  "info": {
+    "charge_chargeSuccess_title": "Charge account process succeeded",
+    "charge_chargeSuccess_desc": "Successfully charged account."
   },
   "dataTable": {
     "rowsPerPage": "Rows per page",
