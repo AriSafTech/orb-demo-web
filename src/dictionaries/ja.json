@@ -24,7 +24,8 @@
     "name": "名前",
     "email": "メール",
     "phone": "電話",
-    "userId": "ユーザーID"
+    "userId": "ユーザーID",
+    "balance": "均衡"
   },
   "adminDashboard": {
     "users": "ユーザー",

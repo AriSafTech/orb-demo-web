@@ -1,6 +1,6 @@
 "use client";
 import { DataTable } from "@/components/custom/DataTable";
-import { DummyUser, userService } from "@/services/user.service";
+import { User, userService } from "@/services/user.service";
 import Loading from "@/components/custom/Loading";
 import { ColumnDef } from "@tanstack/react-table";
 import { useLanguageStore } from "@/stores/languageStore";
@@ -11,11 +11,8 @@ import { Button } from "@/components/ui/button";
 const UsersPage = () => {
   const { data, status } = userService.useAllUsers();
   const { data: t } = useLanguageStore();
-  // const searchParam = "name";
   const pageTitle = t.users.title;
-
-  // useEffect(() => console.log("USERS:", data), [data]);
-  const columns: ColumnDef<DummyUser>[] = [
+  const columns: ColumnDef<User>[] = [
     {
       accessorKey: "name",
       header: t.users.name,
@@ -35,11 +32,11 @@ const UsersPage = () => {
       },
     },
     {
-      accessorKey: "phone",
-      header: t.users.phone,
+      accessorKey: "balance",
+      header: t.users.balance,
     },
     {
-      accessorKey: "userId",
+      accessorKey: "id",
       header: t.users.userId,
     },
   ];

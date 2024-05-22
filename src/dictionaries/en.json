@@ -25,7 +25,8 @@
     "name": "Name",
     "email": "Email",
     "phone": "Phone",
-    "userId": "User ID"
+    "userId": "User ID",
+    "balance":"Balance"
   },
   "adminDashboard": {
     "users": "Users",
