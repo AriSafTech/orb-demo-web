@@ -11,12 +11,9 @@ export const transactionService = {
     const query = useQuery({
       queryKey: [QUERY_KEYS.getAllTransactions],
       queryFn: async () => {
-        // TODO: call actual API endpoint
         // const client = await getApiClient(accessToken)
         const client = await getApiClient();
-        const res = await client.getAllTransactions();
-        console.log("trans", res);
-
+        const res = await client.getAllTransactions({ user: "hasib" });
         return res.data.data?.transactions;
       },
       //   enabled: !!user && user.role === "admin",
@@ -29,6 +26,20 @@ export const transactionService = {
   // TODO: complete this for user (consumer, merchant)
   useSelfTransactions() {
     const { user } = useAuthStore();
+    // console.log("user", user);
+    const query = useQuery({
+      queryKey: [QUERY_KEYS.getSelfTransactions],
+      queryFn: async () => {
+        // const client = await getApiClient(accessToken)
+        const client = await getApiClient();
+        const res = await client.getAllTransactions(user?.userName);
+        return res.data.data?.transactions;
+      },
+      //   enabled: !!user && user.role === "admin",
+      //   enabled: !!accessToken,
+      //   initialData: [],
+    });
+    return query;
   },
 
   useChargeAccount() {

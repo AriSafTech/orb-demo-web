@@ -13,6 +13,7 @@ type AuthStoreData = {
   user: {
     name: string;
     email: string;
+    userName: string;
     role: AppRole;
   } | null;
 };

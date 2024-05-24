@@ -35,6 +35,7 @@ export const authService = {
               email: user.email!,
               // @ts-ignore
               name: user.name!,
+              userName: user.username!,
               role: user.role!.name as AppRole,
             },
             tokens: {
@@ -77,6 +78,7 @@ export const authService = {
             user: {
               email: user.email!,
               name: user.name!,
+              userName: user.username!,
               role: user.role!.name as AppRole,
             },
             tokens: {

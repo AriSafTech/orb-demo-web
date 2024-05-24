@@ -6,17 +6,16 @@ import Loading from "@/components/custom/Loading";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/custom/DataTable";
 import { format } from "date-fns";
-import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ArrowUpDown } from "lucide-react";
 
 const TransactionPage = () => {
   const { data: t } = useLanguageStore();
-  const { data: allTransactions, status } =
-    transactionService.useAllTransactions();
-  //   useEffect(() => console.log("Lists:", data), [data]);
-  // const searchParam = "tx_id";
+  const { data: selfTransactions, status } =
+    transactionService.useSelfTransactions();
+
   const pageTitle = t.transaction.title;
-  const columns: ColumnDef<NonNullable<typeof allTransactions>[number]>[] = [
+  const columns: ColumnDef<NonNullable<typeof selfTransactions>[number]>[] = [
     {
       accessorKey: "tx_id",
       header: t.transaction.tx_id,
@@ -73,12 +72,14 @@ const TransactionPage = () => {
   if (status === "pending" || status === "error") return <Loading />;
   else {
     return (
-      <DataTable
-        columns={columns}
-        data={allTransactions!}
-        // searchParam={searchParam}
-        pageTitle={pageTitle}
-      />
+      <div>
+        <DataTable
+          columns={columns}
+          data={selfTransactions!}
+          // searchParam={searchParam}
+          pageTitle={pageTitle}
+        />
+      </div>
     );
   }
 };
