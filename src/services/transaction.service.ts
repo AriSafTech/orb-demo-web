@@ -32,7 +32,8 @@ export const transactionService = {
       queryFn: async () => {
         // const client = await getApiClient(accessToken)
         const client = await getApiClient();
-        const res = await client.getAllTransactions(user?.userName);
+        // const res = await client.getAllTransactions(user?.userName);
+        const res = await client.getAllTransactions();
         return res.data.data?.transactions;
       },
       //   enabled: !!user && user.role === "admin",

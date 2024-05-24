@@ -211,7 +211,7 @@ export default function RegularLayout({
           {/* <LanguageSwitcher /> */}
         </div>
 
-        <div className="flex flex-col h-[calc(100vh-3.5rem)] w-full container mx-auto py-10 overflow-auto">
+        <div className="flex flex-col h-[calc(100vh-3.5rem)] w-full container mx-auto py-10">
           {children}
         </div>
       </div>

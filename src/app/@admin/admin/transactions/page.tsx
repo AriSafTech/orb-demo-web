@@ -8,6 +8,7 @@ import { DataTable } from "@/components/custom/DataTable";
 import { format } from "date-fns";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 const TransactionPage = () => {
   const { data: t } = useLanguageStore();
@@ -37,14 +38,22 @@ const TransactionPage = () => {
         );
       },
     },
-    {
-      accessorKey: "group",
-      header: t.transaction.group,
-    },
+    // {
+    //   accessorKey: "group",
+    //   header: t.transaction.group,
+    // },
     {
       accessorKey: "type",
-      header: t.transaction.type,
-      // TODO: custom render base on type
+      header: t.transaction.group,
+      cell: ({ row }) => {
+        return row.original.group == "payment" ? (
+          <Badge>{t.transaction.payment}</Badge>
+        ) : row.original.group == "charge" ? (
+          <Badge>{t.transaction.charge}</Badge>
+        ) : (
+          ""
+        );
+      },
     },
     {
       accessorKey: "created_at",

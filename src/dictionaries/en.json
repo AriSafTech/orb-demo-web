@@ -38,7 +38,12 @@
     "transactions": "Transactions",
     "chargeAccount": "Charge Account",
     "owa": "Orb Wallet Admin",
-    "logOut": "Logout"
+    "logOut": "Logout",
+    "coins":"Coins",
+    "coinName":"Coin name",
+    "totalActiveUsers":"Total active users",
+    "totalIssuedCoins":"Total issued coins",
+    "lastDayTransactions":"Total transactions in last 24 hours"
   },
   "transaction": {
     "title": "Transactions",
@@ -47,7 +52,9 @@
     "receiver": "Receiver",
     "group": "Group",
     "type": "Type",
-    "tx_date": "Transaction Date"
+    "tx_date": "Transaction Date",
+    "charge":"Charge",
+    "payment": "Payment"
   },
   "payment": {
     "title": "Make payment",

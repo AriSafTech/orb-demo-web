@@ -37,7 +37,12 @@
     "transactions": "取引",
     "chargeAccount": "口座にチャージ",
     "owa": "オーブウォレット管理者",
-    "logOut": "ログアウト"
+    "logOut": "ログアウト",
+    "coins": "コイン",
+    "coinName": "コイン名",
+    "totalActiveUsers": "総アクティブユーザー数",
+    "totalIssuedCoins": "発行済みコイン総数",
+    "lastDayTransactions": "過去24時間の総取引数"
   },
   "transaction": {
     "title": "取引",
@@ -46,7 +51,9 @@
     "receiver": "受信者",
     "group": "グループ",
     "type": "タイプ",
-    "tx_date": "取引日"
+    "tx_date": "取引日",
+    "charge": "チャージ",
+    "payment": "支払い"
   },
   "payment": {
     "title": "Make payment",
