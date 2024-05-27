@@ -29,7 +29,8 @@
     "email": "メール",
     "phone": "電話",
     "userId": "ユーザーID",
-    "balance": "均衡"
+    "balance": "均衡",
+    "role": "役割"
   },
   "adminLayout": {
     "dashboard": "ダッシュボード",
@@ -42,7 +43,10 @@
     "coinName": "コイン名",
     "totalActiveUsers": "総アクティブユーザー数",
     "totalIssuedCoins": "発行済みコイン総数",
-    "lastDayTransactions": "過去24時間の総取引数"
+    "lastDayTransactions": "過去24時間の総取引数",
+    "exchange_rate": "為替レート",
+    "validity": "有効性"
+ 
   },
   "transaction": {
     "title": "取引",

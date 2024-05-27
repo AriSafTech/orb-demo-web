@@ -30,7 +30,8 @@
     "email": "Email",
     "phone": "Phone",
     "userId": "User ID",
-    "balance": "Balance"
+    "balance": "Balance",
+    "role": "Role"
   },
   "adminLayout": {
     "users": "Users",
@@ -43,7 +44,10 @@
     "coinName":"Coin name",
     "totalActiveUsers":"Total active users",
     "totalIssuedCoins":"Total issued coins",
-    "lastDayTransactions":"Total transactions in last 24 hours"
+    "lastDayTransactions":"Total transactions in last 24 hours",
+    "exchange_rate":"Exchange Rate",
+    "validity":"Validity"
+    
   },
   "transaction": {
     "title": "Transactions",

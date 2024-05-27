@@ -36,6 +36,10 @@ const UsersPage = () => {
       },
     },
     {
+      accessorKey: "role.name",
+      header: t.users.role,
+    },
+    {
       accessorKey: "balance",
       header: t.users.balance,
     },
