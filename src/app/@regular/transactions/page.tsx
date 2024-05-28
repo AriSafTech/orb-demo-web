@@ -42,7 +42,7 @@ const TransactionPage = () => {
       header: t.transaction.group,
       cell: ({ row }) => {
         return row.original.group == "payment" ? (
-          <Badge>{t.transaction.payment}</Badge>
+          <Badge variant="secondary">{t.transaction.payment}</Badge>
         ) : row.original.group == "charge" ? (
           <Badge>{t.transaction.charge}</Badge>
         ) : (
