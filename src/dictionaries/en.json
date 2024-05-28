@@ -31,7 +31,9 @@
     "phone": "Phone",
     "userId": "User ID",
     "balance": "Balance",
-    "role": "Role"
+    "role": "Role",
+    "consumer":"Consumer",
+    "merchant" : "Merchant"
   },
   "adminLayout": {
     "users": "Users",

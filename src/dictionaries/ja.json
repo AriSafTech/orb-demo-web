@@ -30,7 +30,9 @@
     "phone": "電話",
     "userId": "ユーザーID",
     "balance": "均衡",
-    "role": "役割"
+    "role": "役割",
+    "consumer": "消費者",
+    "merchant": "商人"
   },
   "adminLayout": {
     "dashboard": "ダッシュボード",

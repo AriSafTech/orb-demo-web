@@ -6,6 +6,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { useLanguageStore } from "@/stores/languageStore";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 // import { getFuzzyVectorFn } from "@tanstack/match-sorter-utils";
 interface UseAllUsersResponse {
   data: User[];
@@ -38,6 +39,17 @@ const UsersPage = () => {
     {
       accessorKey: "role.name",
       header: t.users.role,
+      cell: ({ row }) => {
+        //@ts-ignore
+        return row.original.role?.name === "consumer" ? (
+          <Badge>{t.users.consumer}</Badge>
+        ) : //@ts-ignore
+        row.original?.role?.name === "merchant" ? (
+          <Badge variant={"secondary"}>{t.users.merchant}</Badge>
+        ) : (
+          ""
+        );
+      },
     },
     {
       accessorKey: "balance",

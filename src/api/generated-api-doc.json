@@ -47,8 +47,14 @@
         "responses": {}
       }
     },
-    "/api/v1/coins": {
+    "/api/logout": {
       "post": {
+        "operationId": "logout",
+        "responses": {}
+      }
+    },
+    "/api/v1/coins": {
+      "get": {
         "operationId": "coins",
         "responses": {}
       }

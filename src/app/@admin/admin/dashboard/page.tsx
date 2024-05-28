@@ -51,13 +51,11 @@ function AdminDashboardPage() {
                 <div className="text-[13px]">
                   {t.adminLayout.exchange_rate}:
                 </div>{" "}
-                <div className="font-bold text-center">
-                  {coin.exchange_rate}
-                </div>
+                <div className="font-bold">{coin.exchange_rate}</div>
               </CardContent>
               <CardContent>
                 <div className="text-[13px]">{t.adminLayout.validity}:</div>
-                <div className="font-bold text-center">{coin.validity}</div>
+                <div className="font-bold">{coin.validity}</div>
               </CardContent>
             </Card>
           ))}
