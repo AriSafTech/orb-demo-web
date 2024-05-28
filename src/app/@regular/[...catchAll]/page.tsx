@@ -6,6 +6,7 @@ function RegularClosedRedirect() {
   const router = useRouter();
 
   useEffect(() => {
+    // router.replace("/transactions");
     router.replace("/transactions");
   }, [router]);
   return <></>;
