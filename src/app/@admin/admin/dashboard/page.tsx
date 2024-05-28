@@ -5,14 +5,26 @@ import { coinService } from "@/services/coin.service";
 import { transactionService } from "@/services/transaction.service";
 import { userService } from "@/services/user.service";
 import { useLanguageStore } from "@/stores/languageStore";
+import { isWithinInterval, parseISO, subDays } from "date-fns";
 import React from "react";
 
 function AdminDashboardPage() {
   const { data: t } = useLanguageStore();
   const { data: coins } = coinService.useAllCoins();
   const { data: allUsers } = userService.useAllUsers();
-  // const { data: allTransactions, status } =
-  //   transactionService.useAllTransactions();
+  const { data: allTransactions } = transactionService.useAllTransactions();
+
+  const countRecentTransactions = (transactions: any) => {
+    const now = new Date();
+    const oneDayAgo = subDays(now, 1);
+
+    const recentTransactions = allTransactions?.filter((transaction: any) => {
+      const createdAt = parseISO(transaction.created_at);
+      return isWithinInterval(createdAt, { start: oneDayAgo, end: now });
+    });
+
+    return recentTransactions?.length;
+  };
 
   const totalBalance = allUsers?.reduce(
     (sum, user) => sum + parseFloat(user?.balance as string),
@@ -34,17 +46,18 @@ function AdminDashboardPage() {
 
           {coins?.map((coin, ind) => (
             <Card key={ind} className="bg-secondary w-auto min-h-40">
-              <CardHeader>
-                <div className="font-bold">{t.adminLayout.coinName}:</div>
-                {coin.name}
-              </CardHeader>
+              <CardHeader className="font-bold">{coin.name}</CardHeader>
               <CardContent>
-                <div className="font-bold">{t.adminLayout.exchange_rate}:</div>{" "}
-                {coin.exchange_rate}
+                <div className="text-[13px]">
+                  {t.adminLayout.exchange_rate}:
+                </div>{" "}
+                <div className="font-bold text-center">
+                  {coin.exchange_rate}
+                </div>
               </CardContent>
               <CardContent>
-                <div className="font-bold">{t.adminLayout.validity}:</div>
-                {coin.validity}
+                <div className="text-[13px]">{t.adminLayout.validity}:</div>
+                <div className="font-bold text-center">{coin.validity}</div>
               </CardContent>
             </Card>
           ))}
@@ -58,20 +71,32 @@ function AdminDashboardPage() {
         <div className="flex gap-2">
           {/* TOTAL ACTIVE USERS */}
           <Card className="bg-secondary w-auto min-h-40">
-            <CardHeader>{t.adminLayout.totalActiveUsers}</CardHeader>
-            <CardContent>{allUsers?.length}</CardContent>
+            <CardHeader className="text-[13px]">
+              {t.adminLayout.totalActiveUsers}
+            </CardHeader>
+            <CardContent className="text-center font-bold">
+              {allUsers?.length}
+            </CardContent>
           </Card>
 
           {/* TOTAL ISSUED COINS */}
           <Card className="bg-secondary w-auto min-h-40">
-            <CardHeader>{t.adminLayout.totalIssuedCoins}</CardHeader>
-            <CardContent>{totalBalance}</CardContent>
+            <CardHeader className="text-[13px]">
+              {t.adminLayout.totalIssuedCoins}
+            </CardHeader>
+            <CardContent className="text-center font-bold">
+              {totalBalance}
+            </CardContent>
           </Card>
 
           {/* TRANSACTIONS IN LAST 24 hours */}
           <Card className="bg-secondary w-auto min-h-40">
-            <CardHeader>{t.adminLayout.lastDayTransactions}</CardHeader>
-            <CardContent>[total transactions for last day]</CardContent>
+            <CardHeader className="text-[13px]">
+              {t.adminLayout.lastDayTransactions}
+            </CardHeader>
+            <CardContent className="text-center font-bold">
+              {countRecentTransactions(allTransactions)}
+            </CardContent>
           </Card>
         </div>
       </div>
