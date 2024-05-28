@@ -46,16 +46,22 @@ function AdminDashboardPage() {
 
           {coins?.map((coin, ind) => (
             <Card key={ind} className="bg-secondary w-auto min-h-40">
-              <CardHeader className="font-bold">{coin.name}</CardHeader>
+              <CardHeader className="font-bold text-center">
+                {coin.name}
+              </CardHeader>
               <CardContent>
-                <div className="text-[13px]">
+                <div className="text-[13px] text-center">
                   {t.adminLayout.exchange_rate}:
                 </div>{" "}
-                <div className="font-bold">{coin.exchange_rate}</div>
+                <div className="font-bold text-center">
+                  {coin.exchange_rate}
+                </div>
               </CardContent>
               <CardContent>
-                <div className="text-[13px]">{t.adminLayout.validity}:</div>
-                <div className="font-bold">{coin.validity}</div>
+                <div className="text-[13px] text-center">
+                  {t.adminLayout.validity}:
+                </div>
+                <div className="font-bold text-center">{coin.validity}</div>
               </CardContent>
             </Card>
           ))}
@@ -69,7 +75,7 @@ function AdminDashboardPage() {
         <div className="flex gap-2">
           {/* TOTAL ACTIVE USERS */}
           <Card className="bg-secondary w-auto min-h-40">
-            <CardHeader className="text-[13px]">
+            <CardHeader className="text-[13px] text-center">
               {t.adminLayout.totalActiveUsers}
             </CardHeader>
             <CardContent className="text-center font-bold">
@@ -79,7 +85,7 @@ function AdminDashboardPage() {
 
           {/* TOTAL ISSUED COINS */}
           <Card className="bg-secondary w-auto min-h-40">
-            <CardHeader className="text-[13px]">
+            <CardHeader className="text-[13px] text-center">
               {t.adminLayout.totalIssuedCoins}
             </CardHeader>
             <CardContent className="text-center font-bold">
@@ -89,7 +95,7 @@ function AdminDashboardPage() {
 
           {/* TRANSACTIONS IN LAST 24 hours */}
           <Card className="bg-secondary w-auto min-h-40">
-            <CardHeader className="text-[13px]">
+            <CardHeader className="text-[13px] text-center">
               {t.adminLayout.lastDayTransactions}
             </CardHeader>
             <CardContent className="text-center font-bold">
