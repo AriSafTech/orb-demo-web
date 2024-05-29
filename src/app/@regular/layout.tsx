@@ -3,6 +3,7 @@
 import { IconType } from "react-icons";
 import { GrTransaction as PaymentIcon } from "react-icons/gr";
 import { CiBoxList as TransactionListIcon } from "react-icons/ci";
+import { GrQr as QR } from "react-icons/gr";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -54,6 +55,11 @@ export default function RegularLayout({
       label: "Transactions",
       path: "/transactions",
       icon: TransactionListIcon,
+    },
+    {
+      label: "QR",
+      path: "/qr",
+      icon: QR,
     },
   ];
   const pathname = usePathname();
