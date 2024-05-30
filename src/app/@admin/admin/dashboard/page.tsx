@@ -6,7 +6,7 @@ import { transactionService } from "@/services/transaction.service";
 import { userService } from "@/services/user.service";
 import { useLanguageStore } from "@/stores/languageStore";
 import { isWithinInterval, parseISO, subDays } from "date-fns";
-import React from "react";
+import React, { useMemo } from "react";
 
 function AdminDashboardPage() {
   const { data: t } = useLanguageStore();

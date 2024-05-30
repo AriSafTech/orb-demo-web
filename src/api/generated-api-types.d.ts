@@ -148,6 +148,31 @@ declare namespace Components {
              * +8801917200115
              */
             phone?: string;
+            /**
+             * example:
+             * A/C: 1200102101
+             */
+            bank_details?: string;
+            /**
+             * example:
+             * Uttara, Dkhaka
+             */
+            address?: string;
+            /**
+             * example:
+             * true
+             */
+            is_active?: boolean;
+            /**
+             * example:
+             * Male
+             */
+            gender?: string;
+            /**
+             * example:
+             * http://orb-demo-api.test/storage/users/hasib.webp
+             */
+            avatar?: string;
             role?: /**
              * Role response
              * Role response.
@@ -447,6 +472,49 @@ declare namespace Components {
             created_at?: string; // date-time
         }
         /**
+         * Update status request
+         * Update status request
+         */
+        export interface UpdateStatusRequestAttribute {
+            /**
+             * example:
+             * 1
+             */
+            is_active?: boolean;
+        }
+        /**
+         * Update user request
+         * Update user request.
+         */
+        export interface UpdateUserRequestAttribute {
+            /**
+             * example:
+             * Hasib
+             */
+            name?: string;
+            /**
+             * example:
+             * +8801917200115
+             */
+            phone?: string;
+            avatar?: unknown;
+            /**
+             * example:
+             * Uttara, Dhaka
+             */
+            address?: string;
+            /**
+             * example:
+             * A/C: 0102121045124
+             */
+            bank_details?: string;
+            /**
+             * example:
+             * male
+             */
+            gender?: "male" | "female" | "other";
+        }
+        /**
          * User list response
          * User list response.
          */
@@ -517,6 +585,31 @@ declare namespace Components {
              * +8801917200115
              */
             phone?: string;
+            /**
+             * example:
+             * A/C: 1200102101
+             */
+            bank_details?: string;
+            /**
+             * example:
+             * Uttara, Dkhaka
+             */
+            address?: string;
+            /**
+             * example:
+             * true
+             */
+            is_active?: boolean;
+            /**
+             * example:
+             * Male
+             */
+            gender?: string;
+            /**
+             * example:
+             * http://orb-demo-api.test/storage/users/hasib.webp
+             */
+            avatar?: string;
             role?: /**
              * Role response
              * Role response.
@@ -625,6 +718,65 @@ declare namespace Paths {
                 /**
                  * example:
                  * Server error.
+                 */
+                message?: string;
+                errors?: {
+                    [key: string]: any;
+                };
+            }
+        }
+    }
+    namespace CreateUser {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        export type RequestBody = /**
+         * Update status request
+         * Update status request
+         */
+        Components.Schemas.UpdateStatusRequestAttribute;
+        namespace Responses {
+            export interface $201 {
+                /**
+                 * example:
+                 * true
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 201
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * User has been registered successfully.
+                 */
+                message?: string;
+                data?: {
+                    user?: /**
+                     * User response
+                     * User response.
+                     */
+                    Components.Schemas.UserResponseAttribute;
+                };
+            }
+            export interface $401 {
+                /**
+                 * example:
+                 * false
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 401
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Unauthorized
                  */
                 message?: string;
                 errors?: {
@@ -1255,6 +1407,65 @@ declare namespace Paths {
             }
         }
     }
+    namespace UpdateStatus {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        export type RequestBody = /**
+         * Update user request
+         * Update user request.
+         */
+        Components.Schemas.UpdateUserRequestAttribute;
+        namespace Responses {
+            export interface $201 {
+                /**
+                 * example:
+                 * true
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 201
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * User has been registered successfully.
+                 */
+                message?: string;
+                data?: {
+                    user?: /**
+                     * User response
+                     * User response.
+                     */
+                    Components.Schemas.UserResponseAttribute;
+                };
+            }
+            export interface $401 {
+                /**
+                 * example:
+                 * false
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 401
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Unauthorized
+                 */
+                message?: string;
+                errors?: {
+                    [key: string]: any;
+                };
+            }
+        }
+    }
 }
 
 export interface OperationMethods {
@@ -1358,6 +1569,22 @@ export interface OperationMethods {
     data?: any,
     config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetAllUsers.Responses.$200>
+  /**
+   * updateStatus - Update status.
+   */
+  'updateStatus'(
+    parameters?: Parameters<Paths.UpdateStatus.PathParameters> | null,
+    data?: Paths.UpdateStatus.RequestBody,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.UpdateStatus.Responses.$201>
+  /**
+   * createUser - Change status of a user.
+   */
+  'createUser'(
+    parameters?: Parameters<Paths.CreateUser.PathParameters> | null,
+    data?: Paths.CreateUser.RequestBody,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.CreateUser.Responses.$201>
 }
 
 export interface PathsDictionary {
@@ -1481,6 +1708,27 @@ export interface PathsDictionary {
       config?: AxiosRequestConfig  
     ): OperationResponse<Paths.GetAllUsers.Responses.$200>
   }
+  ['/api/v1/users/{id}']: {
+    /**
+     * updateStatus - Update status.
+     */
+    'put'(
+      parameters?: Parameters<Paths.UpdateStatus.PathParameters> | null,
+      data?: Paths.UpdateStatus.RequestBody,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.UpdateStatus.Responses.$201>
+  }
+  ['/api/v1/users/update-status/{id}']: {
+    /**
+     * createUser - Change status of a user.
+     */
+    'put'(
+      parameters?: Parameters<Paths.CreateUser.PathParameters> | null,
+      data?: Paths.CreateUser.RequestBody,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.CreateUser.Responses.$201>
+  }
 }
 
 export type Client = OpenAPIClient<OperationMethods, PathsDictionary>
+

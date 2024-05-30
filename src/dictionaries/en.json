@@ -23,7 +23,19 @@
     "consumer": "Consumer",
     "merchant": "Merchant"
   },
-
+  "me":{
+    "title":"Me",
+    "btn" :"Submit" ,
+    "name":"Name",
+    "phone":"Phone",
+    "avatar":"Avatar",
+    "address":"Address",
+    "bankDetails":"Bank Details",
+    "gender":"Gender",
+    "male":"Male",
+    "female":"female",
+    "other":"Other"
+  },
   "users": {
     "title": "All Users",
     "name": "Name",

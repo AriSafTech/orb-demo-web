@@ -23,6 +23,20 @@
     "merchant": "商人"
   },
 
+  "me":{
+    "title": "私",
+    "btn": "送信",
+    "name": "名前",
+    "phone": "電話番号",
+    "avatar": "アバター",
+    "address": "住所",
+    "bankDetails": "銀行詳細",
+    "gender": "性別",
+    "male": "男性",
+    "female": "女性",
+    "other": "その他"
+    },
+
   "users": {
     "title": "すべてのユーザー",
     "name": "名前",

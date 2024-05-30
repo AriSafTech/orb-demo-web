@@ -50,6 +50,8 @@ import { toast } from "sonner";
 
 function PaymentPage() {
   const { balance, status: profileStatus } = authService.useProfile();
+  const pro = authService.useProfile();
+  // console.log("pro:", pro);
 
   const searchParams = useSearchParams();
   const amount = parseInt(searchParams.get("amount") ?? "0");

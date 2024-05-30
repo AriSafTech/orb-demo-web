@@ -377,7 +377,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/coins": {
@@ -1074,6 +1079,196 @@
           }
         ]
       }
+    },
+    "/api/v1/users/{id}": {
+      "put": {
+        "tags": ["Users"],
+        "summary": "Update status.",
+        "operationId": "updateStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "New User details",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserRequestAttribute"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User has been registered successfully."
+                    },
+                    "data": {
+                      "properties": {
+                        "user": {
+                          "$ref": "#/components/schemas/UserResponseAttribute"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/users/update-status/{id}": {
+      "put": {
+        "tags": ["Users"],
+        "summary": "Change status of a user.",
+        "operationId": "createUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Change status of a user",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStatusRequestAttribute"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User has been registered successfully."
+                    },
+                    "data": {
+                      "properties": {
+                        "user": {
+                          "$ref": "#/components/schemas/UserResponseAttribute"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -1178,6 +1373,48 @@
         },
         "type": "object"
       },
+      "UpdateStatusRequestAttribute": {
+        "title": "Update status request",
+        "description": "Update status request",
+        "properties": {
+          "is_active": {
+            "type": "boolean",
+            "example": 1
+          }
+        },
+        "type": "object"
+      },
+      "UpdateUserRequestAttribute": {
+        "title": "Update user request",
+        "description": "Update user request.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Hasib"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+8801917200115"
+          },
+          "avatar": {
+            "type": "file"
+          },
+          "address": {
+            "type": "string",
+            "example": "Uttara, Dhaka"
+          },
+          "bank_details": {
+            "type": "string",
+            "example": "A/C: 0102121045124"
+          },
+          "gender": {
+            "type": "string",
+            "enum": ["male", "female", "other"],
+            "example": "male"
+          }
+        },
+        "type": "object"
+      },
       "AuthResponseAttribute": {
         "title": "Login response",
         "description": "Login response.",
@@ -1201,6 +1438,26 @@
           "phone": {
             "type": "string",
             "example": "+8801917200115"
+          },
+          "bank_details": {
+            "type": "string",
+            "example": "A/C: 1200102101"
+          },
+          "address": {
+            "type": "string",
+            "example": "Uttara, Dkhaka"
+          },
+          "is_active": {
+            "type": "boolean",
+            "example": "true"
+          },
+          "gender": {
+            "type": "string",
+            "example": "Male"
+          },
+          "avatar": {
+            "type": "string",
+            "example": "http://orb-demo-api.test/storage/users/hasib.webp"
           },
           "role": {
             "$ref": "#/components/schemas/RoleResponseAttribute"
@@ -1436,6 +1693,26 @@
           "phone": {
             "type": "string",
             "example": "+8801917200115"
+          },
+          "bank_details": {
+            "type": "string",
+            "example": "A/C: 1200102101"
+          },
+          "address": {
+            "type": "string",
+            "example": "Uttara, Dkhaka"
+          },
+          "is_active": {
+            "type": "boolean",
+            "example": "true"
+          },
+          "gender": {
+            "type": "string",
+            "example": "Male"
+          },
+          "avatar": {
+            "type": "string",
+            "example": "http://orb-demo-api.test/storage/users/hasib.webp"
           },
           "role": {
             "$ref": "#/components/schemas/RoleResponseAttribute"

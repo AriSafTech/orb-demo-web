@@ -2,6 +2,7 @@
 
 import { IconType } from "react-icons";
 import { GrTransaction as PaymentIcon } from "react-icons/gr";
+import { GrUser as UserIcon } from "react-icons/gr";
 import { CiBoxList as TransactionListIcon } from "react-icons/ci";
 import { GrQr as QR } from "react-icons/gr";
 import { Button } from "@/components/ui/button";
@@ -50,6 +51,7 @@ export default function RegularLayout({
   children: React.ReactNode;
 }>) {
   const NAV_ITEMS = [
+    { label: "Me", path: "/me", icon: UserIcon },
     { label: "Payment", path: "/payment", icon: PaymentIcon },
     {
       label: "Transactions",
