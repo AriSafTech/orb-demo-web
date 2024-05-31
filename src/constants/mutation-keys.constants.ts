@@ -4,4 +4,5 @@ export const MUTATION_KEYS = {
   register: "register",
   chargeAccount: "charge-account",
   makePayment: "make-payment",
+  myInfo: "self-info",
 };

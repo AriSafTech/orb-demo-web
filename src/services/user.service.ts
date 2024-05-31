@@ -1,7 +1,9 @@
 import { getApiClient } from "@/api/client";
+import { MUTATION_KEYS } from "@/constants/mutation-keys.constants";
 import { QUERY_KEYS } from "@/constants/query-keys.constants";
 import { useAuthStore } from "@/stores/authStore";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { headers } from "next/headers";
 
 export type User = {
   name: string;
@@ -26,5 +28,52 @@ export const userService = {
       //   initialData: [],
     });
     return query;
+  },
+
+  useSelfUser(userId: string) {
+    const { setData, user } = useAuthStore();
+    // const { user } = useAuthStore();
+    return useMutation({
+      mutationKey: [MUTATION_KEYS.myInfo],
+      mutationFn: async ({
+        name,
+        phone,
+        address,
+        bank_details,
+        gender,
+        avatar,
+      }: any) => {
+        const client = await getApiClient();
+        const res = await client.paths["/api/v1/users/{id}"].put(
+          userId,
+          {
+            name,
+            phone,
+            address,
+            bank_details,
+            gender,
+            avatar,
+          },
+          // { headers: { "Content-Type": "multipart/form-data" } },
+        );
+        return res.data.data?.user;
+        //   if (user) {
+        //     setData({
+        //       user: {
+        //         email: user.email!,
+        //         // @ts-ignore
+        //         name: user.name!,
+        //         userName: user.username!,
+        //         role: user.role!.name as AppRole,
+        //       },
+        //       tokens: {
+        //         accessToken: user.token!.access_token!,
+        //         refreshToken: user.token!.refresh_token!,
+        //       },
+        //     });
+        //   }
+        //   return res.data.data?.user;
+      },
+    });
   },
 };
