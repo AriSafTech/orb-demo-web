@@ -31,33 +31,16 @@ import { RotateLoader } from "react-spinners";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { userService } from "@/services/user.service";
 import { useAuthStore } from "@/stores/authStore";
+import Loading from "@/components/custom/Loading";
 
 //   validation
 const formSchema = z.object({
   name: z.string().min(1, "Name is required").max(50),
-  phone: z
-    .string()
-    .max(50)
-    .optional()
-    .transform((data) => (data === "" ? null : data)),
+  phone: z.string().max(50).optional(),
 
-  address: z
-    .string()
-    .max(50)
-    .optional()
-    .transform((data) => (data === "" ? null : data)),
-  bank_details: z
-    .string()
-    .max(50)
-    .optional()
-    .transform((data) => (data === "" ? null : data)),
-  gender: z
-    .string()
-    .max(50)
-    .optional()
-    .transform((data) => (data === "" ? null : data)),
-  // gender: z.enum(["male", "female", "other", ""]).nullable(),
-  // avatar: typeof window === "undefined" ? z.any() : z.instanceof(FileList),
+  address: z.string().max(50).optional(),
+  bank_details: z.string().max(50).optional(),
+  gender: z.string().max(50).optional(),
   avatar: z
     .union([z.string().nullable(), z.instanceof(FileList), z.instanceof(File)])
     .optional(),
@@ -65,44 +48,42 @@ const formSchema = z.object({
 //   type
 type FormData = z.infer<typeof formSchema>;
 
-const Me = () => {
+const userDetails = () => {
+  const { data: selfInfo, status } = authService.useMe();
+
+  if (selfInfo) {
+    return <Me selfInfo={selfInfo} />;
+  } else {
+    return (
+      <div className="h-full flex items-center justify-center">
+        <div>
+          <Loading />
+        </div>
+      </div>
+    );
+  }
+};
+
+//@ts-ignore
+const Me = ({ selfInfo }) => {
   const router = useRouter();
   const { data: t } = useLanguageStore();
   const { setData, user } = useAuthStore();
-  const { data: selfInfo, status } = authService.useMe();
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
-
-  // console.log(selfInfo);
-  //   const { user } = useAuthStore();
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
 
     defaultValues: {
-      name: "",
-      phone: selfInfo?.phone || null,
-      address: null,
-      bank_details: null,
-      gender: null,
+      name: selfInfo.name,
+      phone: selfInfo?.phone ?? null,
+      address: selfInfo?.address ?? null,
+      bank_details: selfInfo?.bank_details ?? null,
+      gender: selfInfo?.gender ?? null,
     },
   });
 
-  useEffect(() => {
-    if (selfInfo) {
-      form.reset({
-        name: selfInfo?.name,
-        phone: selfInfo.phone || "",
-        address: selfInfo.address || "",
-        bank_details: selfInfo?.bank_details || "",
-        gender: selfInfo?.gender ?? "",
-        avatar: selfInfo?.avatar || "",
-      });
-    }
-  }, [selfInfo, form]);
-
-  // ref
-  const fileRef = form.register("avatar");
-  const { mutateAsync: myInfo, isPending } = userService.useSelfUser(
+  const { mutateAsync: updateUser, isPending } = userService.useUpdateUserInfo(
     selfInfo?.id as string,
   );
   // submit
@@ -110,17 +91,29 @@ const Me = () => {
     if (values) {
       console.log(values);
 
+      // try {
+      //   const registerValue = await updateUser([
+      //     { name: values.name },
+      //     { phone: values?.phone ?? null },
+      //     { address: values?.address ?? null },
+      //     { bank_details: values?.bank_details ?? null },
+      //     { gender: values?.gender ?? null },
+      //     { avatar: values?.avatar ?? null },
+      //   ]);
       try {
-        const registerValue = await myInfo(values);
+        const registerValue = await updateUser(values);
+
+        // console.log(registerValue);
+
         // // console.log("registerValue", registerValue);
         toast.success("Updated successfully");
         // router.push("/");
         router.refresh();
       } catch (e: any) {
         // @ts-ignore
-        if (e.response.status === 422) {
-          toast.error(t.errors.unprocessableContent);
-        }
+        // if (e.response.status === 422) {
+        //   toast.error(t.errors.unprocessableContent);
+        // }
       }
     }
   }
@@ -128,7 +121,7 @@ const Me = () => {
   return (
     <div>
       <Form {...form}>
-        <div className="w-full  flex justify-center items-center">
+        <div className="w-full  flex justify-center items-center h-[500px] overflow-y-scroll">
           <Card className="w-[650px] shadow-md">
             <CardHeader>
               {/* <CardTitle className="text-center">{t.me.title}</CardTitle> */}
@@ -170,7 +163,7 @@ const Me = () => {
                 <FormField
                   control={form.control}
                   name="phone"
-                  render={({ field }: any) => (
+                  render={({ field }) => (
                     <FormItem>
                       <FormLabel>{t.me.phone}</FormLabel>
                       <FormControl>
@@ -187,7 +180,7 @@ const Me = () => {
                 <FormField
                   control={form.control}
                   name="address"
-                  render={({ field }: any) => (
+                  render={({ field }) => (
                     <FormItem>
                       <FormLabel>{t.me.address}</FormLabel>
                       <FormControl>
@@ -204,7 +197,7 @@ const Me = () => {
                 <FormField
                   control={form.control}
                   name="bank_details"
-                  render={({ field }: any) => (
+                  render={({ field }) => (
                     <FormItem>
                       <FormLabel>{t.me.bankDetails}</FormLabel>
                       <FormControl>
@@ -226,11 +219,16 @@ const Me = () => {
                       <FormLabel>{t.me.gender}</FormLabel>
                       <Select
                         // onValueChange={field.onChange}
-                        defaultValue={field.value || selfInfo?.gender}
+                        // value={field.value || ""}
+                        // onValueChange={(value) =>
+                        //   field.onChange(value === "unselected" ? null : value)
+                        // }
+                        // onValueChange={field.onChange}
+                        // value={field.value || selfInfo?.gender}
+                        defaultValue={field.value || ""}
                         onValueChange={(value) =>
                           field.onChange(value === "" ? null : value)
                         }
-                        // value={field.value || selfInfo?.gender}
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -294,4 +292,4 @@ const Me = () => {
   );
 };
 
-export default Me;
+export default userDetails;

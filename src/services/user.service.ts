@@ -1,3 +1,4 @@
+import { Client } from "./../api/generated-api-types.d";
 import { getApiClient } from "@/api/client";
 import { MUTATION_KEYS } from "@/constants/mutation-keys.constants";
 import { QUERY_KEYS } from "@/constants/query-keys.constants";
@@ -30,7 +31,7 @@ export const userService = {
     return query;
   },
 
-  useSelfUser(userId: string) {
+  useUpdateUserInfo(userId: string) {
     const { setData, user } = useAuthStore();
     // const { user } = useAuthStore();
     return useMutation({
@@ -44,6 +45,8 @@ export const userService = {
         avatar,
       }: any) => {
         const client = await getApiClient();
+
+        // Without form data
         const res = await client.paths["/api/v1/users/{id}"].put(
           userId,
           {
@@ -56,7 +59,17 @@ export const userService = {
           },
           // { headers: { "Content-Type": "multipart/form-data" } },
         );
-        return res.data.data?.user;
+        // With form data
+        // const formData = new FormData();
+        // formData.append("name", name);
+        // formData.append("phone", phone);
+        // formData.append("address", address);
+        // formData.append("bank_details", bank_details);
+        // formData.append("gender", gender);
+        // formData.append("avatar", avatar);
+        // //@ts-ignore
+        // const res = await client.updateStatus({ id: userId }, formData);
+        // return res.data.data?.user;
         //   if (user) {
         //     setData({
         //       user: {
