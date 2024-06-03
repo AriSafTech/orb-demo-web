@@ -104,6 +104,10 @@
     "payment_paymentFailed_desc": "Failed to make payment. Please wait a while and try again.",
     "unprocessableContent": "処理できないコンテンツ"
   },
+  "success": {
+    "success_message": "更新に成功しました"
+  },
+
   "info": {
     "charge_chargeSuccess_title": "Charge account successful",
     "charge_chargeSuccess_desc": "Successfully charged account.",

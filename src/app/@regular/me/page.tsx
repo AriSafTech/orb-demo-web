@@ -100,7 +100,7 @@ const Me = ({ selfInfo }) => {
       //   ]);
       try {
         const registerValue = await updateUser(values);
-        toast.success("Updated successfully");
+        toast.success(t.success.success_message);
         router.refresh();
       } catch (e: any) {
         //@ts-ignore

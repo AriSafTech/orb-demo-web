@@ -103,6 +103,9 @@
     "payment_paymentFailed_desc": "Failed to make payment. Please wait a while and try again.",
     "unprocessableContent": "Unprocessable Content"
   },
+  "success":{
+      "success_message":"Updated successfully"
+  },
   "info": {
     "charge_chargeSuccess_title": "Charge account successful",
     "charge_chargeSuccess_desc": "Successfully charged account.",
