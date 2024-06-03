@@ -74,9 +74,9 @@ export default function RegularLayout({
     balance,
     status: userProfileFetchStatus,
   } = authService.useProfile();
+
   const { mutateAsync: logout } = authService.useLogout();
   const router = useRouter();
-
   const renderNavItems = (inSheet?: boolean) => {
     if (inSheet) {
       return (
@@ -170,10 +170,16 @@ export default function RegularLayout({
             <DropdownMenu>
               <DropdownMenuTrigger className="outline-none select-none">
                 <Avatar>
-                  <AvatarImage src="" alt="User profile dropdown" />
-                  <AvatarFallback>
-                    {getInitials(userProfile!.name!)}
-                  </AvatarFallback>
+                  {userProfile?.avatar ? (
+                    <AvatarImage
+                      src={userProfile.avatar}
+                      alt="User profile dropdown"
+                    />
+                  ) : (
+                    <AvatarFallback>
+                      {getInitials(userProfile?.name ?? "")}
+                    </AvatarFallback>
+                  )}
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
