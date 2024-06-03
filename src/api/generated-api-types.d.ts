@@ -165,7 +165,7 @@ declare namespace Components {
             is_active?: boolean;
             /**
              * example:
-             * Male
+             * male
              */
             gender?: string;
             /**
@@ -368,6 +368,48 @@ declare namespace Components {
             refresh_token?: string;
         }
         /**
+         * Refund request
+         * Refund request.
+         */
+        export interface RefundRequestAttribute {
+            /**
+             * example:
+             * d54c5f88-1c4a-47df-ba9c-8362fc2abeb7
+             */
+            transaction_id?: string;
+            /**
+             * example:
+             * ctom-payment
+             */
+            transaction_type?: "ctom-payment" | "itod-charge-1";
+        }
+        /**
+         * Payment response
+         * Payment response.
+         */
+        export interface RefundResponseAttribute {
+            /**
+             * example:
+             * 0b68f87b-c3a2-4c68-b94b-fd0862e96cc1
+             */
+            reversal_id?: string;
+            /**
+             * example:
+             * COMPLETED
+             */
+            reversal_status?: string;
+            /**
+             * example:
+             * d54c5f88-1c4a-47df-ba9c-8362fc2abeb7
+             */
+            transaction_id?: string;
+            /**
+             * example:
+             * REVERSED
+             */
+            transaction_status?: string;
+        }
+        /**
          * Registration request
          * Registration request.
          */
@@ -489,6 +531,11 @@ declare namespace Components {
         export interface UpdateUserRequestAttribute {
             /**
              * example:
+             * PUT
+             */
+            _method?: string;
+            /**
+             * example:
              * Hasib
              */
             name?: string;
@@ -602,7 +649,7 @@ declare namespace Components {
             is_active?: boolean;
             /**
              * example:
-             * Male
+             * male
              */
             gender?: string;
             /**
@@ -718,65 +765,6 @@ declare namespace Paths {
                 /**
                  * example:
                  * Server error.
-                 */
-                message?: string;
-                errors?: {
-                    [key: string]: any;
-                };
-            }
-        }
-    }
-    namespace CreateUser {
-        namespace Parameters {
-            export type Id = string;
-        }
-        export interface PathParameters {
-            id: Parameters.Id;
-        }
-        export type RequestBody = /**
-         * Update status request
-         * Update status request
-         */
-        Components.Schemas.UpdateStatusRequestAttribute;
-        namespace Responses {
-            export interface $201 {
-                /**
-                 * example:
-                 * true
-                 */
-                success?: boolean;
-                /**
-                 * example:
-                 * 201
-                 */
-                statusCode?: number;
-                /**
-                 * example:
-                 * User has been registered successfully.
-                 */
-                message?: string;
-                data?: {
-                    user?: /**
-                     * User response
-                     * User response.
-                     */
-                    Components.Schemas.UserResponseAttribute;
-                };
-            }
-            export interface $401 {
-                /**
-                 * example:
-                 * false
-                 */
-                success?: boolean;
-                /**
-                 * example:
-                 * 401
-                 */
-                statusCode?: number;
-                /**
-                 * example:
-                 * Unauthorized
                  */
                 message?: string;
                 errors?: {
@@ -1354,6 +1342,99 @@ declare namespace Paths {
             }
         }
     }
+    namespace Refund {
+        export type RequestBody = /**
+         * Refund request
+         * Refund request.
+         */
+        Components.Schemas.RefundRequestAttribute;
+        namespace Responses {
+            export interface $200 {
+                /**
+                 * example:
+                 * true
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 200
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Transaction list.
+                 */
+                message?: string;
+                data?: {
+                    transaction?: /**
+                     * Payment response
+                     * Payment response.
+                     */
+                    Components.Schemas.RefundResponseAttribute;
+                };
+            }
+            export interface $401 {
+                /**
+                 * example:
+                 * false
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 401
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Unauthorized
+                 */
+                message?: string;
+                errors?: {
+                    [key: string]: any;
+                };
+            }
+            export interface $403 {
+                /**
+                 * example:
+                 * false
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 403
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * This action is unauthorized.
+                 */
+                message?: string;
+                errors?: {
+                    [key: string]: any;
+                };
+            }
+            export interface $500 {
+                /**
+                 * example:
+                 * false
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 500
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Server error.
+                 */
+                message?: string;
+                errors?: {
+                    [key: string]: any;
+                };
+            }
+        }
+    }
     namespace Register {
         export type RequestBody = /**
          * Registration request
@@ -1408,6 +1489,65 @@ declare namespace Paths {
         }
     }
     namespace UpdateStatus {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        export type RequestBody = /**
+         * Update status request
+         * Update status request
+         */
+        Components.Schemas.UpdateStatusRequestAttribute;
+        namespace Responses {
+            export interface $201 {
+                /**
+                 * example:
+                 * true
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 201
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * User has been registered successfully.
+                 */
+                message?: string;
+                data?: {
+                    user?: /**
+                     * User response
+                     * User response.
+                     */
+                    Components.Schemas.UserResponseAttribute;
+                };
+            }
+            export interface $401 {
+                /**
+                 * example:
+                 * false
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 401
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Unauthorized
+                 */
+                message?: string;
+                errors?: {
+                    [key: string]: any;
+                };
+            }
+        }
+    }
+    namespace UpdateUser {
         namespace Parameters {
             export type Id = string;
         }
@@ -1560,6 +1700,16 @@ export interface OperationMethods {
     config?: AxiosRequestConfig  
   ): OperationResponse<Paths.Recharge.Responses.$200>
   /**
+   * refund - Refund the amount.
+   * 
+   * Recharge an account.
+   */
+  'refund'(
+    parameters?: Parameters<UnknownParamsObject> | null,
+    data?: Paths.Refund.RequestBody,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.Refund.Responses.$200>
+  /**
    * getAllUsers - Get user list
    * 
    * Retrieve user user.
@@ -1570,21 +1720,21 @@ export interface OperationMethods {
     config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetAllUsers.Responses.$200>
   /**
-   * updateStatus - Update status.
+   * updateUser - Update status.
+   */
+  'updateUser'(
+    parameters?: Parameters<Paths.UpdateUser.PathParameters> | null,
+    data?: Paths.UpdateUser.RequestBody,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.UpdateUser.Responses.$201>
+  /**
+   * updateStatus - Change status of a user.
    */
   'updateStatus'(
     parameters?: Parameters<Paths.UpdateStatus.PathParameters> | null,
     data?: Paths.UpdateStatus.RequestBody,
     config?: AxiosRequestConfig  
   ): OperationResponse<Paths.UpdateStatus.Responses.$201>
-  /**
-   * createUser - Change status of a user.
-   */
-  'createUser'(
-    parameters?: Parameters<Paths.CreateUser.PathParameters> | null,
-    data?: Paths.CreateUser.RequestBody,
-    config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.CreateUser.Responses.$201>
 }
 
 export interface PathsDictionary {
@@ -1696,6 +1846,18 @@ export interface PathsDictionary {
       config?: AxiosRequestConfig  
     ): OperationResponse<Paths.Recharge.Responses.$200>
   }
+  ['/api/v1/refunds']: {
+    /**
+     * refund - Refund the amount.
+     * 
+     * Recharge an account.
+     */
+    'post'(
+      parameters?: Parameters<UnknownParamsObject> | null,
+      data?: Paths.Refund.RequestBody,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.Refund.Responses.$200>
+  }
   ['/api/v1/users']: {
     /**
      * getAllUsers - Get user list
@@ -1710,23 +1872,23 @@ export interface PathsDictionary {
   }
   ['/api/v1/users/{id}']: {
     /**
-     * updateStatus - Update status.
+     * updateUser - Update status.
+     */
+    'post'(
+      parameters?: Parameters<Paths.UpdateUser.PathParameters> | null,
+      data?: Paths.UpdateUser.RequestBody,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.UpdateUser.Responses.$201>
+  }
+  ['/api/v1/users/update-status/{id}']: {
+    /**
+     * updateStatus - Change status of a user.
      */
     'put'(
       parameters?: Parameters<Paths.UpdateStatus.PathParameters> | null,
       data?: Paths.UpdateStatus.RequestBody,
       config?: AxiosRequestConfig  
     ): OperationResponse<Paths.UpdateStatus.Responses.$201>
-  }
-  ['/api/v1/users/update-status/{id}']: {
-    /**
-     * createUser - Change status of a user.
-     */
-    'put'(
-      parameters?: Parameters<Paths.CreateUser.PathParameters> | null,
-      data?: Paths.CreateUser.RequestBody,
-      config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.CreateUser.Responses.$201>
   }
 }
 

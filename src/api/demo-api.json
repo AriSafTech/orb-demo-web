@@ -7,7 +7,9 @@
   "paths": {
     "/api/register": {
       "post": {
-        "tags": ["Authentication"],
+        "tags": [
+          "Authentication"
+        ],
         "summary": "User register.",
         "description": "User registration",
         "operationId": "register",
@@ -87,7 +89,9 @@
     },
     "/api/login": {
       "post": {
-        "tags": ["Authentication"],
+        "tags": [
+          "Authentication"
+        ],
         "summary": "User login.",
         "description": "Login user",
         "operationId": "login",
@@ -167,7 +171,9 @@
     },
     "/api/v1/me": {
       "get": {
-        "tags": ["Authentication"],
+        "tags": [
+          "Authentication"
+        ],
         "summary": "Get user profile",
         "description": "Retrieve user profile information.",
         "operationId": "getProfile",
@@ -234,14 +240,18 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [
+              
+            ]
           }
         ]
       }
     },
     "/api/refresh": {
       "post": {
-        "tags": ["Authentication"],
+        "tags": [
+          "Authentication"
+        ],
         "summary": "Generate access token and refresh token using refresh token.",
         "description": "refresh token",
         "operationId": "refreshToken",
@@ -321,7 +331,9 @@
     },
     "/api/logout": {
       "post": {
-        "tags": ["Authentication"],
+        "tags": [
+          "Authentication"
+        ],
         "summary": "Logout the authenticated user.",
         "description": "Logout",
         "operationId": "logout",
@@ -380,14 +392,18 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [
+              
+            ]
           }
         ]
       }
     },
     "/api/v1/coins": {
       "get": {
-        "tags": ["Coins"],
+        "tags": [
+          "Coins"
+        ],
         "summary": "Return the coins list.",
         "description": "Return the coins list.",
         "operationId": "coins",
@@ -511,19 +527,23 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [
+              
+            ]
           }
         ]
       }
     },
     "/api/v1/payments": {
       "post": {
-        "tags": ["Transactions"],
+        "tags": [
+          "Transactions"
+        ],
         "summary": "Payment to another account.",
         "description": "payments an account.",
         "operationId": "payments",
         "requestBody": {
-          "description": "Login details",
+          "description": "Payment request details",
           "required": true,
           "content": {
             "application/json": {
@@ -650,14 +670,18 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [
+              
+            ]
           }
         ]
       }
     },
     "/api/v1/transactions": {
       "get": {
-        "tags": ["Transactions"],
+        "tags": [
+          "Transactions"
+        ],
         "summary": "Get transaction list",
         "description": "Retrieve user transaction.",
         "operationId": "getAllTransactions",
@@ -793,19 +817,23 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [
+              
+            ]
           }
         ]
       }
     },
     "/api/v1/recharge": {
       "post": {
-        "tags": ["Transactions"],
+        "tags": [
+          "Transactions"
+        ],
         "summary": "Recharge an account",
         "description": "Recharge an account.",
         "operationId": "recharge",
         "requestBody": {
-          "description": "Login details",
+          "description": "Recharge an account",
           "required": true,
           "content": {
             "application/json": {
@@ -932,14 +960,161 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [
+              
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v1/refunds": {
+      "post": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Refund the amount.",
+        "description": "Recharge an account.",
+        "operationId": "refund",
+        "requestBody": {
+          "description": "Refund the amount",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefundRequestAttribute"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Transaction list."
+                    },
+                    "data": {
+                      "properties": {
+                        "transaction": {
+                          "$ref": "#/components/schemas/RefundResponseAttribute"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "This action is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 403
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "This action is unauthorized."
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Server error."
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              
+            ]
           }
         ]
       }
     },
     "/api/v1/users": {
       "get": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "summary": "Get user list",
         "description": "Retrieve user user.",
         "operationId": "getAllUsers",
@@ -1075,16 +1250,20 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [
+              
+            ]
           }
         ]
       }
     },
     "/api/v1/users/{id}": {
-      "put": {
-        "tags": ["Users"],
+      "post": {
+        "tags": [
+          "Users"
+        ],
         "summary": "Update status.",
-        "operationId": "updateStatus",
+        "operationId": "updateUser",
         "parameters": [
           {
             "name": "id",
@@ -1170,16 +1349,20 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [
+              
+            ]
           }
         ]
       }
     },
     "/api/v1/users/update-status/{id}": {
       "put": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "summary": "Change status of a user.",
-        "operationId": "createUser",
+        "operationId": "updateStatus",
         "parameters": [
           {
             "name": "id",
@@ -1265,7 +1448,9 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "bearerAuth": [
+              
+            ]
           }
         ]
       }
@@ -1341,6 +1526,25 @@
         },
         "type": "object"
       },
+      "RefundRequestAttribute": {
+        "title": "Refund request",
+        "description": "Refund request.",
+        "properties": {
+          "transaction_id": {
+            "type": "string",
+            "example": "d54c5f88-1c4a-47df-ba9c-8362fc2abeb7"
+          },
+          "transaction_type": {
+            "type": "string",
+            "enum": [
+              "ctom-payment",
+              "itod-charge-1"
+            ],
+            "example": "ctom-payment"
+          }
+        },
+        "type": "object"
+      },
       "RegistrationRequestAttribute": {
         "title": "Registration request",
         "description": "Registration request.",
@@ -1367,7 +1571,10 @@
           },
           "role_name": {
             "type": "string",
-            "enum": ["merchant", "consumer"],
+            "enum": [
+              "merchant",
+              "consumer"
+            ],
             "example": "consumer"
           }
         },
@@ -1388,6 +1595,10 @@
         "title": "Update user request",
         "description": "Update user request.",
         "properties": {
+          "_method": {
+            "type": "string",
+            "example": "PUT"
+          },
           "name": {
             "type": "string",
             "example": "Hasib"
@@ -1409,7 +1620,11 @@
           },
           "gender": {
             "type": "string",
-            "enum": ["male", "female", "other"],
+            "enum": [
+              "male",
+              "female",
+              "other"
+            ],
             "example": "male"
           }
         },
@@ -1453,7 +1668,7 @@
           },
           "gender": {
             "type": "string",
-            "example": "Male"
+            "example": "male"
           },
           "avatar": {
             "type": "string",
@@ -1562,6 +1777,29 @@
           "refresh_token": {
             "type": "string",
             "example": "def502008f8c9501d4544c25059664a3c26d3290d3758da1625735d2ca4f0229cc4d050113ab550daa030284999e2197622bf44c2483aed9e99305b89c7b0f251cb73e6f860edc2dd9bfb47f9649c7f2fb46561b497745c5a37768210726545a71a550fe9336b1971d13b04506b7647b2e865eaef974f6dcf9ca78fdb585ffcde399de609022c6e76fb8cfff68822526a8749b50fd0506123466a2590aab7145f2f6f48e78b0950dbcb888398dbd1122e96ad32f1b5c6ac5cb673fa17a19e2b5029ea89d8d148a15198a9d1e2f70b910c765fdc695b8d79be0a018d768293b089e3aaa6af4f0a429b8d7f2261f69fea6cdd443e64ebc09c46bc6f66306ad9957884f7c8b2e709b003838f114ee30cae223790f11d1234363e7254f6b6c0a69f57d7d4eb809d7a71dda2e3a0bfefed8262d39423ad3ed352a2c3964079926f4d4662ee68184ea5db7148c0cb62bf349dc703c97a78be84087e79c7c4ec8636c849f7fc486244ae1ac8799a7dde7cf1f7dd7955cc9979639a71bdf47b9396e92721ba33977bc3f8e99894035033032e1d3710f42751d5b71760ea76710919700e412b969ec85a5c53b37"
+          }
+        },
+        "type": "object"
+      },
+      "RefundResponseAttribute": {
+        "title": "Payment response",
+        "description": "Payment response.",
+        "properties": {
+          "reversal_id": {
+            "type": "string",
+            "example": "0b68f87b-c3a2-4c68-b94b-fd0862e96cc1"
+          },
+          "reversal_status": {
+            "type": "string",
+            "example": "COMPLETED"
+          },
+          "transaction_id": {
+            "type": "string",
+            "example": "d54c5f88-1c4a-47df-ba9c-8362fc2abeb7"
+          },
+          "transaction_status": {
+            "type": "string",
+            "example": "REVERSED"
           }
         },
         "type": "object"
@@ -1708,7 +1946,7 @@
           },
           "gender": {
             "type": "string",
-            "example": "Male"
+            "example": "male"
           },
           "avatar": {
             "type": "string",
@@ -1766,7 +2004,9 @@
                 "data": {
                   "description": "The response data",
                   "type": "array",
-                  "items": {}
+                  "items": {
+                    
+                  }
                 }
               },
               "type": "object",
@@ -1774,7 +2014,9 @@
                 "success": true,
                 "statusCode": 200,
                 "message": "Success message.",
-                "data": []
+                "data": [
+                  
+                ]
               }
             }
           }
@@ -1801,7 +2043,9 @@
                 "data": {
                   "description": "The response data",
                   "type": "array",
-                  "items": {}
+                  "items": {
+                    
+                  }
                 }
               },
               "type": "object",
@@ -1809,7 +2053,9 @@
                 "success": true,
                 "statusCode": 200,
                 "message": "Mutation success message.",
-                "data": []
+                "data": [
+                  
+                ]
               }
             }
           }
@@ -1836,7 +2082,9 @@
                 "data": {
                   "description": "The response data",
                   "type": "array",
-                  "items": {}
+                  "items": {
+                    
+                  }
                 }
               },
               "type": "object",
@@ -1844,7 +2092,9 @@
                 "success": false,
                 "statusCode": 401,
                 "message": "Unautorized",
-                "errors": []
+                "errors": [
+                  
+                ]
               }
             }
           }
@@ -1871,7 +2121,9 @@
                 "errors": {
                   "description": "The response data",
                   "type": "array",
-                  "items": {}
+                  "items": {
+                    
+                  }
                 }
               },
               "type": "object",
@@ -1879,7 +2131,9 @@
                 "success": false,
                 "statusCode": 422,
                 "message": "Validation errors",
-                "errors": []
+                "errors": [
+                  
+                ]
               }
             }
           }

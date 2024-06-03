@@ -47,7 +47,7 @@ export const userService = {
         const client = await getApiClient();
 
         // Without form data
-        const res = await client.paths["/api/v1/users/{id}"].put(
+        const res = await client.paths["/api/v1/users/{id}"].post(
           userId,
           {
             name,
@@ -56,8 +56,9 @@ export const userService = {
             bank_details,
             gender,
             avatar,
+            _method: "PUT",
           },
-          // { headers: { "Content-Type": "multipart/form-data" } },
+          { headers: { "Content-Type": "multipart/form-data" } },
         );
         // With form data
         // const formData = new FormData();

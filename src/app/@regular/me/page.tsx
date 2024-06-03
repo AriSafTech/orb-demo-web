@@ -102,12 +102,7 @@ const Me = ({ selfInfo }) => {
       //   ]);
       try {
         const registerValue = await updateUser(values);
-
-        // console.log(registerValue);
-
-        // // console.log("registerValue", registerValue);
         toast.success("Updated successfully");
-        // router.push("/");
         router.refresh();
       } catch (e: any) {
         // @ts-ignore
@@ -121,7 +116,7 @@ const Me = ({ selfInfo }) => {
   return (
     <div>
       <Form {...form}>
-        <div className="w-full  flex justify-center items-center h-[500px] overflow-y-scroll">
+        <div className="w-full  flex justify-center items-center">
           <Card className="w-[650px] shadow-md">
             <CardHeader>
               {/* <CardTitle className="text-center">{t.me.title}</CardTitle> */}
