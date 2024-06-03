@@ -78,6 +78,7 @@ const Me = ({ selfInfo }) => {
       address: selfInfo?.address ?? null,
       bank_details: selfInfo?.bank_details ?? null,
       gender: selfInfo?.gender ?? null,
+      avatar: selfInfo?.avatar ?? null,
     },
   });
 
@@ -87,7 +88,7 @@ const Me = ({ selfInfo }) => {
   // submit
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (values) {
-      console.log(values);
+      // console.log(values);
 
       // try {
       //   const registerValue = await updateUser([
