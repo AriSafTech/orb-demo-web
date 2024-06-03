@@ -78,7 +78,6 @@ const Me = ({ selfInfo }) => {
       address: selfInfo?.address ?? null,
       bank_details: selfInfo?.bank_details ?? null,
       gender: selfInfo?.gender ?? null,
-      avatar: selfInfo?.avatar ?? null,
     },
   });
 
