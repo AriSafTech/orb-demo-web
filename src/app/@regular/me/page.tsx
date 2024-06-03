@@ -43,17 +43,7 @@ const formSchema = z.object({
     .union([z.string().nullable(), z.instanceof(FileList), z.instanceof(File)])
     .optional(),
 });
-interface FormDatas {
-  name: string;
-  phone?: string | null | undefined;
-  // is_supervisor?: boolean;
 
-  address?: string | null | undefined;
-  bank_details?: string;
-  // team_id: string | null | undefined;
-  gender?: string | null | undefined;
-  avatar?: File | null | string;
-}
 //   type
 type FormData = z.infer<typeof formSchema>;
 
