@@ -43,6 +43,17 @@ const formSchema = z.object({
     .union([z.string().nullable(), z.instanceof(FileList), z.instanceof(File)])
     .optional(),
 });
+interface FormDatas {
+  name: string;
+  phone?: string | null | undefined;
+  // is_supervisor?: boolean;
+
+  address?: string | null | undefined;
+  bank_details?: string;
+  // team_id: string | null | undefined;
+  gender?: string | null | undefined;
+  avatar?: File | null | string;
+}
 //   type
 type FormData = z.infer<typeof formSchema>;
 
@@ -74,10 +85,10 @@ const Me = ({ selfInfo }) => {
 
     defaultValues: {
       name: selfInfo.name,
-      phone: selfInfo?.phone ?? null,
-      address: selfInfo?.address ?? null,
-      bank_details: selfInfo?.bank_details ?? null,
-      gender: selfInfo?.gender ?? null,
+      phone: selfInfo?.phone ?? "",
+      address: selfInfo?.address ?? "",
+      bank_details: selfInfo?.bank_details ?? "",
+      gender: selfInfo?.gender ?? "",
     },
   });
 
@@ -87,19 +98,16 @@ const Me = ({ selfInfo }) => {
   // submit
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (values) {
-      // console.log(values);
+      const transformedValues = {
+        ...values,
+        phone: values.phone === "" ? null : values.phone,
+        address: values.address === "" ? null : values.address,
+        bank_details: values.bank_details === "" ? null : values.bank_details,
+        gender: values.gender === "" ? null : values.gender,
+      };
 
-      // try {
-      //   const registerValue = await updateUser([
-      //     { name: values.name },
-      //     { phone: values?.phone ?? null },
-      //     { address: values?.address ?? null },
-      //     { bank_details: values?.bank_details ?? null },
-      //     { gender: values?.gender ?? null },
-      //     { avatar: values?.avatar ?? null },
-      //   ]);
       try {
-        const registerValue = await updateUser(values);
+        await updateUser(transformedValues);
         toast.success(t.success.success_message);
         router.refresh();
       } catch (e: any) {
