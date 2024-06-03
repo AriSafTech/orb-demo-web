@@ -23,11 +23,9 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Link from "next/link";
 
 import { toast } from "sonner";
-import { useEffect, useState } from "react";
-import { RotateLoader } from "react-spinners";
+import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { userService } from "@/services/user.service";
 import { useAuthStore } from "@/stores/authStore";
@@ -49,7 +47,7 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 const userDetails = () => {
-  const { data: selfInfo, status } = authService.useMe();
+  const { data: selfInfo } = authService.useMe();
 
   if (selfInfo) {
     return <Me selfInfo={selfInfo} />;
@@ -105,10 +103,10 @@ const Me = ({ selfInfo }) => {
         toast.success("Updated successfully");
         router.refresh();
       } catch (e: any) {
-        // @ts-ignore
-        // if (e.response.status === 422) {
-        //   toast.error(t.errors.unprocessableContent);
-        // }
+        //@ts-ignore
+        if (e.response.status === 422) {
+          toast.error(t.errors.unprocessableContent);
+        }
       }
     }
   }
