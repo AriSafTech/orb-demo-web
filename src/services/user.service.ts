@@ -13,6 +13,14 @@ export type User = {
   id: string;
   balance: number;
 };
+// export type UserUpdate = {
+//   name: string;
+//   phone?: string;
+//   address?: string;
+//   bank_details?: string;
+//   gender?: "male" | "female" | "other" | undefined;
+//   avatar?: File;
+// };
 
 export const userService = {
   useAllUsers() {
@@ -36,6 +44,7 @@ export const userService = {
     // const { user } = useAuthStore();
     return useMutation({
       mutationKey: [MUTATION_KEYS.myInfo],
+      //@ts-ignore
       mutationFn: async ({
         name,
         phone,
@@ -87,6 +96,26 @@ export const userService = {
         //     });
         //   }
         //   return res.data.data?.user;
+      },
+    });
+  },
+  // update user status
+
+  useUpdateUserStatus(userId: string) {
+    // const { user } = useAuthStore();
+    return useMutation({
+      mutationKey: [MUTATION_KEYS.userStatus],
+      mutationFn: async ({ is_active }: { is_active: boolean }) => {
+        const client = await getApiClient();
+
+        const res = await client.updateStatus(
+          { id: userId },
+          {
+            is_active,
+          },
+        );
+
+        return res.data.data?.user;
       },
     });
   },

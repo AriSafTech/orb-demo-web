@@ -1,3 +1,4 @@
+
 {
   "openapi": "3.0.0",
   "info": {
@@ -1893,6 +1894,10 @@
           "email": {
             "type": "string",
             "example": "hasib@hasib.com"
+          },
+          "is_active": {
+            "type": "boolean",
+            "example": "true"
           },
           "phone": {
             "type": "string",

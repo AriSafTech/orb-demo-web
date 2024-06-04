@@ -45,7 +45,8 @@
     "balance": "Balance",
     "role": "Role",
     "consumer":"Consumer",
-    "merchant" : "Merchant"
+    "merchant" : "Merchant",
+    "status":"Status"
   },
   "adminLayout": {
     "users": "Users",

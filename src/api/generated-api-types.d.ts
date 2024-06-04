@@ -588,6 +588,11 @@ declare namespace Components {
             email?: string;
             /**
              * example:
+             * true
+             */
+            is_active?: boolean;
+            /**
+             * example:
              * +8801917200115
              */
             phone?: string;

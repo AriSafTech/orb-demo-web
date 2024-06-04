@@ -97,6 +97,7 @@ const Me = ({ selfInfo }) => {
       };
 
       try {
+        //@ts-ignore
         await updateUser(transformedValues);
         toast.success(t.success.success_message);
         router.refresh();
