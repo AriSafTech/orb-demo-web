@@ -252,6 +252,39 @@ declare namespace Components {
             password?: string;
         }
         /**
+         * Coin list response
+         * Coin list response.
+         */
+        export interface NotificationResponseAttribute {
+            /**
+             * example:
+             * 9c345421-e67e-4556-9d64-ae630d95ce69
+             */
+            id?: string;
+            /**
+             * example:
+             * Recharge successfully done.
+             */
+            title?: string;
+            /**
+             * example:
+             * true
+             */
+            is_seen?: boolean;
+            user?: {
+                /**
+                 * example:
+                 * 9c0fee7c-608f-4e88-8f17-0bac9a8014d9
+                 */
+                id?: string;
+                /**
+                 * example:
+                 * Hasib
+                 */
+                name?: string;
+            };
+        }
+        /**
          * Transaction request
          * Transaction request
          */
@@ -514,13 +547,24 @@ declare namespace Components {
             created_at?: string; // date-time
         }
         /**
+         * Update notification request
+         * Update notification request
+         */
+        export interface UpdateNotificationRequestAttribute {
+            /**
+             * example:
+             * true
+             */
+            is_seen?: boolean;
+        }
+        /**
          * Update status request
          * Update status request
          */
         export interface UpdateStatusRequestAttribute {
             /**
              * example:
-             * 1
+             * true
              */
             is_active?: boolean;
         }
@@ -714,6 +758,100 @@ declare namespace Paths {
                      * Coin list response.
                      */
                     Components.Schemas.CoinListResponseAttribute[];
+                };
+            }
+            export interface $401 {
+                /**
+                 * example:
+                 * false
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 401
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Unauthorized
+                 */
+                message?: string;
+                errors?: {
+                    [key: string]: any;
+                };
+            }
+            export interface $403 {
+                /**
+                 * example:
+                 * false
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 403
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * This action is unauthorized.
+                 */
+                message?: string;
+                errors?: {
+                    [key: string]: any;
+                };
+            }
+            export interface $500 {
+                /**
+                 * example:
+                 * false
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 500
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Server error.
+                 */
+                message?: string;
+                errors?: {
+                    [key: string]: any;
+                };
+            }
+        }
+    }
+    namespace GetAllNotifications {
+        namespace Parameters {
+            export type UserId = string;
+        }
+        export interface QueryParameters {
+            user_id?: Parameters.UserId;
+        }
+        namespace Responses {
+            export interface $200 {
+                /**
+                 * example:
+                 * true
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 200
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Notifications list.
+                 */
+                message?: string;
+                data?: {
+                    notifications?: /**
+                     * Coin list response
+                     * Coin list response.
+                     */
+                    Components.Schemas.NotificationResponseAttribute[];
                 };
             }
             export interface $401 {
@@ -1493,6 +1631,65 @@ declare namespace Paths {
             }
         }
     }
+    namespace UpdateNotification {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        export type RequestBody = /**
+         * Update notification request
+         * Update notification request
+         */
+        Components.Schemas.UpdateNotificationRequestAttribute;
+        namespace Responses {
+            export interface $201 {
+                /**
+                 * example:
+                 * true
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 201
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Notification has been registered successfully.
+                 */
+                message?: string;
+                data?: {
+                    notification?: /**
+                     * Coin list response
+                     * Coin list response.
+                     */
+                    Components.Schemas.NotificationResponseAttribute;
+                };
+            }
+            export interface $401 {
+                /**
+                 * example:
+                 * false
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 401
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Unauthorized
+                 */
+                message?: string;
+                errors?: {
+                    [key: string]: any;
+                };
+            }
+        }
+    }
     namespace UpdateStatus {
         namespace Parameters {
             export type Id = string;
@@ -1675,6 +1872,26 @@ export interface OperationMethods {
     config?: AxiosRequestConfig  
   ): OperationResponse<Paths.Coins.Responses.$200>
   /**
+   * getAllNotifications - Return the notification list.
+   * 
+   * Return the notification list.
+   */
+  'getAllNotifications'(
+    parameters?: Parameters<Paths.GetAllNotifications.QueryParameters> | null,
+    data?: any,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.GetAllNotifications.Responses.$200>
+  /**
+   * updateNotification - Update Notification
+   * 
+   * Update the specified resource in storage.
+   */
+  'updateNotification'(
+    parameters?: Parameters<Paths.UpdateNotification.PathParameters> | null,
+    data?: Paths.UpdateNotification.RequestBody,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.UpdateNotification.Responses.$201>
+  /**
    * payments - Payment to another account.
    * 
    * payments an account.
@@ -1814,6 +2031,30 @@ export interface PathsDictionary {
       data?: any,
       config?: AxiosRequestConfig  
     ): OperationResponse<Paths.Coins.Responses.$200>
+  }
+  ['/api/v1/notifications']: {
+    /**
+     * getAllNotifications - Return the notification list.
+     * 
+     * Return the notification list.
+     */
+    'get'(
+      parameters?: Parameters<Paths.GetAllNotifications.QueryParameters> | null,
+      data?: any,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.GetAllNotifications.Responses.$200>
+  }
+  ['/api/v1/notifications/{id}']: {
+    /**
+     * updateNotification - Update Notification
+     * 
+     * Update the specified resource in storage.
+     */
+    'put'(
+      parameters?: Parameters<Paths.UpdateNotification.PathParameters> | null,
+      data?: Paths.UpdateNotification.RequestBody,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.UpdateNotification.Responses.$201>
   }
   ['/api/v1/payments']: {
     /**

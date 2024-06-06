@@ -59,6 +59,38 @@
         "responses": {}
       }
     },
+    "/api/v1/notifications": {
+      "get": {
+        "operationId": "getAllNotifications",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/notifications/{id}": {
+      "put": {
+        "operationId": "updateNotification",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {}
+          }
+        },
+        "responses": {}
+      }
+    },
     "/api/v1/payments": {
       "post": {
         "operationId": "payments",

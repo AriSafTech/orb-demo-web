@@ -32,6 +32,7 @@ export const authService = {
         if (user) {
           setData({
             user: {
+              id: user.id as string,
               email: user.email!,
               // @ts-ignore
               name: user.name!,
@@ -76,6 +77,7 @@ export const authService = {
         if (user) {
           setData({
             user: {
+              id: user.id as string,
               email: user.email!,
               name: user.name!,
               userName: user.username!,

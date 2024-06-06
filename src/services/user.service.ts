@@ -10,7 +10,7 @@ export type User = {
   name: string;
   email: string;
   phone?: string;
-  id: string;
+  id: string | undefined;
   balance: number;
 };
 // export type UserUpdate = {
@@ -95,7 +95,7 @@ export const userService = {
         //       },
         //     });
         //   }
-        //   return res.data.data?.user;
+        return res.data.data?.user;
       },
     });
   },
@@ -118,5 +118,25 @@ export const userService = {
         return res.data.data?.user;
       },
     });
+  },
+  // User notifications
+  useUserNotifications() {
+    const { tokens, user } = useAuthStore();
+    const query = useQuery({
+      queryKey: [QUERY_KEYS.getUserNotifications],
+      queryFn: async () => {
+        // TODO: call actual API endpoint
+        const client = await getApiClient();
+        const params = {
+          //@ts-ignore
+          user_id: user.id,
+        };
+        const res = await client.getAllNotifications(params);
+        return res?.data?.data?.notifications;
+      },
+      // enabled: !!tokens && !!user && user.role === "admin",
+      //   initialData: [],
+    });
+    return query;
   },
 };

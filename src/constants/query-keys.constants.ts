@@ -4,4 +4,5 @@ export const QUERY_KEYS = {
   getAllTransactions: "get-all-transactions",
   getSelfTransactions: "get-self-transactions",
   getAllCoins: "get-all-coins",
+  getUserNotifications: "get-user-notifications",
 };
