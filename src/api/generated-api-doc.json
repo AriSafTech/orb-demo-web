@@ -47,7 +47,7 @@
         "responses": {}
       }
     },
-    "/api/logout": {
+    "/api/v1/logout": {
       "post": {
         "operationId": "logout",
         "responses": {}

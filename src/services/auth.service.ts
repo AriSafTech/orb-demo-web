@@ -156,7 +156,7 @@ export const authService = {
       mutationKey: [MUTATION_KEYS.logout],
       mutationFn: async () => {
         const client = await getApiClient();
-        // const res = await client.logout();
+        await client.logout();
         reset();
       },
     });

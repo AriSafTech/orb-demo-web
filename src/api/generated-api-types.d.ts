@@ -2008,7 +2008,7 @@ export interface PathsDictionary {
       config?: AxiosRequestConfig  
     ): OperationResponse<Paths.RefreshToken.Responses.$200>
   }
-  ['/api/logout']: {
+  ['/api/v1/logout']: {
     /**
      * logout - Logout the authenticated user.
      * 
