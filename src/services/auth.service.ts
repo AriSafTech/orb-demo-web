@@ -10,7 +10,7 @@ import { MUTATION_KEYS } from "@/constants/mutation-keys.constants";
 import { QUERY_KEYS } from "@/constants/query-keys.constants";
 import { ValueOf } from "@/lib/type-utils";
 import { useAuthStore } from "@/stores/authStore";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { coinService } from "./coin.service";
 import { useMemo } from "react";
 
@@ -152,12 +152,14 @@ export const authService = {
 
   useLogout() {
     const { reset } = useAuthStore();
+    const queryClient = useQueryClient();
     return useMutation({
       mutationKey: [MUTATION_KEYS.logout],
       mutationFn: async () => {
         const client = await getApiClient();
         await client.logout();
         reset();
+        // queryClient.clear();
       },
     });
   },

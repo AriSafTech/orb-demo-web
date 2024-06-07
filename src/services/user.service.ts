@@ -109,7 +109,7 @@ export const userService = {
         );
 
         await queryClient.invalidateQueries({
-          queryKey: [QUERY_KEYS.getProfile],
+          queryKey: [QUERY_KEYS.getAllUsers],
         });
         return res.data.data?.user;
       },
