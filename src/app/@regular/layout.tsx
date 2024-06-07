@@ -223,7 +223,7 @@ export default function RegularLayout({
                           {Object.entries(balance!).map(([id, coin]) => (
                             <Card key={id} className="col-span-1">
                               <CardHeader>
-                                <h4 className="text-sm text-primary font-bold tracking-tighter">
+                                <h4 className="text-sm text-primary font-bold tracking-tighter text-center">
                                   {coin.name}
                                 </h4>
                                 <p className="text-center text-2xl">

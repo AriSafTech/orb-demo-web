@@ -47,7 +47,7 @@
     "role": "役割",
     "consumer": "消費者",
     "merchant": "商人",
-    "status": "状態"
+    "status": "アクティブ"
   },
   "adminLayout": {
     "dashboard": "ダッシュボード",

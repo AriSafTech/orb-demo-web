@@ -49,7 +49,6 @@ type FormData = z.infer<typeof formSchema>;
 
 const userDetails = () => {
   const { data: selfInfo } = authService.useMe();
-
   if (selfInfo) {
     return <Me selfInfo={selfInfo} />;
   } else {

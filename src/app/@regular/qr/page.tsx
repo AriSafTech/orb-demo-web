@@ -27,7 +27,7 @@ const Page = () => {
       <div className="flex flex-col gap-3">
         <div ref={qrRef}>
           <QRCodeCanvas
-            value={`${baseUrl}/payment?receiverId=${user?.userName}`}
+            value={`${baseUrl}payment?receiverId=${user?.userName}`}
           />
         </div>
         <Button onClick={downloadQRCode}>Download</Button>

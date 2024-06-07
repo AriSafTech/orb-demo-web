@@ -46,7 +46,7 @@
     "role": "Role",
     "consumer":"Consumer",
     "merchant" : "Merchant",
-    "status":"Status"
+    "status":"Active"
   },
   "adminLayout": {
     "users": "Users",

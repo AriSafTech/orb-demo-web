@@ -155,7 +155,8 @@ export const authService = {
     return useMutation({
       mutationKey: [MUTATION_KEYS.logout],
       mutationFn: async () => {
-        // TODO: call logout endpoint
+        const client = await getApiClient();
+        // const res = await client.logout();
         reset();
       },
     });

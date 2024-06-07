@@ -29,7 +29,6 @@ import { toast } from "sonner";
 
 const UsersPage = () => {
   const { data: allUsers, status } = userService.useAllUsers();
-
   const { data: t } = useLanguageStore();
   const pageTitle = t.users.title;
 

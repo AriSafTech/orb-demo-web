@@ -13,8 +13,8 @@ function AdminDashboardPage() {
   const { data: coins } = coinService.useAllCoins();
   const { data: allUsers } = userService.useAllUsers();
   const { data: allTransactions } = transactionService.useAllTransactions();
-
-  const countRecentTransactions = (transactions: any) => {
+  // Last 24 hours transaction
+  const recentTransactionCount = useMemo(() => {
     const now = new Date();
     const oneDayAgo = subDays(now, 1);
 
@@ -24,8 +24,9 @@ function AdminDashboardPage() {
     });
 
     return recentTransactions?.length;
-  };
+  }, [allTransactions]);
 
+  // Issue coins
   const totalBalance = allUsers?.reduce(
     (sum, user) => sum + parseFloat(user?.balance as string),
     0,
@@ -53,7 +54,7 @@ function AdminDashboardPage() {
                 <div className="text-[13px] text-center">
                   {t.adminLayout.exchange_rate}:
                 </div>{" "}
-                <div className="font-bold text-center">
+                <div className="font-bold text-center text-[40px]">
                   {coin.exchange_rate}
                 </div>
               </CardContent>
@@ -78,7 +79,7 @@ function AdminDashboardPage() {
             <CardHeader className="text-[13px] text-center">
               {t.adminLayout.totalActiveUsers}
             </CardHeader>
-            <CardContent className="text-center font-bold">
+            <CardContent className="text-center font-bold text-[40px]">
               {allUsers?.length}
             </CardContent>
           </Card>
@@ -88,7 +89,7 @@ function AdminDashboardPage() {
             <CardHeader className="text-[13px] text-center">
               {t.adminLayout.totalIssuedCoins}
             </CardHeader>
-            <CardContent className="text-center font-bold">
+            <CardContent className="text-center font-bold text-[40px]">
               {totalBalance}
             </CardContent>
           </Card>
@@ -98,8 +99,8 @@ function AdminDashboardPage() {
             <CardHeader className="text-[13px] text-center">
               {t.adminLayout.lastDayTransactions}
             </CardHeader>
-            <CardContent className="text-center font-bold">
-              {countRecentTransactions(allTransactions)}
+            <CardContent className="text-center font-bold text-[40px]">
+              {recentTransactionCount}
             </CardContent>
           </Card>
         </div>
