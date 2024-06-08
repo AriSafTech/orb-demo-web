@@ -42,6 +42,9 @@ import { useAuthStore } from "@/stores/authStore";
 import { userService } from "@/services/user.service";
 import LaravelEcho from "@/components/custom/Echo";
 import PusherComponent from "@/components/custom/Echo";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { SelectSeparator } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 
 type NavItem = {
   label: string;
@@ -184,7 +187,30 @@ export default function RegularLayout({
           <div className="flex justify-between gap-8 items-center">
             <div className="flex">
               <div className="relative">
-                <RxBell className="w-10" size={30} />
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="outline-none">
+                    {" "}
+                    <RxBell className="w-10" size={30} />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <ScrollArea className="h-72 w-auto rounded-md">
+                      <div className="p-4">
+                        <h4 className="mb-4 text-sm font-medium leading-none text-center">
+                          {t.layout.notifications}
+                        </h4>
+                        {userNotifications &&
+                          userNotifications.map((notification) => (
+                            <>
+                              <div key={notification.id} className="text-sm">
+                                {notification.title}
+                              </div>
+                              <Separator className="my-2" />
+                            </>
+                          ))}
+                      </div>
+                    </ScrollArea>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
               <div className="absolute top-[1px] right-[66px] bg-primary text-white w-7 h-7 rounded-full flex justify-center items-center p-2">
                 {userNotifications && (
@@ -237,9 +263,6 @@ export default function RegularLayout({
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  {/* <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Billing</DropdownMenuItem>
-                <DropdownMenuItem>Team</DropdownMenuItem> */}
                   <DropdownMenuItem
                     onClick={async () => {
                       console.log("LOGGING OUT");

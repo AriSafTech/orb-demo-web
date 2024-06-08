@@ -1,6 +1,7 @@
 {
   "layout": {
-    "balance": "バランス"
+    "balance": "バランス",
+      "notifications" : "通知"
   },
   "login": {
     "title": "ログイン",

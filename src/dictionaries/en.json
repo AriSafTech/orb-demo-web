@@ -1,6 +1,7 @@
 {
   "layout": {
-    "balance": "Balance"
+    "balance": "Balance",
+    "notifications" : "Notifications"
   },
   "login": {
     "title": "Login",
