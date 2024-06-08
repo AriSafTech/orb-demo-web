@@ -54,7 +54,7 @@ function AdminDashboardPage() {
                 <div className="text-[13px] text-center">
                   {t.adminLayout.exchange_rate}:
                 </div>{" "}
-                <div className="font-bold text-center text-[40px]">
+                <div className="font-bold text-center text-[25px]">
                   {coin.exchange_rate}
                 </div>
               </CardContent>
@@ -79,7 +79,7 @@ function AdminDashboardPage() {
             <CardHeader className="text-[13px] text-center">
               {t.adminLayout.totalActiveUsers}
             </CardHeader>
-            <CardContent className="text-center font-bold text-[40px]">
+            <CardContent className="text-center font-bold text-[25px]">
               {allUsers?.length}
             </CardContent>
           </Card>
@@ -89,7 +89,7 @@ function AdminDashboardPage() {
             <CardHeader className="text-[13px] text-center">
               {t.adminLayout.totalIssuedCoins}
             </CardHeader>
-            <CardContent className="text-center font-bold text-[40px]">
+            <CardContent className="text-center font-bold text-[25px]">
               {totalBalance}
             </CardContent>
           </Card>
@@ -99,7 +99,7 @@ function AdminDashboardPage() {
             <CardHeader className="text-[13px] text-center">
               {t.adminLayout.lastDayTransactions}
             </CardHeader>
-            <CardContent className="text-center font-bold text-[40px]">
+            <CardContent className="text-center font-bold text-[25px]">
               {recentTransactionCount}
             </CardContent>
           </Card>
