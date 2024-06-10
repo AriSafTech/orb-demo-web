@@ -3,6 +3,7 @@ import { getApiClient } from "@/api/client";
 import { MUTATION_KEYS } from "@/constants/mutation-keys.constants";
 import { QUERY_KEYS } from "@/constants/query-keys.constants";
 import { useAuthStore } from "@/stores/authStore";
+import Pusher from "pusher-js";
 import {
   QueryClient,
   useMutation,
@@ -33,7 +34,6 @@ export const userService = {
     const query = useQuery({
       queryKey: [QUERY_KEYS.getAllUsers],
       queryFn: async () => {
-        // TODO: call actual API endpoint
         const client = await getApiClient();
         const res = await client.getAllUsers();
         return res?.data?.data?.users;
@@ -93,9 +93,7 @@ export const userService = {
     });
   },
   // update user status
-
   useUpdateUserStatus(userId: string) {
-    // const { user } = useAuthStore();
     const queryClient = useQueryClient();
     return useMutation({
       mutationKey: [MUTATION_KEYS.userStatus],
@@ -118,21 +116,36 @@ export const userService = {
   // User notifications
   useUserNotifications() {
     const { tokens, user } = useAuthStore();
+    const queryClient = useQueryClient();
+    var pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
+      cluster: process.env.NEXT_PUBLIC_PUSHER_APP_CLUSTER,
+    });
+
     const query = useQuery({
       queryKey: [QUERY_KEYS.getUserNotifications],
       queryFn: async () => {
-        // TODO: call actual API endpoint
         const client = await getApiClient();
         const params = {
-          //@ts-ignore
+          // @ts-ignore
           user_id: user.id,
         };
         const res = await client.getAllNotifications(params);
+
+        var channel = pusher.subscribe(`notification-${user?.id}`);
+        channel.bind("notification-event", async function (data: any) {
+          // console.log("data", data);
+          if (data) {
+            // toast.success(data.notification.title);
+            await queryClient.invalidateQueries({
+              queryKey: [QUERY_KEYS.getUserNotifications],
+            });
+          }
+        });
+
         return res?.data?.data?.notifications;
       },
-      // enabled: !!tokens && !!user && user.role === "admin",
-      //   initialData: [],
     });
+
     return query;
   },
 };

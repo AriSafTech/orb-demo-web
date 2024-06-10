@@ -191,6 +191,15 @@ export default function RegularLayout({
                   <DropdownMenuTrigger className="outline-none">
                     {" "}
                     <RxBell className="w-10" size={30} />
+                    <div className="absolute top-[-8px] right-[-13px] bg-primary text-white w-7 h-7 rounded-full flex justify-center items-center p-2">
+                      {userNotifications && (
+                        <div className="text-xs">
+                          {userNotifications?.length > 99
+                            ? "99+"
+                            : userNotifications?.length}
+                        </div>
+                      )}
+                    </div>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                     <ScrollArea className="h-72 w-auto rounded-md">
@@ -211,15 +220,6 @@ export default function RegularLayout({
                     </ScrollArea>
                   </DropdownMenuContent>
                 </DropdownMenu>
-              </div>
-              <div className="absolute top-[1px] right-[66px] bg-primary text-white w-7 h-7 rounded-full flex justify-center items-center p-2">
-                {userNotifications && (
-                  <div className="text-xs">
-                    {userNotifications?.length > 99
-                      ? "99+"
-                      : userNotifications?.length}
-                  </div>
-                )}
               </div>
             </div>
 
