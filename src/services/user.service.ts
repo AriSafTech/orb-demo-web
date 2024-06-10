@@ -131,6 +131,8 @@ export const userService = {
         };
         const res = await client.getAllNotifications(params);
 
+        console.log("NOTIFICATIONS:", res.data);
+
         var channel = pusher.subscribe(`notification-${user?.id}`);
         channel.bind("notification-event", async function (data: any) {
           // console.log("data", data);

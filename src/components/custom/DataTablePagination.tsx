@@ -16,6 +16,7 @@ import {
 } from "../ui/select";
 import { Button } from "../ui/button";
 import { useLanguageStore } from "@/stores/languageStore";
+import { cn } from "@/lib/utils";
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;
@@ -108,11 +109,10 @@ export function DataTablePagination<TData>({
             <Button
               key={page}
               variant="outline"
-              className={`h-8 w-8 p-0 ${
-                page === pageIndex
-                  ? "bg-primary text-white" // Change this to your desired active color
-                  : "hover:shadow-lg"
-              }`}
+              className={cn("h-8 w-8 p-0 !opacity-100 select-none", {
+                "bg-primary text-white": page === pageIndex,
+                "hover:shadow-lg": page !== pageIndex,
+              })}
               onClick={() => page !== pageIndex && table.setPageIndex(page)}
               disabled={page === pageIndex}
             >
