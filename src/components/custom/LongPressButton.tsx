@@ -4,37 +4,46 @@ import React, { useState } from "react";
 import { Button, ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-type Props = ButtonProps & {
+type Props = Omit<ButtonProps, "onClick"> & {
   onLongPress: () => void;
   delay?: number;
   onStart?: () => void;
   onCancel?: () => void;
+  enabled?: boolean;
 };
 
 function LongPressButton({
   children,
   className,
   onLongPress,
-  // onStart,
-  // onCancel,
+  onStart,
+  onCancel,
+  enabled = true,
   // delay,
   ...rest
 }: Props) {
-  const onStart = () => {
+  const handleStart = () => {
     setIsPressing(true);
+    onStart?.();
   };
 
-  const onCancel = () => {
+  const handleCancel = () => {
     setIsPressing(false);
+    onCancel?.();
   };
 
-  const longPressEvent = useLongPress(onLongPress, {
+  const handleLongPress = () => {
+    if (enabled) {
+      onLongPress();
+    }
+  };
+
+  const longPressEvent = useLongPress(handleLongPress, {
     delay: 1000,
     isPreventDefault: true,
-    onStart,
-    onCancel,
+    onStart: handleStart,
+    onCancel: handleCancel,
   });
-  const [progress, setProgress] = useState(0);
   const [isPressing, setIsPressing] = useState(false);
 
   return (
@@ -46,8 +55,8 @@ function LongPressButton({
     >
       <div
         className={cn("bg-violet-700 absolute left-0 top-0 right-0 bottom-0", {
-          "animate-from-left": isPressing,
-          "-translate-x-full": !isPressing,
+          "animate-from-left": isPressing && enabled,
+          "-translate-x-full": !isPressing || !enabled,
         })}
       />
       <div className="z-50">{children}</div>

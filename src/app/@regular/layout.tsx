@@ -285,7 +285,7 @@ export default function RegularLayout({
           </div>
         </div>
 
-        <div className="flex flex-col items-stretch h-[calc(100vh-3.5rem)] w-full container mx-auto py-10 overflow-y-scroll">
+        <div className="flex flex-col items-stretch h-[calc(100vh-3.5rem)] w-full container mx-auto py-10">
           {children}
         </div>
       </div>

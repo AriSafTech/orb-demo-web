@@ -30,6 +30,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { userService } from "@/services/user.service";
 import { useAuthStore } from "@/stores/authStore";
 import Loading from "@/components/custom/Loading";
+import LanguageSwitcher from "@/components/custom/LanguageSwitcher";
+import { Label } from "@/components/ui/label";
 
 //   validation
 const formSchema = z.object({
@@ -110,174 +112,169 @@ const ProfilePage = ({ selfInfo }) => {
   }
 
   return (
-    <div>
+    <div className="max-w-sm">
       <Form {...form}>
-        <div className="w-full  flex justify-center items-center">
-          <Card className="w-[650px] shadow-md">
-            <CardHeader>
-              {/* <CardTitle className="text-center">{t.me.title}</CardTitle> */}
-              <CardTitle className="text-center flex justify-center">
-                {" "}
-                <Avatar>
-                  {avatarPreview ? (
-                    <AvatarImage src={avatarPreview} />
-                  ) : selfInfo?.avatar ? (
-                    <AvatarImage src={selfInfo.avatar} />
-                  ) : (
-                    <AvatarFallback>
-                      {selfInfo?.name
-                        ? selfInfo.name.charAt(0).toUpperCase()
-                        : ""}{" "}
-                    </AvatarFallback>
-                  )}
-                </Avatar>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form
-                className="space-y-4"
-                onSubmit={form.handleSubmit(onSubmit)}
-              >
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.me.name}</FormLabel>
-                      <FormControl>
-                        <Input placeholder={t.me.name} {...field} type="text" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.me.phone}</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder={t.me.phone}
-                          {...field}
-                          type="text"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="address"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.me.address}</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder={t.me.address}
-                          {...field}
-                          type="text"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="bank_details"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.me.bankDetails}</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder={t.me.bankDetails}
-                          {...field}
-                          type="text"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="gender"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.me.gender}</FormLabel>
-                      <Select
-                        // onValueChange={field.onChange}
-                        // value={field.value || ""}
-                        // onValueChange={(value) =>
-                        //   field.onChange(value === "unselected" ? null : value)
-                        // }
-                        // onValueChange={field.onChange}
-                        // value={field.value || selfInfo?.gender}
-                        defaultValue={field.value || ""}
-                        onValueChange={(value) =>
-                          field.onChange(value === "" ? null : value)
-                        }
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select gender to display" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="unselected">
-                            ----Unselected---
-                          </SelectItem>
-                          <SelectItem value="male">{t.me.male}</SelectItem>
-                          <SelectItem value="female">{t.me.female}</SelectItem>
-                          <SelectItem value="other">{t.me.other}</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="avatar"
-                  render={({ field }) => {
-                    const handleFileChange = (
-                      event: React.ChangeEvent<HTMLInputElement>,
-                    ) => {
-                      const file = event.target.files?.[0];
-                      form.setValue("avatar", file || null);
-                      if (file) {
-                        setAvatarPreview(URL.createObjectURL(file));
-                      } else {
-                        setAvatarPreview(null);
+        <Card className="w-full shadow-md">
+          <CardHeader className="flex flex-col items-start gap-4">
+            {/* <CardTitle className="text-center">{t.me.title}</CardTitle> */}
+            <CardTitle className="text-center flex justify-center">
+              {t.me.title}
+            </CardTitle>
+            <Avatar className="w-20 h-20 self-center">
+              {avatarPreview ? (
+                <AvatarImage src={avatarPreview} />
+              ) : (
+                <AvatarImage src={selfInfo.avatar} />
+              )}
+              <AvatarFallback>
+                {selfInfo?.name ? selfInfo.name.charAt(0).toUpperCase() : ""}{" "}
+              </AvatarFallback>
+            </Avatar>
+          </CardHeader>
+          <CardContent>
+            <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t.me.name}</FormLabel>
+                    <FormControl>
+                      <Input placeholder={t.me.name} {...field} type="text" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t.me.phone}</FormLabel>
+                    <FormControl>
+                      <Input placeholder={t.me.phone} {...field} type="text" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="address"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t.me.address}</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder={t.me.address}
+                        {...field}
+                        type="text"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="bank_details"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t.me.bankDetails}</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder={t.me.bankDetails}
+                        {...field}
+                        type="text"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="gender"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t.me.gender}</FormLabel>
+                    <Select
+                      // onValueChange={field.onChange}
+                      // value={field.value || ""}
+                      // onValueChange={(value) =>
+                      //   field.onChange(value === "unselected" ? null : value)
+                      // }
+                      // onValueChange={field.onChange}
+                      // value={field.value || selfInfo?.gender}
+                      defaultValue={field.value || ""}
+                      onValueChange={(value) =>
+                        field.onChange(value === "" ? null : value)
                       }
-                    };
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select gender to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="unselected">
+                          ----Unselected---
+                        </SelectItem>
+                        <SelectItem value="male">{t.me.male}</SelectItem>
+                        <SelectItem value="female">{t.me.female}</SelectItem>
+                        <SelectItem value="other">{t.me.other}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="avatar"
+                render={({ field }) => {
+                  const handleFileChange = (
+                    event: React.ChangeEvent<HTMLInputElement>,
+                  ) => {
+                    const file = event.target.files?.[0];
+                    form.setValue("avatar", file || null);
+                    if (file) {
+                      setAvatarPreview(URL.createObjectURL(file));
+                    } else {
+                      setAvatarPreview(null);
+                    }
+                  };
 
-                    return (
-                      <FormItem>
-                        <FormLabel>{t.me.avatar}</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="file"
-                            placeholder={t.me.avatar}
-                            onChange={handleFileChange}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    );
-                  }}
-                />
-
-                <Button type="submit" className="w-full" isLoading={isPending}>
-                  {t.me.btn}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
-        </div>
+                  return (
+                    <FormItem>
+                      <FormLabel>{t.me.avatar}</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="file"
+                          placeholder={t.me.avatar}
+                          onChange={handleFileChange}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+              <div className="flex flex-col gap-3">
+                <Label>{t.me.language}</Label>
+                <LanguageSwitcher />
+              </div>
+              <Button
+                type="submit"
+                className="w-full !mt-8 mb-4"
+                isLoading={isPending}
+              >
+                {t.me.btn}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
       </Form>
     </div>
   );

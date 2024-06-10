@@ -132,7 +132,8 @@ function PaymentForm({
   };
 
   return (
-    <div className="max-w-sm flex flex-col items-center sm:items-stretch">
+    <div className="max-w-sm flex flex-col items-center sm:items-stretch py-4">
+      {/* <h2 className="text-xl font-bold mb-8">{t.payment.title}</h2> */}
       <Card className="w-full">
         <CardHeader>
           <CardTitle>{t.payment.form_title}</CardTitle>
@@ -213,7 +214,8 @@ function PaymentForm({
                 <div>
                   <LongPressButton
                     className="w-full mb-2 mt-8"
-                    onClick={() => form.trigger()}
+                    onStart={() => form.trigger()}
+                    enabled={form.formState.isValid}
                     onLongPress={() => formRef.current!.requestSubmit()}
                   >
                     Send

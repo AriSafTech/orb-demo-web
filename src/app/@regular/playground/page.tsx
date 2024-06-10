@@ -9,8 +9,8 @@ function PlaygroundPage() {
       <LongPressButton
         size="lg"
         className="my-8 w-full"
-        onLongPress={() => console.log("LONG PRESS")}
-        onClick={() => console.log("CLICK")}
+        onLongPress={() => console.log("LONG PRESS COMPLETE")}
+        onStart={() => console.log("LONG PRESS STARTED")}
       >
         Send
       </LongPressButton>

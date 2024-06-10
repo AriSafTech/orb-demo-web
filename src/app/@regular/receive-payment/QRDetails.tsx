@@ -77,7 +77,7 @@ const QRDetails = ({ receiverId, receiverName, coins }: Props) => {
 
   const link = useMemo(
     () =>
-      coin != undefined
+      coin != undefined && amount > 0
         ? generatePaymentLink(
             {
               receiverId,

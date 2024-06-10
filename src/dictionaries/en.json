@@ -25,8 +25,8 @@
     "merchant": "Merchant"
   },
   "me": {
-    "title": "Me",
-    "btn": "Submit",
+    "title": "Profile",
+    "btn": "Save",
     "name": "Name",
     "phone": "Phone",
     "avatar": "Avatar",
@@ -34,8 +34,9 @@
     "bankDetails": "Bank Details",
     "gender": "Gender",
     "male": "Male",
-    "female": "female",
-    "other": "Other"
+    "female": "Female",
+    "other": "Other",
+    "language": "Language"
   },
   "users": {
     "title": "All Users",
