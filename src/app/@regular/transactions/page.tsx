@@ -9,8 +9,10 @@ import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useAuthStore } from "@/stores/authStore";
 
-const TransactionPage = () => {
+const TransactionsPage = () => {
+  const { user } = useAuthStore();
   const { data: t } = useLanguageStore();
   const { data: selfTransactions, status } =
     transactionService.useSelfTransactions();
@@ -24,22 +26,34 @@ const TransactionPage = () => {
     {
       accessorKey: "participants.consumer",
       header: t.transaction.sender,
+      cell: ({ row }) => {
+        const senderId = row.original.participants?.consumer;
+        if (senderId === user!.userName) {
+          return <Badge>Me</Badge>;
+        } else {
+          return <p>{senderId}</p>;
+        }
+      },
     },
     {
       accessorKey: "participants.merchant",
       header: t.transaction.receiver,
       cell: ({ row }) => {
-        return (
+        const receiverId =
           row.original.participants?.merchant ??
           // @ts-ignore
           row.original.participants?.receiver ??
-          ""
-        );
+          "";
+        if (receiverId === user!.userName) {
+          return <Badge>Me</Badge>;
+        } else {
+          return <p>{receiverId}</p>;
+        }
       },
     },
     {
       accessorKey: "type",
-      header: t.transaction.group,
+      header: t.transaction.type,
       cell: ({ row }) => {
         return row.original.group == "payment" ? (
           <Badge variant="secondary">{t.transaction.payment}</Badge>
@@ -93,4 +107,4 @@ const TransactionPage = () => {
   }
 };
 
-export default TransactionPage;
+export default TransactionsPage;

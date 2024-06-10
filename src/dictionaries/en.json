@@ -1,7 +1,7 @@
 {
   "layout": {
     "balance": "Balance",
-    "notifications" : "Notifications"
+    "notifications": "Notifications"
   },
   "login": {
     "title": "Login",
@@ -24,18 +24,18 @@
     "consumer": "Consumer",
     "merchant": "Merchant"
   },
-  "me":{
-    "title":"Me",
-    "btn" :"Submit" ,
-    "name":"Name",
-    "phone":"Phone",
-    "avatar":"Avatar",
-    "address":"Address",
-    "bankDetails":"Bank Details",
-    "gender":"Gender",
-    "male":"Male",
-    "female":"female",
-    "other":"Other"
+  "me": {
+    "title": "Me",
+    "btn": "Submit",
+    "name": "Name",
+    "phone": "Phone",
+    "avatar": "Avatar",
+    "address": "Address",
+    "bankDetails": "Bank Details",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "female",
+    "other": "Other"
   },
   "users": {
     "title": "All Users",
@@ -45,11 +45,11 @@
     "userId": "User ID",
     "balance": "Balance",
     "role": "Role",
-    "consumer":"Consumer",
-    "merchant" : "Merchant",
-    "status":"Active",
-    "view_profile":"View Profile",
-    "user_profile":"User Profile"
+    "consumer": "Consumer",
+    "merchant": "Merchant",
+    "status": "Active",
+    "view_profile": "View Profile",
+    "user_profile": "User Profile"
   },
   "adminLayout": {
     "users": "Users",
@@ -58,14 +58,13 @@
     "chargeAccount": "Charge Account",
     "owa": "Orb Wallet Admin",
     "logOut": "Logout",
-    "coins":"Coins",
-    "coinName":"Coin name",
-    "totalActiveUsers":"Total active users",
-    "totalIssuedCoins":"Total issued coins",
-    "lastDayTransactions":"Total transactions in last 24 hours",
-    "exchange_rate":"Exchange Rate",
-    "validity":"Validity"
-    
+    "coins": "Coins",
+    "coinName": "Coin name",
+    "totalActiveUsers": "Total active users",
+    "totalIssuedCoins": "Total issued coins",
+    "lastDayTransactions": "Total transactions in last 24 hours",
+    "exchange_rate": "Exchange Rate",
+    "validity": "Validity"
   },
   "transaction": {
     "title": "Transactions",
@@ -75,16 +74,18 @@
     "group": "Group",
     "type": "Type",
     "tx_date": "Transaction Date",
-    "charge":"Charge",
+    "charge": "Charge",
     "payment": "Payment"
   },
   "payment": {
-    "title": "Make payment",
+    "form_title": "Make payment",
+    "confirm_title": "Confirm payment",
     "coin": "Coin",
     "coin_placeholder": "Please select a coin",
     "receiverId": "Receiver ID",
     "receiverName": "Receiver Name",
-    "amount": "Amount"
+    "amount": "Amount",
+    "submit_helper": "Press and hold"
   },
   "charge": {
     "title": "Charge Account",
@@ -107,8 +108,8 @@
     "payment_paymentFailed_desc": "Failed to make payment. Please wait a while and try again.",
     "unprocessableContent": "Unprocessable Content"
   },
-  "success":{
-      "success_message":"Updated successfully"
+  "success": {
+    "success_message": "Updated successfully"
   },
   "info": {
     "charge_chargeSuccess_title": "Charge account successful",
@@ -122,5 +123,4 @@
     "page": "Page",
     "of": "of"
   }
-  
 }

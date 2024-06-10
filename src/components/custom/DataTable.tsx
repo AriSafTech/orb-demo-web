@@ -58,7 +58,7 @@ export function DataTable<TData, TValue>({
   return (
     <>
       {/* search */}
-      <div className="flex items-center py-4 justify-between">
+      <div className="flex items-center py-4 justify-between gap-4">
         <div className="text-xl font-bold mb-2">{`${pageTitle}`}</div>
         {/* <Input
           placeholder={t.dataTable.search}

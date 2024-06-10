@@ -50,7 +50,7 @@ type FormData = z.infer<typeof formSchema>;
 const userDetails = () => {
   const { data: selfInfo } = authService.useMe();
   if (selfInfo) {
-    return <Me selfInfo={selfInfo} />;
+    return <ProfilePage selfInfo={selfInfo} />;
   } else {
     return (
       <div className="h-full flex items-center justify-center">
@@ -63,7 +63,7 @@ const userDetails = () => {
 };
 
 //@ts-ignore
-const Me = ({ selfInfo }) => {
+const ProfilePage = ({ selfInfo }) => {
   const router = useRouter();
   const { data: t } = useLanguageStore();
   const { setData, user } = useAuthStore();

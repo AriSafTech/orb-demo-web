@@ -89,7 +89,7 @@ const UsersPage = () => {
       header: t.users.balance,
     },
     {
-      accessorKey: "id",
+      accessorKey: "username",
       header: t.users.userId,
     },
     {

@@ -34,6 +34,7 @@ import { useRouter } from "next/navigation";
 import { RxBell } from "react-icons/rx";
 import { MdLogout as LogoutIcon } from "react-icons/md";
 import { RxHamburgerMenu as MenuIcon } from "react-icons/rx";
+import { LuCodesandbox as PlaygroundIcon } from "react-icons/lu";
 
 import { getInitials } from "@/lib/name-utils";
 import { useLanguageStore } from "@/stores/languageStore";
@@ -58,17 +59,22 @@ export default function RegularLayout({
   children: React.ReactNode;
 }>) {
   const NAV_ITEMS = [
-    { label: "Me", path: "/me", icon: UserIcon },
-    { label: "Payment", path: "/payment", icon: PaymentIcon },
     {
       label: "Transactions",
       path: "/transactions",
       icon: TransactionListIcon,
     },
+    { label: "Make Payment", path: "/make-payment", icon: PaymentIcon },
     {
-      label: "QR",
-      path: "/qr",
+      label: "Receive Payment",
+      path: "/receive-payment",
       icon: QR,
+    },
+    { label: "Profile", path: "/profile", icon: UserIcon },
+    {
+      label: "Playground (dev)",
+      path: "/playground",
+      icon: PlaygroundIcon,
     },
   ];
   const pathname = usePathname();
@@ -279,7 +285,7 @@ export default function RegularLayout({
           </div>
         </div>
 
-        <div className="flex flex-col h-[calc(100vh-3.5rem)] w-full container mx-auto py-10 overflow-y-scroll">
+        <div className="flex flex-col items-stretch h-[calc(100vh-3.5rem)] w-full container mx-auto py-10 overflow-y-scroll">
           {children}
         </div>
       </div>

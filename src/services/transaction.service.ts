@@ -4,6 +4,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/constants/query-keys.constants";
 import { getApiClient } from "@/api/client";
 import { MUTATION_KEYS } from "@/constants/mutation-keys.constants";
+import { authService } from "./auth.service";
 
 export const transactionService = {
   useAllTransactions() {
@@ -43,6 +44,34 @@ export const transactionService = {
     return query;
   },
 
+  useMakePayment() {
+    return useMutation({
+      mutationKey: [MUTATION_KEYS.makePayment],
+      mutationFn: async ({
+        amount,
+        coinId,
+        senderOrbId,
+        receiverOrbId,
+      }: {
+        amount: number;
+        coinId: string;
+        senderOrbId: string;
+        receiverOrbId: string;
+      }) => {
+        const client = await getApiClient();
+        const res = await client.payments(
+          {},
+          {
+            amount,
+            coin: coinId,
+            receiver: receiverOrbId,
+            sender: senderOrbId,
+          },
+        );
+        return res.data?.data?.transaction;
+      },
+    });
+  },
   useChargeAccount() {
     return useMutation({
       mutationKey: [MUTATION_KEYS.chargeAccount],
@@ -61,7 +90,6 @@ export const transactionService = {
           {
             amount,
             receiver: receiverOrbId,
-            // @ts-ignore
             coin: coinId,
           },
         );
