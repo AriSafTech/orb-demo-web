@@ -632,6 +632,11 @@ declare namespace Components {
             email?: string;
             /**
              * example:
+             * http://orb-demo-api.test/storage/users/hasib.webp
+             */
+            avatar?: string;
+            /**
+             * example:
              * true
              */
             is_active?: boolean;

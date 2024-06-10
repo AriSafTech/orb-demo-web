@@ -1,10 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // api: {
-    //     bodyParser: {
-    //       sizeLimit: '20mb',
-    //     },
-    //   },
+    images: {
+        domains: ['api.orb.arisaftech.co.jp'],
+      },
 };
 
 export default nextConfig;

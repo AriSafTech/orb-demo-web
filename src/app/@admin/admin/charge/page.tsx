@@ -51,6 +51,7 @@ import { toast } from "sonner";
 function AdminChargePage() {
   const { data: coinsData, status: coinsStatus } = coinService.useAllCoins();
   const { data: usersData, status: usersStatus } = userService.useAllUsers();
+  // console.log("cm", coinsData);
 
   const coins = useMemo(
     () =>

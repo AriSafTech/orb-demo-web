@@ -36,12 +36,14 @@ interface UseAllUsersResponse {
   data: User[];
   status: string;
 }
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getInitials } from "@/lib/name-utils";
+import Image from "next/image";
 
 const UsersPage = () => {
   const { data: allUsers, status } = userService.useAllUsers();
@@ -96,13 +98,14 @@ const UsersPage = () => {
       cell: ActionsCell,
     },
     {
-      accessorKey: "id",
+      accessorKey: "actions",
       header: " ",
       cell: UserViewActionsCell,
     },
   ];
   // User active status
-  function ActionsCell({ row }: any) {
+  //@ts-ignore
+  function ActionsCell({ row }) {
     const FormSchema = z.object({
       is_active: z.boolean(),
     });
@@ -157,8 +160,8 @@ const UsersPage = () => {
     );
   }
   // User profile view
-
-  function UserViewActionsCell({ row }: any) {
+  //@ts-ignore
+  function UserViewActionsCell({ row }) {
     return (
       <Sheet>
         <SheetTrigger asChild>
@@ -167,18 +170,22 @@ const UsersPage = () => {
         <SheetContent className="flex flex-col gap-6">
           <SheetHeader className="flex items-center gap-4">
             <SheetTitle>{t.users.user_profile}</SheetTitle>
-            <Avatar>
-              {row.original?.avatar ? (
-                <AvatarImage
-                  src={row.original?.avatar}
-                  alt="User profile dropdown"
-                />
-              ) : (
+
+            {row.original?.avatar ? (
+              <Image
+                src={row.original?.avatar}
+                alt="User profile dropdown"
+                width={200}
+                height={200}
+                className="object-cover h-[200px]"
+              />
+            ) : (
+              <Avatar>
                 <AvatarFallback>
                   {getInitials(row.original?.name ?? "")}
                 </AvatarFallback>
-              )}
-            </Avatar>
+              </Avatar>
+            )}
           </SheetHeader>
           <div className="flex justify-between items-center mt-4">
             <div className="flex flex-col gap-4">
