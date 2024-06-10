@@ -10,6 +10,19 @@ import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 // import { getFuzzyVectorFn } from "@tanstack/match-sorter-utils";
 
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+
 import {
   Form,
   FormControl,
@@ -26,6 +39,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { getInitials } from "@/lib/name-utils";
 
 const UsersPage = () => {
   const { data: allUsers, status } = userService.useAllUsers();
@@ -77,63 +92,15 @@ const UsersPage = () => {
     {
       accessorKey: "is_active",
       header: t.users.status,
-      //   cell: ({ row }) => {
-      //     const FormSchema = z.object({
-      //       is_active: z.boolean(),
-      //     });
-      //     const form = useForm<z.infer<typeof FormSchema>>({
-      //       resolver: zodResolver(FormSchema),
-      //       defaultValues: {
-      //         is_active: row.original?.is_active,
-      //       },
-      //     });
-
-      //     const { mutateAsync: updateUserStatus } =
-      //       userService.useUpdateUserStatus(row.original?.id as string);
-
-      //     return (
-      //       <Form {...form}>
-      //         <form className="w-full">
-      //           <div>
-      //             <div className="space-y-4">
-      //               <FormField
-      //                 control={form.control}
-      //                 name="is_active"
-      //                 render={({ field }) => (
-      //                   <FormItem className="">
-      //                     <FormControl>
-      //                       <Switch
-      //                         checked={field.value}
-      //                         onCheckedChange={(value: boolean) => {
-      //                           field.onChange(value);
-      //                           try {
-      //                             updateUserStatus({
-      //                               is_active: value,
-      //                             });
-
-      //                             toast.success(t.success.success_message);
-      //                           } catch (e) {
-      //                             //@ts-ignore
-      //                             if (e.response.status === 422) {
-      //                               toast.error(t.errors.unprocessableContent);
-      //                             }
-      //                           }
-      //                         }}
-      //                       />
-      //                     </FormControl>
-      //                   </FormItem>
-      //                 )}
-      //               />
-      //             </div>
-      //           </div>
-      //         </form>
-      //       </Form>
-      //     );
-      //   },
       cell: ActionsCell,
     },
+    {
+      accessorKey: "id",
+      header: " ",
+      cell: UserViewActionsCell,
+    },
   ];
-
+  // User active status
   function ActionsCell({ row }: any) {
     const FormSchema = z.object({
       is_active: z.boolean(),
@@ -186,6 +153,50 @@ const UsersPage = () => {
           </div>
         </form>
       </Form>
+    );
+  }
+  // User profile view
+
+  function UserViewActionsCell({ row }: any) {
+    return (
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button size={"sm"}>{t.users.view_profile}</Button>
+        </SheetTrigger>
+        <SheetContent className="flex flex-col gap-6">
+          <SheetHeader className="flex items-center gap-4">
+            <SheetTitle>{t.users.user_profile}</SheetTitle>
+            <Avatar>
+              {row.original?.avatar ? (
+                <AvatarImage
+                  src={row.original?.avatar}
+                  alt="User profile dropdown"
+                />
+              ) : (
+                <AvatarFallback>
+                  {getInitials(row.original?.name ?? "")}
+                </AvatarFallback>
+              )}
+            </Avatar>
+          </SheetHeader>
+          <div className="flex justify-between items-center mt-4">
+            <div className="flex flex-col gap-4">
+              <div>{t.users.name}</div>
+              <div>{t.users.email}</div>
+              <div>{t.users.role}</div>
+              <div>{t.users.balance}</div>
+              <div>{t.users.status}</div>
+            </div>
+            <div className="flex flex-col gap-4">
+              <div>{row.original?.name}</div>
+              <div>{row.original?.email}</div>
+              <div>{row.original?.role.name}</div>
+              <div>{row.original?.balance}</div>
+              <div>{row.original?.is_active ? "Active" : "Inactive"}</div>
+            </div>
+          </div>
+        </SheetContent>
+      </Sheet>
     );
   }
 

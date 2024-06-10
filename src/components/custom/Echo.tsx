@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Pusher from "pusher-js";
 import Echo from "laravel-echo";
 import { useAuthStore } from "@/stores/authStore";
+import { toast } from "sonner";
 
 const PusherComponent = () => {
   const [data, setData] = useState([]);
@@ -15,7 +16,10 @@ const PusherComponent = () => {
 
   var channel = pusher.subscribe(`notification-${user?.id}`);
   channel.bind("notification-event", function (data: any) {
-    console.log("data", data);
+    // console.log("data", data);
+    if (data) {
+      toast.success(data.notification.title);
+    }
   });
 
   return (
