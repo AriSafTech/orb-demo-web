@@ -44,9 +44,9 @@ const ReceivePaymentPage = () => {
     <>
       <Tabs
         defaultValue="qr-basic"
-        className="max-w-sm flex flex-col items-center sm:items-start"
+        className="px-4 max-w-sm mx-auto flex flex-col items-center sm:items-start"
       >
-        <TabsList>
+        <TabsList className="mx-auto">
           <TabsTrigger value="qr-basic">QR (basic)</TabsTrigger>
           <TabsTrigger value="qr-with-details">QR (with details)</TabsTrigger>
         </TabsList>

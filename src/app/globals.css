@@ -47,6 +47,23 @@
     --destructive-foreground: 0 0% 100%;
     --ring: 187 74% 46%;
   }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar-track {
+    border: 5px solid white;
+    background-color: #b2bec3;
+  }
+
+  ::-webkit-scrollbar {
+    width: 15px;
+    background-color: #dfe6e9;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--accent));
+    /* background-color: #74b9ff; */
+    border-radius: 10px;
+  }
 }
 
 @layer base {

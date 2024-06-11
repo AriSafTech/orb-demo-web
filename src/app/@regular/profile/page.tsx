@@ -112,7 +112,7 @@ const ProfilePage = ({ selfInfo }) => {
   }
 
   return (
-    <div className="max-w-sm">
+    <div className="max-w-md mx-auto px-4 overflow-auto h-full">
       <Form {...form}>
         <Card className="w-full shadow-md">
           <CardHeader className="flex flex-col items-start gap-4">

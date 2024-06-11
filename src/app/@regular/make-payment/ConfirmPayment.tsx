@@ -94,7 +94,7 @@ function ConfirmPayment({ amount, coinId, receiverId, senderId }: Props) {
     return <Loading />;
   }
   return (
-    <div className="max-w-sm flex flex-col items-center sm:items-stretch">
+    <div className="max-w-sm mx-auto flex flex-col items-center sm:items-stretch">
       <Card className="w-full">
         <CardHeader>
           <CardTitle>{t.payment.confirm_title}</CardTitle>

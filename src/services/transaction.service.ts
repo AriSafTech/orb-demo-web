@@ -1,6 +1,6 @@
 import { Client } from "./../api/generated-api-types.d";
 import { useAuthStore } from "@/stores/authStore";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/constants/query-keys.constants";
 import { getApiClient } from "@/api/client";
 import { MUTATION_KEYS } from "@/constants/mutation-keys.constants";
@@ -45,6 +45,7 @@ export const transactionService = {
   },
 
   useMakePayment() {
+    const queryClient = useQueryClient();
     return useMutation({
       mutationKey: [MUTATION_KEYS.makePayment],
       mutationFn: async ({
@@ -68,6 +69,12 @@ export const transactionService = {
             sender: senderOrbId,
           },
         );
+        await queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.getSelfTransactions],
+        });
+        await queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.getProfile],
+        });
         return res.data?.data?.transaction;
       },
     });

@@ -35,6 +35,7 @@ function LongPressButton({
   const handleLongPress = () => {
     if (enabled) {
       onLongPress();
+      setIsPressing(false);
     }
   };
 

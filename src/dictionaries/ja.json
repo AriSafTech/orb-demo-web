@@ -68,6 +68,17 @@
     "exchange_rate": "為替レート",
     "validity": "有効性"
   },
+  "settlements": {
+    "title": "Settlements",
+    "id": "Settlment ID",
+    "coin": "Coin",
+    "currency": "Currency",
+    "coinAmount": "Coin amount",
+    "currencyAmount": "Currency amount",
+    "status": "Settlement status",
+    "createdAt": "Requested at",
+    "settledAt": "Settled at"
+  },
   "transaction": {
     "title": "取引",
     "tx_id": "ID",
@@ -88,6 +99,14 @@
     "receiverName": "Receiver Name",
     "amount": "Amount",
     "submit_helper": "Press and hold"
+  },
+  "vendors": {
+    "title": "Vendors",
+    "favourites": "Favourites",
+    "near_you": "Vendors near you",
+    "search": "Search vendor",
+    "fav_not_found": "No favourites found",
+    "near_you_not_found": "No vendors found near you"
   },
   "charge": {
     "title": "Charge Account",

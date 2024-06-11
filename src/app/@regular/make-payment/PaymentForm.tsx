@@ -57,6 +57,9 @@ import { transactionService } from "@/services/transaction.service";
 import { toast } from "sonner";
 import ConfirmPayment from "./ConfirmPayment";
 import LongPressButton from "@/components/custom/LongPressButton";
+import Vendors from "./Vendors";
+import { Separator } from "@radix-ui/react-select";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 type CoinId = string;
 
@@ -132,9 +135,10 @@ function PaymentForm({
   };
 
   return (
-    <div className="max-w-sm flex flex-col items-center sm:items-stretch py-4">
+    // <div className="max-w-sm flex flex-col items-center sm:items-stretch py-4">
+    <div className="w-full h-full flex flex-col md:flex-row gap-10 md:gap-4 py-4 overflow-y-auto">
       {/* <h2 className="text-xl font-bold mb-8">{t.payment.title}</h2> */}
-      <Card className="w-full">
+      <Card className="min-w-[300px] max-w-[300px] w-[300px] flex-grow mx-auto h-fit">
         <CardHeader>
           <CardTitle>{t.payment.form_title}</CardTitle>
         </CardHeader>
@@ -229,6 +233,9 @@ function PaymentForm({
           </div>
         </CardContent>
       </Card>
+      <Vendors
+        onSelect={(merchantOrbId) => form.setValue("receiverId", merchantOrbId)}
+      />
     </div>
   );
 }

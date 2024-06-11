@@ -7,7 +7,7 @@ function RegularClosedRedirect() {
 
   useEffect(() => {
     // router.replace("/transactions");
-    router.replace("/transactions");
+    router.replace("/make-payment");
   }, [router]);
   return <></>;
 }

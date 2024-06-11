@@ -67,6 +67,17 @@
     "exchange_rate": "Exchange Rate",
     "validity": "Validity"
   },
+  "settlements": {
+    "title": "Settlements",
+    "id": "Settlment ID",
+    "coin": "Coin",
+    "currency": "Currency",
+    "coinAmount": "Coin amount",
+    "currencyAmount": "Currency amount",
+    "status": "Settlement status",
+    "createdAt": "Requested at",
+    "settledAt": "Settled at"
+  },
   "transaction": {
     "title": "Transactions",
     "tx_id": "Transaction ID",
@@ -87,6 +98,14 @@
     "receiverName": "Receiver Name",
     "amount": "Amount",
     "submit_helper": "Press and hold"
+  },
+  "vendors": {
+    "title": "Vendors",
+    "favourites": "Favourites",
+    "near_you": "Vendors near you",
+    "search": "Search vendor",
+    "fav_not_found": "No favourites found",
+    "near_you_not_found": "No vendors found near you"
   },
   "charge": {
     "title": "Charge Account",
