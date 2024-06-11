@@ -106,13 +106,13 @@ const QRDetails = ({ receiverId, receiverName, coins }: Props) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>QR code with payment details</CardTitle>
+        <CardTitle>{t.receivePayment.qr_details_title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <CardDescription>Sender needs to confirm payment only.</CardDescription>
+        <CardDescription>{t.receivePayment.qr_details_desc}</CardDescription>
         <div className="flex flex-col gap-2 my-8">
           {/* COIN */}
-          <Label className="mt-2">Coin</Label>
+          <Label className="mt-2">{t.receivePayment.coin}</Label>
           <Select
             onValueChange={(val) =>
               setCoin(val != undefined ? coinsMap[val] ?? null : null)
@@ -120,7 +120,7 @@ const QRDetails = ({ receiverId, receiverName, coins }: Props) => {
             defaultValue={undefined}
           >
             <SelectTrigger className="max-w-xs">
-              <SelectValue placeholder={t.payment.coin_placeholder} />
+              <SelectValue placeholder={t.receivePayment.coin_placeholder} />
             </SelectTrigger>
             <SelectContent>
               {coins.map((coin) => (
@@ -132,11 +132,12 @@ const QRDetails = ({ receiverId, receiverName, coins }: Props) => {
           </Select>
 
           {/* AMOUNT */}
-          <Label className="mt-4">Amount</Label>
+          <Label className="mt-4">{t.receivePayment.amount}</Label>
           <Input
             type="number"
             value={amount}
             onChange={(e) => setAmount(Number(e.target.value))}
+            placeholder={t.receivePayment.amount_placeholder}
           />
         </div>
         <QRCommon link={link} message={message} />

@@ -251,17 +251,22 @@ export default function RegularLayout({
                     )}
                   </Avatar>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
+                <DropdownMenuContent className="bg-white/80 backdrop-blur-md">
                   <DropdownMenuLabel>
                     <div className="flex flex-col w-full">
                       <h2 className="text-lg">{userProfile?.name!}</h2>
                       <div className="my-4">
-                        <h3 className="text-md mb-2">{t.layout.balance}</h3>
+                        <h3 className="text-md mb-2 uppercase font-light text-black">
+                          {t.layout.balance}
+                        </h3>
                         <div className="grid grid-cols-2 gap-2">
                           {Object.entries(balance!).map(([id, coin]) => (
-                            <Card key={id} className="col-span-1">
+                            <Card
+                              key={id}
+                              className="col-span-1 bg-white text-neutral-900 font-light uppercase"
+                            >
                               <CardHeader>
-                                <h4 className="text-sm text-primary font-bold tracking-tighter text-center">
+                                <h4 className="text-sm tracking-tighter text-center">
                                   {coin.name}
                                 </h4>
                                 <p className="text-center text-2xl">
@@ -291,7 +296,7 @@ export default function RegularLayout({
           </div>
         </div>
 
-        <div className="flex flex-col items-stretch h-[calc(100vh-3.5rem)] w-full mx-auto py-10 px-0 sm:px-8">
+        <div className="flex flex-col items-stretch h-[calc(100vh-3.5rem)] w-full mx-auto py-10 px-0 sm:px-4 md:px-8">
           {children}
         </div>
       </div>

@@ -100,7 +100,7 @@ const ProfilePage = ({ selfInfo }) => {
       try {
         //@ts-ignore
         await updateUser(transformedValues);
-        toast.success(t.success.success_message);
+        toast.success(t.success.profile_update);
         router.refresh();
       } catch (e: any) {
         //@ts-ignore

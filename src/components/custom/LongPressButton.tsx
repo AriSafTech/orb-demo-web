@@ -18,6 +18,7 @@ function LongPressButton({
   onLongPress,
   onStart,
   onCancel,
+  isLoading,
   enabled = true,
   // delay,
   ...rest
@@ -51,11 +52,14 @@ function LongPressButton({
     <Button
       {...rest}
       {...longPressEvent}
-      className={cn(className, "relative overflow-clip")}
+      isLoading={isLoading}
+      className={cn(className, "relative overflow-clip", {
+        "!bg-cyan-800": isLoading,
+      })}
       type="button"
     >
       <div
-        className={cn("bg-violet-700 absolute left-0 top-0 right-0 bottom-0", {
+        className={cn("bg-cyan-800 absolute left-0 top-0 right-0 bottom-0", {
           "animate-from-left": isPressing && enabled,
           "-translate-x-full": !isPressing || !enabled,
         })}

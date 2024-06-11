@@ -15,13 +15,16 @@ export function toCamelCase(str: string) {
     .replace(/[\s-_]+/g, "");
 }
 
-export function downloadCanvasAsImg(ref: React.RefObject<HTMLDivElement>) {
+export function downloadCanvasAsImg(
+  ref: React.RefObject<HTMLDivElement>,
+  name: string,
+) {
   const canvas = ref.current?.querySelector("canvas");
   if (canvas) {
     const url = canvas.toDataURL("image/png");
     const link = document.createElement("a");
     link.href = url;
-    link.download = "qr-basic.png";
+    link.download = `${name}.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

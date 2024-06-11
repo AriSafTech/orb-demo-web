@@ -140,7 +140,7 @@ const UsersPage = () => {
                               is_active: value,
                             });
 
-                            toast.success(t.success.success_message);
+                            toast.success(t.success.user_status_update);
                           } catch (e) {
                             //@ts-ignore
                             if (e.response.status === 422) {

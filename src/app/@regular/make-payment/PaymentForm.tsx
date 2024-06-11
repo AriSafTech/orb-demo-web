@@ -85,7 +85,8 @@ function PaymentForm({
   coinId,
 }: ChargeFormProps) {
   const { data: t } = useLanguageStore();
-  const { mutateAsync: makePayment } = transactionService.useMakePayment();
+  const { mutateAsync: makePayment, isPending } =
+    transactionService.useMakePayment();
   const formRef = useRef<HTMLFormElement>(null);
   const formSchema = z
     .object({
@@ -138,101 +139,106 @@ function PaymentForm({
     // <div className="max-w-sm flex flex-col items-center sm:items-stretch py-4">
     <div className="w-full h-full flex flex-col md:flex-row gap-10 md:gap-4 py-4 overflow-y-auto">
       {/* <h2 className="text-xl font-bold mb-8">{t.payment.title}</h2> */}
-      <Card className="min-w-[300px] max-w-[300px] w-[300px] flex-grow mx-auto h-fit">
-        <CardHeader>
-          <CardTitle>{t.payment.form_title}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="max-w-xs">
-            <Form {...form}>
-              <form
-                ref={formRef}
-                className="space-y-4"
-                onSubmit={form.handleSubmit(onSubmit)}
-              >
-                {/* COIN */}
-                <FormField
-                  control={form.control}
-                  name="coinId"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.payment.coin}</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
+      <div className="px-10 md:px-0 lg:px-10">
+        <Card className="w-[300px] md:w-[250px] lg:w-[300px] mx-auto h-fit">
+          <CardHeader>
+            <CardTitle>{t.payment.form_title}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="max-w-xs">
+              <Form {...form}>
+                <form
+                  ref={formRef}
+                  className="space-y-4"
+                  onSubmit={form.handleSubmit(onSubmit)}
+                >
+                  {/* COIN */}
+                  <FormField
+                    control={form.control}
+                    name="coinId"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t.payment.coin}</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger className="max-w-xs">
+                              <SelectValue
+                                placeholder={t.payment.coin_placeholder}
+                              />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {Object.values(coins).map((coin) => (
+                              <SelectItem key={coin.id} value={coin.id}>
+                                {coin.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormDescription
+                          className={cn("invisible", {
+                            visible: !!field.value,
+                          })}
+                        >
+                          Balance: {coins[field.value]?.balance}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  {/* RECEIVER ID */}
+                  <FormField
+                    control={form.control}
+                    name="receiverId"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t.payment.receiverId}</FormLabel>
                         <FormControl>
-                          <SelectTrigger className="max-w-xs">
-                            <SelectValue
-                              placeholder={t.payment.coin_placeholder}
-                            />
-                          </SelectTrigger>
+                          <Input {...field} />
                         </FormControl>
-                        <SelectContent>
-                          {Object.values(coins).map((coin) => (
-                            <SelectItem key={coin.id} value={coin.id}>
-                              {coin.name}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormDescription
-                        className={cn("invisible", { visible: !!field.value })}
-                      >
-                        Balance: {coins[field.value]?.balance}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                {/* RECEIVER ID */}
-                <FormField
-                  control={form.control}
-                  name="receiverId"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.payment.receiverId}</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-                {/* AMOUNT */}
-                <FormField
-                  control={form.control}
-                  name="amount"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.payment.amount}</FormLabel>
-                      <FormControl>
-                        <Input {...field} type="number" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                  {/* AMOUNT */}
+                  <FormField
+                    control={form.control}
+                    name="amount"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t.payment.amount}</FormLabel>
+                        <FormControl>
+                          <Input {...field} type="number" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-                <div>
-                  <LongPressButton
-                    className="w-full mb-2 mt-8"
-                    onStart={() => form.trigger()}
-                    enabled={form.formState.isValid}
-                    onLongPress={() => formRef.current!.requestSubmit()}
-                  >
-                    Send
-                  </LongPressButton>
-                  <p className="text-xs text-center">
-                    {t.payment.submit_helper}
-                  </p>
-                </div>
-              </form>
-            </Form>
-          </div>
-        </CardContent>
-      </Card>
+                  <div>
+                    <LongPressButton
+                      className="w-full mb-2 mt-8"
+                      onStart={() => form.trigger()}
+                      enabled={form.formState.isValid}
+                      onLongPress={() => formRef.current!.requestSubmit()}
+                      isLoading={isPending}
+                    >
+                      Send
+                    </LongPressButton>
+                    <p className="text-xs text-center">
+                      {t.payment.submit_helper}
+                    </p>
+                  </div>
+                </form>
+              </Form>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
       <Vendors
         onSelect={(merchantOrbId) => form.setValue("receiverId", merchantOrbId)}
       />
