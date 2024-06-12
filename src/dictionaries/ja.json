@@ -50,6 +50,9 @@
     "consumer": "消費者",
     "merchant": "商人",
     "status": "アクティブ",
+    "bank_details": "銀行の詳細",
+    "address": "住所",
+    "gender": "性別",
     "view_profile": "プロフィールを見る",
     "user_profile": "ユーザープロフィール"
   },

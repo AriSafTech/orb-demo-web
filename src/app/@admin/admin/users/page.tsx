@@ -46,6 +46,8 @@ import { getInitials } from "@/lib/name-utils";
 import Image from "next/image";
 import { ViewGridIcon } from "@radix-ui/react-icons";
 import { FaEye } from "react-icons/fa";
+import { useEffect } from "react";
+import { cn } from "@/lib/utils";
 
 const UsersPage = () => {
   const { data: allUsers, status } = userService.useAllUsers();
@@ -167,7 +169,7 @@ const UsersPage = () => {
     const { data: singleUser, isPending } = userService.useSingleUser(
       row.original?.id,
     );
-    console.log(singleUser);
+
     return (
       <Sheet>
         <SheetTrigger asChild>
@@ -175,50 +177,67 @@ const UsersPage = () => {
             <FaEye />
           </Button>
         </SheetTrigger>
-        <SheetComponent row={row} />
-      </Sheet>
-    );
-  }
-  // sheet component
-  //@ts-ignore
-  function SheetComponent({ row }) {
-    return (
-      <SheetContent className="flex flex-col gap-6">
-        <SheetHeader className="flex items-center gap-4">
-          <SheetTitle>{t.users.user_profile}</SheetTitle>
+        {/* <SheetComponent row={row} key={row.original?.id} /> */}
+        <SheetContent
+          className={cn("flex flex-col gap-6", {
+            "overflow-y-scroll": !!singleUser?.avatar,
+          })}
+        >
+          <SheetHeader className="flex items-center gap-2">
+            <SheetTitle>{t.users.user_profile}</SheetTitle>
 
-          {row.original?.avatar ? (
-            <Image
-              src={row.original?.avatar}
-              alt="User profile dropdown"
-              width={200}
-              height={200}
-              className="object-cover h-[200px]"
-            />
-          ) : (
-            <Avatar>
-              <AvatarFallback>
-                {getInitials(row.original?.name ?? "")}
-              </AvatarFallback>
-            </Avatar>
-          )}
-        </SheetHeader>
-        <div className="flex justify-between items-center mt-4">
-          <div className="flex flex-col gap-4">
-            <div>
-              <div className="font-bold">{t.users.name} : </div>
-              <div className="text-xl">{row.original?.name}</div>
+            {row.original?.avatar ? (
+              <Image
+                src={row.original?.avatar}
+                alt="User profile dropdown"
+                width={200}
+                height={200}
+                className="object-cover h-[200px]"
+              />
+            ) : (
+              <Avatar>
+                <AvatarFallback>
+                  {getInitials(row.original?.name ?? "")}
+                </AvatarFallback>
+              </Avatar>
+            )}
+          </SheetHeader>
+          <div className="flex justify-center items-center mt-4">
+            <div className="flex flex-col gap-2">
+              <div>
+                <div className="font-bold">{t.users.name} : </div>
+                <div className="text-xl">{singleUser?.name}</div>
+              </div>
+              <div>
+                <div className="font-bold">{t.users.email} : </div>
+                <div className="text-xl">{singleUser?.email}</div>
+              </div>
+              <div>
+                <div className="font-bold">{t.users.address} : </div>
+                <div className="text-xl">{singleUser?.address ?? "N/A"}</div>
+              </div>
+              <div>
+                <div className="font-bold">{t.users.bank_details} : </div>
+                <div className="text-xl">
+                  {singleUser?.bank_details ?? "N/A"}
+                </div>
+              </div>
+              <div>
+                <div className="font-bold">{t.users.gender} : </div>
+                <div className="text-xl">{singleUser?.gender ?? "N/A"}</div>
+              </div>
+              <div>
+                <div className="font-bold">{t.users.role} : </div>
+                <div className="text-xl">{singleUser?.role?.name ?? "N/A"}</div>
+              </div>
+              <div>
+                <div className="font-bold">{t.users.balance} : </div>
+                <div className="text-xl">{singleUser?.balance?.total}</div>
+              </div>
             </div>
           </div>
-          {/* <div className="flex flex-col gap-4">
-        <div></div>
-        <div>{row.original?.email}</div>
-        <div>{row.original?.role.name}</div>
-        <div>{row.original?.balance}</div>
-        <div>{row.original?.is_active ? "Active" : "Inactive"}</div>
-      </div> */}
-        </div>
-      </SheetContent>
+        </SheetContent>
+      </Sheet>
     );
   }
 

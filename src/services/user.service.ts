@@ -45,21 +45,13 @@ export const userService = {
   },
 
   useSingleUser(id: string | null) {
-    // const { tokens, user } = useAuthStore();
     const query = useQuery({
-      queryKey: [QUERY_KEYS.getSingleUser],
+      queryKey: [QUERY_KEYS.getSingleUser, id],
       queryFn: async () => {
         const client = await getApiClient();
-        const params = {
-          // @ts-ignore
-          user_id: id,
-        };
-
         const res = await client.getSingleUser(id);
-        return res?.data?.data;
+        return res?.data?.data?.user;
       },
-      // enabled: !!tokens && !!user && user.role === "admin",
-      //   initialData: [],
     });
     return query;
   },

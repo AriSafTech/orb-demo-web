@@ -49,6 +49,9 @@
     "consumer": "Consumer",
     "merchant": "Merchant",
     "status": "Active",
+    "bank_details": "Bank Details",
+    "address" : "Address",
+    "gender":"Gender",
     "view_profile": "View Profile",
     "user_profile": "User Profile"
   },
