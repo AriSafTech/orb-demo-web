@@ -85,3 +85,22 @@
     /* animation-timing-function: cubic-bezier(0, 0, 0.2, 1); */
   }
 }
+
+/* Fixed the table header */
+
+.table-container {
+  position: relative;
+  height: calc(80vh - 6.5rem);
+  overflow: auto;
+}
+
+.table-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  color: #fff; /* Replace with your desired text color */
+}
+
+.table-body {
+  overflow: auto;
+}
