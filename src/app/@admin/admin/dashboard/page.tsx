@@ -115,92 +115,98 @@ function AdminDashboardPage() {
                 </div>
               </CardContent>
               <CardContent>
-                <div className="text-[13px] text-center">
+                <div className="text-[13px] text-center flex justify-center items-center gap-4">
                   {t.adminLayout.validity}:
+                  <div>
+                    {" "}
+                    <Sheet>
+                      <SheetTrigger asChild>
+                        <div className="mt-2  bg-primary text-white w-6 h-6 flex justify-center items-center rounded-full hover:bg-primary/85 cursor-pointer relative -top-1">
+                          <GrEdit />
+                        </div>
+                      </SheetTrigger>
+                      <SheetContent>
+                        <SheetHeader>
+                          {/* <SheetTitle>{t.adminLayout.validity}</SheetTitle> */}
+                        </SheetHeader>
+                        <div className="py-4">
+                          <div className=" flex flex-col justify-center items-center h-[60vh]">
+                            <Form {...form}>
+                              <form
+                                onSubmit={form.handleSubmit(onSubmit)}
+                                className="space-y-8"
+                              >
+                                <FormField
+                                  control={form.control}
+                                  name={`validity`}
+                                  defaultValue={
+                                    coin.validity
+                                      ? new Date(coin.validity)
+                                      : undefined
+                                  }
+                                  render={({ field }) => (
+                                    <FormItem className="flex flex-col">
+                                      <FormLabel>
+                                        {t.adminLayout.update_validity}
+                                      </FormLabel>
+                                      <Popover>
+                                        <PopoverTrigger asChild>
+                                          <FormControl>
+                                            <Button
+                                              variant={"outline"}
+                                              className={cn(
+                                                "w-[240px] pl-3 text-left font-normal",
+                                                !field.value &&
+                                                  "text-muted-foreground",
+                                              )}
+                                            >
+                                              {field.value ? (
+                                                format(
+                                                  field.value,
+                                                  "yyyy-MM-dd",
+                                                )
+                                              ) : (
+                                                <span>Pick a date</span>
+                                              )}
+                                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                            </Button>
+                                          </FormControl>
+                                        </PopoverTrigger>
+                                        <PopoverContent
+                                          className="w-auto p-0"
+                                          align="start"
+                                        >
+                                          <Calendar
+                                            mode="single"
+                                            selected={field.value}
+                                            onSelect={field.onChange}
+                                            // disabled={(date) =>
+                                            //   date > new Date() ||
+                                            //   date < new Date("1900-01-01")
+                                            // }
+                                            initialFocus
+                                          />
+                                        </PopoverContent>
+                                      </Popover>
+
+                                      <FormMessage />
+                                    </FormItem>
+                                  )}
+                                />
+                                <Button type="submit">
+                                  {t.adminLayout.save_changes}
+                                </Button>
+                              </form>
+                            </Form>
+                          </div>
+                        </div>
+                      </SheetContent>
+                    </Sheet>
+                  </div>
                 </div>
                 <div className="font-bold text-center mb-2">
                   {coin.validity}
                 </div>
-                <Sheet>
-                  <SheetTrigger asChild>
-                    <div className="mt-2 absolute bottom-1 right-3 bg-primary text-white w-6 h-6 flex justify-center items-center rounded-full hover:bg-primary/85 cursor-pointer">
-                      <GrEdit />
-                    </div>
-                  </SheetTrigger>
-                  <SheetContent>
-                    <SheetHeader>
-                      {/* <SheetTitle>{t.adminLayout.validity}</SheetTitle> */}
-                    </SheetHeader>
-                    <div className="py-4">
-                      <div className=" flex flex-col justify-center items-center h-[60vh]">
-                        <Form {...form}>
-                          <form
-                            onSubmit={form.handleSubmit(onSubmit)}
-                            className="space-y-8"
-                          >
-                            <FormField
-                              control={form.control}
-                              name={`validity`}
-                              defaultValue={
-                                coin.validity
-                                  ? new Date(coin.validity)
-                                  : undefined
-                              }
-                              render={({ field }) => (
-                                <FormItem className="flex flex-col">
-                                  <FormLabel>
-                                    {t.adminLayout.update_validity}
-                                  </FormLabel>
-                                  <Popover>
-                                    <PopoverTrigger asChild>
-                                      <FormControl>
-                                        <Button
-                                          variant={"outline"}
-                                          className={cn(
-                                            "w-[240px] pl-3 text-left font-normal",
-                                            !field.value &&
-                                              "text-muted-foreground",
-                                          )}
-                                        >
-                                          {field.value ? (
-                                            format(field.value, "yyyy-MM-dd")
-                                          ) : (
-                                            <span>Pick a date</span>
-                                          )}
-                                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                        </Button>
-                                      </FormControl>
-                                    </PopoverTrigger>
-                                    <PopoverContent
-                                      className="w-auto p-0"
-                                      align="start"
-                                    >
-                                      <Calendar
-                                        mode="single"
-                                        selected={field.value}
-                                        onSelect={field.onChange}
-                                        // disabled={(date) =>
-                                        //   date > new Date() ||
-                                        //   date < new Date("1900-01-01")
-                                        // }
-                                        initialFocus
-                                      />
-                                    </PopoverContent>
-                                  </Popover>
-
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                            <Button type="submit">
-                              {t.adminLayout.save_changes}
-                            </Button>
-                          </form>
-                        </Form>
-                      </div>
-                    </div>
-                  </SheetContent>
-                </Sheet>
               </CardContent>
             </Card>
           ))}
