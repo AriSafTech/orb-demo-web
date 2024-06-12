@@ -1157,6 +1157,60 @@ declare namespace Paths {
             }
         }
     }
+    namespace GetSingleUser {
+        namespace Parameters {
+            export type Id = string;
+        }
+        export interface PathParameters {
+            id: Parameters.Id;
+        }
+        namespace Responses {
+            export interface $200 {
+                /**
+                 * example:
+                 * true
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 200
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Single user data.
+                 */
+                message?: string;
+                data?: {
+                    user?: /**
+                     * User response
+                     * User response.
+                     */
+                    Components.Schemas.UserResponseAttribute;
+                };
+            }
+            export interface $401 {
+                /**
+                 * example:
+                 * false
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 401
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Unauthorized
+                 */
+                message?: string;
+                errors?: {
+                    [key: string]: any;
+                };
+            }
+        }
+    }
     namespace Login {
         export type RequestBody = /**
          * Login request
@@ -1780,7 +1834,7 @@ declare namespace Paths {
                 statusCode?: number;
                 /**
                  * example:
-                 * User has been registered successfully.
+                 * User has been updated successfully.
                  */
                 message?: string;
                 data?: {
@@ -1946,6 +2000,14 @@ export interface OperationMethods {
     data?: any,
     config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetAllUsers.Responses.$200>
+  /**
+   * getSingleUser - Get single user.
+   */
+  'getSingleUser'(
+    parameters?: Parameters<Paths.GetSingleUser.PathParameters> | null,
+    data?: any,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.GetSingleUser.Responses.$200>
   /**
    * updateUser - Update status.
    */
@@ -2122,6 +2184,14 @@ export interface PathsDictionary {
     ): OperationResponse<Paths.GetAllUsers.Responses.$200>
   }
   ['/api/v1/users/{id}']: {
+    /**
+     * getSingleUser - Get single user.
+     */
+    'get'(
+      parameters?: Parameters<Paths.GetSingleUser.PathParameters> | null,
+      data?: any,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.GetSingleUser.Responses.$200>
     /**
      * updateUser - Update status.
      */

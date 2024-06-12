@@ -4,7 +4,7 @@ import { User, userService } from "@/services/user.service";
 import Loading from "@/components/custom/Loading";
 import { ColumnDef } from "@tanstack/react-table";
 import { useLanguageStore } from "@/stores/languageStore";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, View, ViewIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
@@ -44,6 +44,8 @@ import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getInitials } from "@/lib/name-utils";
 import Image from "next/image";
+import { ViewGridIcon } from "@radix-ui/react-icons";
+import { FaEye } from "react-icons/fa";
 
 const UsersPage = () => {
   const { data: allUsers, status } = userService.useAllUsers();
@@ -162,49 +164,61 @@ const UsersPage = () => {
   // User profile view
   //@ts-ignore
   function UserViewActionsCell({ row }) {
+    const { data: singleUser, isPending } = userService.useSingleUser(
+      row.original?.id,
+    );
+    console.log(singleUser);
     return (
       <Sheet>
         <SheetTrigger asChild>
-          <Button size={"sm"}>{t.users.view_profile}</Button>
+          <Button className="cursor-pointer">
+            <FaEye />
+          </Button>
         </SheetTrigger>
-        <SheetContent className="flex flex-col gap-6">
-          <SheetHeader className="flex items-center gap-4">
-            <SheetTitle>{t.users.user_profile}</SheetTitle>
+        <SheetComponent row={row} />
+      </Sheet>
+    );
+  }
+  // sheet component
+  //@ts-ignore
+  function SheetComponent({ row }) {
+    return (
+      <SheetContent className="flex flex-col gap-6">
+        <SheetHeader className="flex items-center gap-4">
+          <SheetTitle>{t.users.user_profile}</SheetTitle>
 
-            {row.original?.avatar ? (
-              <Image
-                src={row.original?.avatar}
-                alt="User profile dropdown"
-                width={200}
-                height={200}
-                className="object-cover h-[200px]"
-              />
-            ) : (
-              <Avatar>
-                <AvatarFallback>
-                  {getInitials(row.original?.name ?? "")}
-                </AvatarFallback>
-              </Avatar>
-            )}
-          </SheetHeader>
-          <div className="flex justify-between items-center mt-4">
-            <div className="flex flex-col gap-4">
-              <div>{t.users.name}</div>
-              <div>{t.users.email}</div>
-              <div>{t.users.role}</div>
-              <div>{t.users.balance}</div>
-              <div>{t.users.status}</div>
-            </div>
-            <div className="flex flex-col gap-4">
-              <div>{row.original?.name}</div>
-              <div>{row.original?.email}</div>
-              <div>{row.original?.role.name}</div>
-              <div>{row.original?.balance}</div>
-              <div>{row.original?.is_active ? "Active" : "Inactive"}</div>
+          {row.original?.avatar ? (
+            <Image
+              src={row.original?.avatar}
+              alt="User profile dropdown"
+              width={200}
+              height={200}
+              className="object-cover h-[200px]"
+            />
+          ) : (
+            <Avatar>
+              <AvatarFallback>
+                {getInitials(row.original?.name ?? "")}
+              </AvatarFallback>
+            </Avatar>
+          )}
+        </SheetHeader>
+        <div className="flex justify-between items-center mt-4">
+          <div className="flex flex-col gap-4">
+            <div>
+              <div className="font-bold">{t.users.name} : </div>
+              <div className="text-xl">{row.original?.name}</div>
             </div>
           </div>
-        </SheetContent>
-      </Sheet>
+          {/* <div className="flex flex-col gap-4">
+        <div></div>
+        <div>{row.original?.email}</div>
+        <div>{row.original?.role.name}</div>
+        <div>{row.original?.balance}</div>
+        <div>{row.original?.is_active ? "Active" : "Inactive"}</div>
+      </div> */}
+        </div>
+      </SheetContent>
     );
   }
 

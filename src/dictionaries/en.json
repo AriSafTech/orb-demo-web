@@ -65,7 +65,9 @@
     "totalIssuedCoins": "Total issued coins",
     "lastDayTransactions": "Total transactions in last 24 hours",
     "exchange_rate": "Exchange Rate",
-    "validity": "Validity"
+    "validity": "Validity",
+    "save_changes" :"Save changes",
+    "update_validity":"Update Validity"
   },
   "transaction": {
     "title": "Transactions",

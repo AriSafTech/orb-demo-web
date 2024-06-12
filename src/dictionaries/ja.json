@@ -66,7 +66,9 @@
     "totalIssuedCoins": "発行済みコイン総数",
     "lastDayTransactions": "過去24時間の総取引数",
     "exchange_rate": "為替レート",
-    "validity": "有効性"
+    "validity": "有効性",
+    "save_changes": "変更を保存",
+    "update_validity": "更新の有効性"
   },
   "transaction": {
     "title": "取引",

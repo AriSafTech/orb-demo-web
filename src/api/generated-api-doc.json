@@ -154,6 +154,17 @@
       }
     },
     "/api/v1/users/{id}": {
+      "get": {
+        "operationId": "getSingleUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {}
+      },
       "post": {
         "operationId": "updateUser",
         "parameters": [
