@@ -165,5 +165,14 @@
     "search": "検索",
     "page": "ページ",
     "of": "の"
+  },
+  "enums": {
+    "none": "N/A",
+    "gender_male": "Male",
+    "gender_female": "Female",
+    "gender_other": "Others",
+    "role_consumer": "Consumer",
+    "role_merchant": "Merchant",
+    "role_admin": "Admin"
   }
 }

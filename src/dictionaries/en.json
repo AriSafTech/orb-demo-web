@@ -50,8 +50,8 @@
     "merchant": "Merchant",
     "status": "Active",
     "bank_details": "Bank Details",
-    "address" : "Address",
-    "gender":"Gender",
+    "address": "Address",
+    "gender": "Gender",
     "view_profile": "View Profile",
     "user_profile": "User Profile"
   },
@@ -69,8 +69,8 @@
     "lastDayTransactions": "Total transactions in last 24 hours",
     "exchange_rate": "Exchange Rate",
     "validity": "Validity",
-    "save_changes" :"Save changes",
-    "update_validity":"Update Validity"
+    "save_changes": "Save changes",
+    "update_validity": "Update Validity"
   },
   "settlements": {
     "title": "Settlements",
@@ -163,5 +163,14 @@
     "search": "Search",
     "page": "Page",
     "of": "of"
+  },
+  "enums": {
+    "none": "N/A",
+    "gender_male": "Male",
+    "gender_female": "Female",
+    "gender_other": "Others",
+    "role_consumer": "Consumer",
+    "role_merchant": "Merchant",
+    "role_admin": "Admin"
   }
 }

@@ -48,9 +48,11 @@ import { ViewGridIcon } from "@radix-ui/react-icons";
 import { FaEye } from "react-icons/fa";
 import { useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { useLabel } from "@/lib/hooks/useLabel";
 
 const UsersPage = () => {
   const { data: allUsers, status } = userService.useAllUsers();
+  const { getGender, getRole } = useLabel();
   const { data: t } = useLanguageStore();
   const pageTitle = t.users.title;
 
@@ -79,10 +81,10 @@ const UsersPage = () => {
       cell: ({ row }) => {
         //@ts-ignore
         return row.original.role?.name === "consumer" ? (
-          <Badge>{t.users.consumer}</Badge>
+          <Badge>{getRole("consumer")}</Badge>
         ) : //@ts-ignore
         row.original?.role?.name === "merchant" ? (
-          <Badge variant={"secondary"}>{t.users.merchant}</Badge>
+          <Badge variant={"secondary"}>{getRole("merchant")}</Badge>
         ) : (
           ""
         );
@@ -180,7 +182,7 @@ const UsersPage = () => {
         {/* <SheetComponent row={row} key={row.original?.id} /> */}
         <SheetContent
           className={cn("flex flex-col gap-6", {
-            "overflow-y-scroll": !!singleUser?.avatar,
+            "overflow-y-auto": !!singleUser?.avatar,
           })}
         >
           <SheetHeader className="flex items-center gap-2">
@@ -192,7 +194,7 @@ const UsersPage = () => {
                 alt="User profile dropdown"
                 width={200}
                 height={200}
-                className="object-cover h-[200px]"
+                className="object-cover h-[200px] rounded-sm"
               />
             ) : (
               <Avatar>
@@ -202,37 +204,43 @@ const UsersPage = () => {
               </Avatar>
             )}
           </SheetHeader>
-          <div className="flex justify-center items-center mt-4">
-            <div className="flex flex-col gap-2">
+          <div className="flex justify-start items-start mt-4 px-10">
+            <div className="flex flex-col gap-4 !font-light">
               <div>
-                <div className="font-bold">{t.users.name} : </div>
-                <div className="text-xl">{singleUser?.name}</div>
+                <div className="mb-0 text-sm">{t.users.name} </div>
+                <div className="mt-0 text-xl w-full">{singleUser?.name}</div>
               </div>
               <div>
-                <div className="font-bold">{t.users.email} : </div>
-                <div className="text-xl">{singleUser?.email}</div>
+                <div className="mb-0 text-sm">{t.users.email} </div>
+                <div className="mt-0 text-xl">{singleUser?.email}</div>
               </div>
               <div>
-                <div className="font-bold">{t.users.address} : </div>
-                <div className="text-xl">{singleUser?.address ?? "N/A"}</div>
+                <div className="mb-0 text-sm">{t.users.address} </div>
+                <div className="mt-0 text-xl">
+                  {singleUser?.address ?? "N/A"}
+                </div>
               </div>
               <div>
-                <div className="font-bold">{t.users.bank_details} : </div>
-                <div className="text-xl">
+                <div className="mb-0 text-sm">{t.users.bank_details}</div>
+                <div className="mt-0 text-xl">
                   {singleUser?.bank_details ?? "N/A"}
                 </div>
               </div>
               <div>
-                <div className="font-bold">{t.users.gender} : </div>
-                <div className="text-xl">{singleUser?.gender ?? "N/A"}</div>
+                <div className="mb-0 text-sm">{t.users.gender} </div>
+                <div className="mt-0 text-xl">
+                  {getGender(singleUser?.gender)}
+                </div>
               </div>
               <div>
-                <div className="font-bold">{t.users.role} : </div>
-                <div className="text-xl">{singleUser?.role?.name ?? "N/A"}</div>
+                <div className="mb-0 text-sm">{t.users.role} </div>
+                <div className="mt-0 text-xl">
+                  {getRole(singleUser?.role?.name)}
+                </div>
               </div>
               <div>
-                <div className="font-bold">{t.users.balance} : </div>
-                <div className="text-xl">{singleUser?.balance?.total}</div>
+                <div className="mb-0 text-sm">{t.users.balance} </div>
+                <div className="mt-0 text-xl">{singleUser?.balance?.total}</div>
               </div>
             </div>
           </div>
