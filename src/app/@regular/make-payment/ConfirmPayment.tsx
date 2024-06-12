@@ -43,7 +43,8 @@ type Props = {
 
 function ConfirmPayment({ amount, coinId, receiverId, senderId }: Props) {
   const { data: t } = useLanguageStore();
-  const { mutateAsync: makePayment } = transactionService.useMakePayment();
+  const { mutateAsync: makePayment, isPending } =
+    transactionService.useMakePayment();
 
   // const { data: users, status: usersStatus } = userService.useAllUsers();
   const { data: coinsData, status: coinsStatus } = coinService.useAllCoins();
@@ -94,7 +95,7 @@ function ConfirmPayment({ amount, coinId, receiverId, senderId }: Props) {
     return <Loading />;
   }
   return (
-    <div className="max-w-sm flex flex-col items-center sm:items-stretch">
+    <div className="max-w-sm px-4 mx-auto flex flex-col items-center sm:items-stretch">
       <Card className="w-full">
         <CardHeader>
           <CardTitle>{t.payment.confirm_title}</CardTitle>
@@ -120,6 +121,7 @@ function ConfirmPayment({ amount, coinId, receiverId, senderId }: Props) {
             size="lg"
             className="mt-8 w-full mb-2"
             onLongPress={onSubmit}
+            isLoading={isPending}
           >
             Send
           </LongPressButton>

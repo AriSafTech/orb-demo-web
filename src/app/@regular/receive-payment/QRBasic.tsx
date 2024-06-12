@@ -22,6 +22,7 @@ import {
   generatePaymentLink,
 } from "@/lib/payment-utils";
 import QRCommon from "./QRCommon";
+import { useLanguageStore } from "@/stores/languageStore";
 
 type Props = {
   receiverId: string;
@@ -29,6 +30,7 @@ type Props = {
 };
 
 const QRBasic = ({ receiverId, receiverName }: Props) => {
+  const { data: t } = useLanguageStore();
   const qrRef = useRef<HTMLDivElement>(null);
 
   const link = useMemo(() => generatePaymentLink({ receiverId }), [receiverId]);
@@ -40,12 +42,10 @@ const QRBasic = ({ receiverId, receiverName }: Props) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Basic QR code</CardTitle>
+        <CardTitle>{t.receivePayment.qr_basic_title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <CardDescription>
-          Requires sender to designate coin type and amount.
-        </CardDescription>
+        <CardDescription>{t.receivePayment.qr_basic_desc}</CardDescription>
         <QRCommon link={link} message={message} />
       </CardContent>
     </Card>

@@ -100,7 +100,7 @@ const ProfilePage = ({ selfInfo }) => {
       try {
         //@ts-ignore
         await updateUser(transformedValues);
-        toast.success(t.success.success_message);
+        toast.success(t.success.profile_update);
         router.refresh();
       } catch (e: any) {
         //@ts-ignore
@@ -112,7 +112,7 @@ const ProfilePage = ({ selfInfo }) => {
   }
 
   return (
-    <div className="max-w-sm">
+    <div className="max-w-md mx-auto px-4 overflow-auto h-full">
       <Form {...form}>
         <Card className="w-full shadow-md">
           <CardHeader className="flex flex-col items-start gap-4">

@@ -70,6 +70,17 @@
     "save_changes": "変更を保存",
     "update_validity": "更新の有効性"
   },
+  "settlements": {
+    "title": "Settlements",
+    "id": "Settlment ID",
+    "coin": "Coin",
+    "currency": "Currency",
+    "coinAmount": "Coin amount",
+    "currencyAmount": "Currency amount",
+    "status": "Settlement status",
+    "createdAt": "Requested at",
+    "settledAt": "Settled at"
+  },
   "transaction": {
     "title": "取引",
     "tx_id": "ID",
@@ -90,6 +101,28 @@
     "receiverName": "Receiver Name",
     "amount": "Amount",
     "submit_helper": "Press and hold"
+  },
+  "receivePayment": {
+    "qr_basic_title": "Basic QR code",
+    "qr_basic_desc": "Requires sender to designate coin type and amount.",
+    "qr_details_title": "QR code with payment details",
+    "qr_details_desc": "Sender needs to confirm payment only.",
+    "coin": "Coin",
+    "coin_placeholder": "Please select a coin",
+    "amount": "Amount",
+    "amount_placeholder": "Please select amount",
+    "tooltip_download": "Download as image",
+    "tooltip_message": "Copy message",
+    "tooltip_link": "Copy link",
+    "qr_details_please_fill_out_form": "Please fill out form to generate QR"
+  },
+  "vendors": {
+    "title": "Vendors",
+    "favourites": "Favourites",
+    "near_you": "Vendors near you",
+    "search": "Search vendor",
+    "fav_not_found": "No favourites found",
+    "near_you_not_found": "No vendors found near you"
   },
   "charge": {
     "title": "Charge Account",
@@ -113,7 +146,9 @@
     "unprocessableContent": "処理できないコンテンツ"
   },
   "success": {
-    "success_message": "更新に成功しました"
+    "success_message": "更新に成功しました",
+    "profile_update": "Profile updated successfully",
+    "user_status_update": "User status updated successfully"
   },
 
   "info": {

@@ -33,6 +33,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { LuDownload as DownloadIcon } from "react-icons/lu";
 import { FaRegCopy as CopyIcon } from "react-icons/fa";
 import { IoUnlinkOutline as LinkIcon } from "react-icons/io5";
@@ -51,6 +57,7 @@ type Props = {
   message: string | null;
 };
 function QRCommon({ link, message }: Props) {
+  const { data: t } = useLanguageStore();
   const qrRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -59,38 +66,70 @@ function QRCommon({ link, message }: Props) {
         <div ref={qrRef}>
           {link && <QRCodeCanvas value={link} />}
           {!link && (
-            <div className="w-[128px] h-[128px] bg-secondary flex flex-col justify-center items-center p-4 text-center">
-              <p>Fill out the form to generate QR</p>
+            <div className="w-[128px] h-[128px] bg-accent flex flex-col justify-center items-center p-4 text-center opacity-70">
+              <p>{t.receivePayment.qr_details_please_fill_out_form}</p>
             </div>
           )}
         </div>
         <div className="flex justify-center gap-2">
-          <Button
-            size="icon"
-            disabled={!link}
-            onClick={() => downloadCanvasAsImg(qrRef)}
-          >
-            <DownloadIcon />
-          </Button>
-          <Button
-            size="icon"
-            disabled={!message}
-            onClick={() =>
-              message &&
-              copyToClipboard(message, "Copied message to clipboard.")
-            }
-          >
-            <CopyIcon />
-          </Button>
-          <Button
-            size="icon"
-            disabled={!link}
-            onClick={() =>
-              link && copyToClipboard(link, "Copied link to clipboard.")
-            }
-          >
-            <LinkIcon />
-          </Button>
+          {/* DOWNLOAD */}
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Button
+                  size="icon"
+                  disabled={!link}
+                  onClick={() => downloadCanvasAsImg(qrRef, "orb-qr-code")}
+                >
+                  <DownloadIcon />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{t.receivePayment.tooltip_download}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
+          {/* COPY MESSAGE */}
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Button
+                  size="icon"
+                  disabled={!message}
+                  onClick={() =>
+                    message &&
+                    copyToClipboard(message, "Copied message to clipboard.")
+                  }
+                >
+                  <CopyIcon />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{t.receivePayment.tooltip_message}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
+          {/* COPY LINK */}
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Button
+                  size="icon"
+                  disabled={!link}
+                  onClick={() =>
+                    link && copyToClipboard(link, "Copied link to clipboard.")
+                  }
+                >
+                  <LinkIcon />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{t.receivePayment.tooltip_link}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </div>
     </div>
