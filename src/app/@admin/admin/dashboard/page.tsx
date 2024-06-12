@@ -7,7 +7,7 @@ import { userService } from "@/services/user.service";
 import { useLanguageStore } from "@/stores/languageStore";
 import { isWithinInterval, parseISO, subDays } from "date-fns";
 import React, { useMemo } from "react";
-import { GrEdit } from "react-icons/gr";
+import { GrEdit as EditIcon } from "react-icons/gr";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -115,15 +115,15 @@ function AdminDashboardPage() {
                 </div>
               </CardContent>
               <CardContent>
-                <div className="text-[13px] text-center flex justify-center items-center gap-4">
-                  {t.adminLayout.validity}:
+                <div className="text-[13px] text-center flex justify-between items-center gap-4">
+                  <div>{t.adminLayout.validity}:</div>
                   <div>
                     {" "}
                     <Sheet>
                       <SheetTrigger asChild>
-                        <div className="mt-2  bg-primary text-white w-6 h-6 flex justify-center items-center rounded-full hover:bg-primary/85 cursor-pointer relative -top-1">
-                          <GrEdit />
-                        </div>
+                        <Button size="icon" variant="ghost" className="">
+                          <EditIcon />
+                        </Button>
                       </SheetTrigger>
                       <SheetContent>
                         <SheetHeader>
@@ -204,9 +204,7 @@ function AdminDashboardPage() {
                     </Sheet>
                   </div>
                 </div>
-                <div className="font-bold text-center mb-2">
-                  {coin.validity}
-                </div>
+                <div className="font-bold text-left mb-2">{coin.validity}</div>
               </CardContent>
             </Card>
           ))}

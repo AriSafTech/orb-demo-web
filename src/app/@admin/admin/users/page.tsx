@@ -45,10 +45,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getInitials } from "@/lib/name-utils";
 import Image from "next/image";
 import { ViewGridIcon } from "@radix-ui/react-icons";
-import { FaEye } from "react-icons/fa";
 import { useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useLabel } from "@/lib/hooks/useLabel";
+
+// import { FaEye as EyeIcon } from "react-icons/fa";
+// import { MdOutlineRemoveRedEye as EyeIcon } from "react-icons/md";
+import { IoEye as EyeIcon } from "react-icons/io5";
 
 const UsersPage = () => {
   const { data: allUsers, status } = userService.useAllUsers();
@@ -175,8 +178,8 @@ const UsersPage = () => {
     return (
       <Sheet>
         <SheetTrigger asChild>
-          <Button className="cursor-pointer">
-            <FaEye />
+          <Button variant="ghost" className="cursor-pointer">
+            <EyeIcon />
           </Button>
         </SheetTrigger>
         {/* <SheetComponent row={row} key={row.original?.id} /> */}
@@ -194,7 +197,7 @@ const UsersPage = () => {
                 alt="User profile dropdown"
                 width={200}
                 height={200}
-                className="object-cover h-[200px] rounded-sm"
+                className="object-cover h-[200px] rounded-full"
               />
             ) : (
               <Avatar>

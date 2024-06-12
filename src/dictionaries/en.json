@@ -90,9 +90,16 @@
     "receiver": "Receiver",
     "group": "Group",
     "type": "Type",
+    "coin_name": "Coin",
+    "amount": "Amount",
     "tx_date": "Transaction Date",
     "charge": "Charge",
-    "payment": "Payment"
+    "payment": "Payment",
+    "refund_title": "Refund payment",
+    "refund_desc": "Are you sure you want to refund this payment?",
+    "refund_sender_id": "Sender ID",
+    "refund_coin_name": "Coin",
+    "refund_amount": "Amount"
   },
   "payment": {
     "form_title": "Make payment",
@@ -116,7 +123,7 @@
     "tooltip_download": "Download as image",
     "tooltip_message": "Copy message",
     "tooltip_link": "Copy link",
-    "qr_details_please_fill_out_form": "Please fill out form to generate QR"
+    "qr_details_please_fill_out_form": "Please provide coin and amount to generate QR"
   },
   "vendors": {
     "title": "Vendors",
@@ -133,7 +140,8 @@
     "receiver": "Receiver",
     "receiver_placeholder": "Please select receiver",
     "receiver_search": "Search accounts...",
-    "amount": "Amount"
+    "amount": "Amount",
+    "submit_helper": "Press and hold"
   },
   "errors": {
     "login_wrongCredentials_title": "Login Failed",

@@ -167,9 +167,9 @@ function Vendors({ onSelect }: Props) {
           {t.vendors.near_you}
         </h3>
         <div className="flex gap-2 flex-wrap justify-center md:justify-start">
-          {nearYou.map((vendor) => (
+          {nearYou.map((vendor, ind) => (
             <div
-              key={vendor.name}
+              key={vendor.name + ind}
               className="w-20 h-fit flex flex-col items-center justify-center cursor-pointer"
               onClick={() => onSelect(vendor.orbId)}
             >

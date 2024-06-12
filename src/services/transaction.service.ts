@@ -104,4 +104,28 @@ export const transactionService = {
       },
     });
   },
+
+  useRefund() {
+    const queryClient = useQueryClient();
+    return useMutation({
+      mutationKey: [MUTATION_KEYS.refund],
+      mutationFn: async ({ transactionId }: { transactionId: string }) => {
+        const client = await getApiClient();
+        const res = await client.refund(
+          {},
+          {
+            transaction_id: transactionId,
+            transaction_type: "ctom-payment",
+          },
+        );
+        await queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.getSelfTransactions],
+        });
+        await queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.getProfile],
+        });
+        return res.data?.data?.transaction;
+      },
+    });
+  },
 };

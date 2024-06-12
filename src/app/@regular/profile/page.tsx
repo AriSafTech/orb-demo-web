@@ -120,7 +120,7 @@ const ProfilePage = ({ selfInfo }) => {
             <CardTitle className="text-center flex justify-center">
               {t.me.title}
             </CardTitle>
-            <Avatar className="w-20 h-20 self-center">
+            <Avatar className="w-32 h-32 sm:w-48 sm:h-48 self-center">
               {avatarPreview ? (
                 <AvatarImage src={avatarPreview} />
               ) : (

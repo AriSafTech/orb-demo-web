@@ -7,13 +7,20 @@ import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/custom/DataTable";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useAuthStore } from "@/stores/authStore";
 import { DUMMY_SETTLEMENTS_DATA, getDummySettlementsData } from "./data";
 import { coinService } from "@/services/coin.service";
 import { useMemo } from "react";
 import { cn } from "@/lib/utils";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { toast } from "sonner";
+import { FaRegCopy as CopyIcon } from "react-icons/fa";
 
 type CoinData = {
   id: string;
@@ -41,25 +48,35 @@ const SettlementsTable = ({ coins }: Props) => {
   console.log("DATA:", data);
 
   const columns: ColumnDef<NonNullable<typeof data>[number]>[] = [
-    {
-      accessorKey: "id",
-      header: t.settlements.id,
-    },
+    // {
+    //   accessorKey: "id",
+    //   header: t.settlements.id,
+    // },
     {
       accessorKey: "coinAmount",
-      header: t.settlements.coinAmount,
+      header: ({ column }) => (
+        <div className="text-center">{t.settlements.coinAmount}</div>
+      ),
+      cell: ({ row }) => (
+        <p className="text-center">{row.original.coinAmount}</p>
+      ),
     },
     {
       accessorKey: "coinId",
-      header: t.settlements.coin,
+      header: ({ column }) => (
+        <div className="text-center">{t.settlements.coin}</div>
+      ),
+
       // accessorFn: ({ coinId }) => coins[coinId as keyof typeof coins].name!,
       cell: ({ row }) => (
-        <Badge
-          variant="secondary"
-          className="flex justify-center items-center text-center w-16 h-12 text-xs leading-none"
-        >
-          {coins[row.original.coinId as keyof typeof coins].name!}
-        </Badge>
+        <div className="w-full">
+          <Badge
+            variant="secondary"
+            className="mx-auto flex justify-center items-center text-center w-16 h-12 text-xs leading-none"
+          >
+            {coins[row.original.coinId as keyof typeof coins].name!}
+          </Badge>
+        </div>
       ),
     },
     {
@@ -95,6 +112,30 @@ const SettlementsTable = ({ coins }: Props) => {
       header: t.settlements.settledAt,
       accessorFn: ({ settledAt }) =>
         settledAt ? format(settledAt, "yyyy-MM-dd HH:mm:ss") : "",
+    },
+    {
+      accessorKey: "id",
+      header: "",
+      cell: ({ row }) => (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Button
+                variant="ghost"
+                onClick={async () => {
+                  await navigator.clipboard.writeText(row.original.id);
+                  toast.success("Copied settlement ID to clipboard");
+                }}
+              >
+                <CopyIcon />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Copy transaction ID</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ),
     },
   ];
 

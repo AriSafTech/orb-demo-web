@@ -78,6 +78,7 @@ function QRCommon({ link, message }: Props) {
               <TooltipTrigger>
                 <Button
                   size="icon"
+                  variant="ghost"
                   disabled={!link}
                   onClick={() => downloadCanvasAsImg(qrRef, "orb-qr-code")}
                 >
@@ -96,6 +97,7 @@ function QRCommon({ link, message }: Props) {
               <TooltipTrigger>
                 <Button
                   size="icon"
+                  variant="ghost"
                   disabled={!message}
                   onClick={() =>
                     message &&
@@ -117,6 +119,7 @@ function QRCommon({ link, message }: Props) {
               <TooltipTrigger>
                 <Button
                   size="icon"
+                  variant="ghost"
                   disabled={!link}
                   onClick={() =>
                     link && copyToClipboard(link, "Copied link to clipboard.")

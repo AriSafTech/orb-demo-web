@@ -256,7 +256,7 @@ export default function RegularLayout({
                     <div className="flex flex-col w-full">
                       <h2 className="text-lg">{userProfile?.name!}</h2>
                       <div className="my-4">
-                        <h3 className="text-md mb-2 uppercase font-light text-black">
+                        <h3 className="text-md mb-2 font-normal text-black">
                           {t.layout.balance}
                         </h3>
                         <div className="grid grid-cols-2 gap-2">

@@ -42,7 +42,7 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <NextTopLoader showSpinner={false} />
+        <NextTopLoader showSpinner={false} color="#20808D" />
         <ReactQueryProvider>
           <main className="h-full w-full">
             {isLoggedIn ? (isAdmin ? admin : regular) : open}
