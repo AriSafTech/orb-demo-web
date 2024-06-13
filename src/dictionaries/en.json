@@ -179,6 +179,11 @@
     "gender_other": "Others",
     "role_consumer": "Consumer",
     "role_merchant": "Merchant",
-    "role_admin": "Admin"
+    "role_admin": "Admin",
+    "transaction_type_charge": "Charge",
+    "transaction_type_payment": "Payment",
+    "transaction_type_payment_refunded": "Payment (refunded)",
+    "transaction_type_refund": "Refund",
+    "transaction_type_others": "Others"
   }
 }

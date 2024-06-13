@@ -10,9 +10,12 @@ import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { coinService } from "@/services/coin.service";
+import { useLabel } from "@/lib/hooks/useLabel";
+import { cn } from "@/lib/utils";
 
 const TransactionPage = () => {
   const { data: t } = useLanguageStore();
+  const { geTransactionType } = useLabel();
   const { data: allTransactions, status } =
     transactionService.useAllTransactions();
   //   useEffect(() => console.log("Lists:", data), [data]);
@@ -85,20 +88,33 @@ const TransactionPage = () => {
         );
       },
     },
-    // {
-    //   accessorKey: "group",
-    //   header: t.transaction.group,
-    // },
     {
       accessorKey: "type",
-      header: t.transaction.group,
+      header: ({ column }) => (
+        <div className="text-center">{t.transaction.type}</div>
+      ),
       cell: ({ row }) => {
-        return row.original.group == "payment" ? (
-          <Badge variant="secondary">{t.transaction.payment}</Badge>
-        ) : row.original.group == "charge" ? (
-          <Badge>{t.transaction.charge}</Badge>
-        ) : (
-          ""
+        const tt = geTransactionType(row.original);
+        return (
+          <div className="flex justify-center items-center">
+            <Badge
+              variant={tt.type === "others" ? "outline" : "default"}
+              className={cn(
+                "text-center max-w-20 flex justify-center select-none",
+                {
+                  "bg-primary hover:bg-primary": tt.type === "charge",
+                  "bg-accent hover:bg-accent text-primary":
+                    tt.type === "payment",
+                  "bg-accent hover:bg-accent text-primary/70":
+                    tt.type === "paymentRefunded",
+                  "bg-accent hover:bg-accent text-red-400":
+                    tt.type === "refund",
+                },
+              )}
+            >
+              {tt.label}
+            </Badge>
+          </div>
         );
       },
     },
@@ -119,9 +135,9 @@ const TransactionPage = () => {
         const formattedDate = format(
           // @ts-ignore
           new Date(row.original.created_at),
-          "yyyy-MM-dd",
+          "yyyy-MM-dd HH:mm:ss",
         );
-        return formattedDate;
+        return <div className="text-center">{formattedDate}</div>;
       },
     },
   ];

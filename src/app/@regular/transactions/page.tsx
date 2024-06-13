@@ -31,12 +31,14 @@ import { coinService } from "@/services/coin.service";
 import { FaRegCopy as CopyIcon } from "react-icons/fa";
 import { toast } from "sonner";
 import { cn, isNavigator } from "@/lib/utils";
+import { useLabel } from "@/lib/hooks/useLabel";
 
 const TransactionsPage = () => {
   const { user } = useAuthStore();
   const { data: t } = useLanguageStore();
   const { data: allTransactions, status } =
     transactionService.useSelfTransactions();
+  const { geTransactionType } = useLabel();
 
   const { data: coinsData } = coinService.useAllCoins();
   const coins = useMemo(
@@ -112,7 +114,11 @@ const TransactionsPage = () => {
           cell: ({ row }) => {
             const senderId = row.original.participants?.consumer;
             if (senderId === user!.userName) {
-              return <Badge>Me</Badge>;
+              return (
+                <Badge variant="outline" className="text-primary">
+                  Me
+                </Badge>
+              );
             } else {
               return <p>{senderId}</p>;
             }
@@ -128,7 +134,11 @@ const TransactionsPage = () => {
               row.original.participants?.receiver ??
               "";
             if (receiverId === user!.userName) {
-              return <Badge>Me</Badge>;
+              return (
+                <Badge variant="outline" className="text-primary">
+                  Me
+                </Badge>
+              );
             } else {
               return <p>{receiverId}</p>;
             }
@@ -136,14 +146,31 @@ const TransactionsPage = () => {
         },
         {
           accessorKey: "type",
-          header: t.transaction.type,
+          header: ({ column }) => (
+            <div className="text-center">{t.transaction.type}</div>
+          ),
           cell: ({ row }) => {
-            return row.original.group == "payment" ? (
-              <Badge variant="secondary">{t.transaction.payment}</Badge>
-            ) : row.original.group == "charge" ? (
-              <Badge>{t.transaction.charge}</Badge>
-            ) : (
-              ""
+            const tt = geTransactionType(row.original);
+            return (
+              <div className="flex justify-center items-center">
+                <Badge
+                  variant={tt.type === "others" ? "outline" : "default"}
+                  className={cn(
+                    "text-center max-w-20 flex justify-center select-none",
+                    {
+                      "bg-primary hover:bg-primary": tt.type === "charge",
+                      "bg-accent hover:bg-accent text-primary":
+                        tt.type === "payment",
+                      "bg-accent hover:bg-accent text-primary/70":
+                        tt.type === "paymentRefunded",
+                      "bg-accent hover:bg-accent text-red-400":
+                        tt.type === "refund",
+                    },
+                  )}
+                >
+                  {tt.label}
+                </Badge>
+              </div>
             );
           },
         },
@@ -288,10 +315,9 @@ const TransactionsPage = () => {
       ],
       [
         coins,
+        geTransactionType,
         t.transaction.amount,
-        t.transaction.charge,
         t.transaction.coin_name,
-        t.transaction.payment,
         t.transaction.receiver,
         t.transaction.refund_amount,
         t.transaction.refund_coin_name,
