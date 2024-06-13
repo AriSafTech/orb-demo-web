@@ -155,7 +155,7 @@
     },
     "/api/v1/users/{id}": {
       "get": {
-        "operationId": "getSingleUser",
+        "operationId": "getSingleUserById",
         "parameters": [
           {
             "name": "id",
@@ -180,6 +180,19 @@
             "multipart/form-data": {}
           }
         },
+        "responses": {}
+      }
+    },
+    "/api/v1/users/single/{username}": {
+      "get": {
+        "operationId": "getSingleUserByUsername",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true
+          }
+        ],
         "responses": {}
       }
     },

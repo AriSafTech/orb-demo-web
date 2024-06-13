@@ -495,6 +495,22 @@ declare namespace Components {
             name?: string;
         }
         /**
+         * User response
+         * User response.
+         */
+        export interface SingleUserResponseAttribute {
+            /**
+             * example:
+             * Hasib
+             */
+            name?: string;
+            /**
+             * example:
+             * http://orb-demo-api.test/storage/users/hasib.webp
+             */
+            avatar?: string;
+        }
+        /**
          * Transaction response
          * Transaction response.
          */
@@ -1157,7 +1173,7 @@ declare namespace Paths {
             }
         }
     }
-    namespace GetSingleUser {
+    namespace GetSingleUserById {
         namespace Parameters {
             export type Id = string;
         }
@@ -1187,6 +1203,60 @@ declare namespace Paths {
                      * User response.
                      */
                     Components.Schemas.UserResponseAttribute;
+                };
+            }
+            export interface $401 {
+                /**
+                 * example:
+                 * false
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 401
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Unauthorized
+                 */
+                message?: string;
+                errors?: {
+                    [key: string]: any;
+                };
+            }
+        }
+    }
+    namespace GetSingleUserByUsername {
+        namespace Parameters {
+            export type Username = string;
+        }
+        export interface PathParameters {
+            username: Parameters.Username;
+        }
+        namespace Responses {
+            export interface $200 {
+                /**
+                 * example:
+                 * true
+                 */
+                success?: boolean;
+                /**
+                 * example:
+                 * 200
+                 */
+                statusCode?: number;
+                /**
+                 * example:
+                 * Single user data.
+                 */
+                message?: string;
+                data?: {
+                    user?: /**
+                     * User response
+                     * User response.
+                     */
+                    Components.Schemas.SingleUserResponseAttribute;
                 };
             }
             export interface $401 {
@@ -2001,13 +2071,13 @@ export interface OperationMethods {
     config?: AxiosRequestConfig  
   ): OperationResponse<Paths.GetAllUsers.Responses.$200>
   /**
-   * getSingleUser - Get single user.
+   * getSingleUserById - Get single user.
    */
-  'getSingleUser'(
-    parameters?: Parameters<Paths.GetSingleUser.PathParameters> | null,
+  'getSingleUserById'(
+    parameters?: Parameters<Paths.GetSingleUserById.PathParameters> | null,
     data?: any,
     config?: AxiosRequestConfig  
-  ): OperationResponse<Paths.GetSingleUser.Responses.$200>
+  ): OperationResponse<Paths.GetSingleUserById.Responses.$200>
   /**
    * updateUser - Update status.
    */
@@ -2016,6 +2086,14 @@ export interface OperationMethods {
     data?: Paths.UpdateUser.RequestBody,
     config?: AxiosRequestConfig  
   ): OperationResponse<Paths.UpdateUser.Responses.$201>
+  /**
+   * getSingleUserByUsername - Get single user.
+   */
+  'getSingleUserByUsername'(
+    parameters?: Parameters<Paths.GetSingleUserByUsername.PathParameters> | null,
+    data?: any,
+    config?: AxiosRequestConfig  
+  ): OperationResponse<Paths.GetSingleUserByUsername.Responses.$200>
   /**
    * updateStatus - Change status of a user.
    */
@@ -2185,13 +2263,13 @@ export interface PathsDictionary {
   }
   ['/api/v1/users/{id}']: {
     /**
-     * getSingleUser - Get single user.
+     * getSingleUserById - Get single user.
      */
     'get'(
-      parameters?: Parameters<Paths.GetSingleUser.PathParameters> | null,
+      parameters?: Parameters<Paths.GetSingleUserById.PathParameters> | null,
       data?: any,
       config?: AxiosRequestConfig  
-    ): OperationResponse<Paths.GetSingleUser.Responses.$200>
+    ): OperationResponse<Paths.GetSingleUserById.Responses.$200>
     /**
      * updateUser - Update status.
      */
@@ -2200,6 +2278,16 @@ export interface PathsDictionary {
       data?: Paths.UpdateUser.RequestBody,
       config?: AxiosRequestConfig  
     ): OperationResponse<Paths.UpdateUser.Responses.$201>
+  }
+  ['/api/v1/users/single/{username}']: {
+    /**
+     * getSingleUserByUsername - Get single user.
+     */
+    'get'(
+      parameters?: Parameters<Paths.GetSingleUserByUsername.PathParameters> | null,
+      data?: any,
+      config?: AxiosRequestConfig  
+    ): OperationResponse<Paths.GetSingleUserByUsername.Responses.$200>
   }
   ['/api/v1/users/update-status/{id}']: {
     /**
