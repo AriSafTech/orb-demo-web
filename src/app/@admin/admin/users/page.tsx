@@ -52,6 +52,8 @@ import { useLabel } from "@/lib/hooks/useLabel";
 // import { FaEye as EyeIcon } from "react-icons/fa";
 // import { MdOutlineRemoveRedEye as EyeIcon } from "react-icons/md";
 import { IoEye as EyeIcon } from "react-icons/io5";
+import { Skeleton } from "@/components/ui/skeleton";
+import UserSkeleton from "@/components/custom/UserSkeleton";
 
 const UsersPage = () => {
   const { data: allUsers, status } = userService.useAllUsers();
@@ -210,40 +212,86 @@ const UsersPage = () => {
           <div className="flex justify-start items-start mt-4 px-10">
             <div className="flex flex-col gap-4 !font-light">
               <div>
-                <div className="mb-0 text-sm">{t.users.name} </div>
-                <div className="mt-0 text-xl w-full">{singleUser?.name}</div>
+                {isPending ? (
+                  <UserSkeleton />
+                ) : (
+                  <div>
+                    <div className="mb-0 text-sm">{t.users.name}</div>
+                    <div className="mt-0 text-xl w-full">
+                      {singleUser?.name}
+                    </div>
+                  </div>
+                )}
               </div>
               <div>
-                <div className="mb-0 text-sm">{t.users.email} </div>
-                <div className="mt-0 text-xl">{singleUser?.email}</div>
+                {isPending ? (
+                  <UserSkeleton />
+                ) : (
+                  <div>
+                    <div className="mb-0 text-sm">{t.users.email} </div>
+                    <div className="mt-0 text-xl">{singleUser?.email}</div>
+                  </div>
+                )}
               </div>
               <div>
-                <div className="mb-0 text-sm">{t.users.address} </div>
-                <div className="mt-0 text-xl">
-                  {singleUser?.address ?? "N/A"}
-                </div>
+                {isPending ? (
+                  <UserSkeleton />
+                ) : (
+                  <div>
+                    <div className="mb-0 text-sm">{t.users.address} </div>
+                    <div className="mt-0 text-xl">
+                      {singleUser?.address ?? "N/A"}
+                    </div>
+                  </div>
+                )}
               </div>
               <div>
-                <div className="mb-0 text-sm">{t.users.bank_details}</div>
-                <div className="mt-0 text-xl">
-                  {singleUser?.bank_details ?? "N/A"}
-                </div>
+                {isPending ? (
+                  <UserSkeleton />
+                ) : (
+                  <div>
+                    <div className="mb-0 text-sm">{t.users.bank_details}</div>
+                    <div className="mt-0 text-xl">
+                      {singleUser?.bank_details ?? "N/A"}
+                    </div>
+                  </div>
+                )}
               </div>
               <div>
-                <div className="mb-0 text-sm">{t.users.gender} </div>
-                <div className="mt-0 text-xl">
-                  {getGender(singleUser?.gender)}
-                </div>
+                {isPending ? (
+                  <UserSkeleton />
+                ) : (
+                  <div>
+                    <div className="mb-0 text-sm">{t.users.gender} </div>
+                    <div className="mt-0 text-xl">
+                      {getGender(singleUser?.gender)}
+                    </div>
+                  </div>
+                )}
               </div>
               <div>
-                <div className="mb-0 text-sm">{t.users.role} </div>
-                <div className="mt-0 text-xl">
-                  {getRole(singleUser?.role?.name)}
-                </div>
+                {isPending ? (
+                  <UserSkeleton />
+                ) : (
+                  <div>
+                    <div className="mb-0 text-sm">{t.users.role} </div>
+                    <div className="mt-0 text-xl">
+                      {getRole(singleUser?.role?.name)}
+                    </div>
+                  </div>
+                )}
               </div>
               <div>
-                <div className="mb-0 text-sm">{t.users.balance} </div>
-                <div className="mt-0 text-xl">{singleUser?.balance?.total}</div>
+                {isPending ? (
+                  <UserSkeleton />
+                ) : (
+                  <div>
+                    <div className="mb-0 text-sm">{t.users.balance} </div>
+                    <div className="mt-0 text-xl">
+                      {singleUser?.balance?.total}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
