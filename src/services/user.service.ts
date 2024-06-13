@@ -4,6 +4,7 @@ import { MUTATION_KEYS } from "@/constants/mutation-keys.constants";
 import { QUERY_KEYS } from "@/constants/query-keys.constants";
 import { useAuthStore } from "@/stores/authStore";
 import Pusher from "pusher-js";
+import { coinService } from "@/services/coin.service";
 import {
   QueryClient,
   useMutation,
@@ -11,6 +12,8 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { headers } from "next/headers";
+import { notifyUser } from "@/components/custom/Echo";
+import { useMemo } from "react";
 
 export type User = {
   name: string;
@@ -49,7 +52,7 @@ export const userService = {
       queryKey: [QUERY_KEYS.getSingleUser, id],
       queryFn: async () => {
         const client = await getApiClient();
-        const res = await client.getSingleUser(id);
+        const res = await client.getSingleUserById(id);
         return res?.data?.data?.user;
       },
     });
@@ -128,6 +131,15 @@ export const userService = {
   // User notifications
   useUserNotifications() {
     const { tokens, user } = useAuthStore();
+    const { data: coinsData } = coinService.useAllCoins();
+    const coins = useMemo(
+      () =>
+        coinsData
+          ? Object.fromEntries(coinsData.map((c) => [c.coin_id!, c.name!]))
+          : null,
+      [coinsData],
+    );
+
     const queryClient = useQueryClient();
     var pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
       cluster: process.env.NEXT_PUBLIC_PUSHER_APP_CLUSTER,
@@ -147,9 +159,11 @@ export const userService = {
 
         var channel = pusher.subscribe(`notification-${user?.id}`);
         channel.bind("notification-event", async function (data: any) {
-          // console.log("data", data);
+          console.log("data", data);
           if (data) {
-            // toast.success(data.notification.title);
+            const coinName = coins ? coins[data.notification.coin_id] : null;
+            // notifyUser(data.notification, coinName);
+
             await queryClient.invalidateQueries({
               queryKey: [QUERY_KEYS.getUserNotifications],
             });
