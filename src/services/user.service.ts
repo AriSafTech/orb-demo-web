@@ -14,6 +14,7 @@ import {
 import { headers } from "next/headers";
 import { notifyUser } from "@/components/custom/Echo";
 import { useMemo } from "react";
+import { NotificationItem } from "@/lib/notirfication-utils";
 
 export type User = {
   name: string;
@@ -170,7 +171,7 @@ export const userService = {
           }
         });
 
-        return res?.data?.data?.notifications;
+        return res?.data?.data?.notifications as NotificationItem[];
       },
     });
 

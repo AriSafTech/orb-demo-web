@@ -4,29 +4,16 @@ import Echo from "laravel-echo";
 import { useAuthStore } from "@/stores/authStore";
 import { toast } from "sonner";
 import { coinService } from "@/services/coin.service";
+import {
+  getNotificationMessage,
+  NotificationItem,
+} from "@/lib/notirfication-utils";
 
-export const notifyUser = (notification: any, coinName: string | null) => {
-  const { variant, amount, receiver, sender } = notification;
-
-  switch (variant) {
-    case "recharged_received":
-      toast.info(
-        `You have received a recharge of ${amount} of coin, ${coinName}.`,
-      );
-      break;
-    case "payment_sent":
-      toast.info(
-        `You have sent a payment of ${amount} of coin, ${coinName} to ${receiver.name}.`,
-      );
-      break;
-    case "payment_received":
-      toast.info(
-        `You have received a payment of ${amount} of coin, ${coinName} from ${sender.name}.`,
-      );
-      break;
-    default:
-      console.warn(`Unknown notification variant: ${variant}`);
-  }
+export const notifyUser = (
+  notification: NotificationItem,
+  coinNames: Record<string, string>,
+) => {
+  toast.info(getNotificationMessage(notification, coinNames));
 };
 
 const PusherComponent = () => {
@@ -50,11 +37,9 @@ const PusherComponent = () => {
   useEffect(() => {
     if (user?.id) {
       const channel = pusher.subscribe(`notification-${user.id}`);
-      const handleNotification = (data: any) => {
-        if (data) {
-          //   console.log(data);
-          const coinName = coins ? coins[data.notification.coin_id] : null;
-          notifyUser(data.notification, coinName);
+      const handleNotification = (data: { notification: NotificationItem }) => {
+        if (data && coins) {
+          notifyUser(data.notification, coins);
         }
       };
       channel.bind("notification-event", handleNotification);
@@ -63,7 +48,7 @@ const PusherComponent = () => {
         pusher.unsubscribe(`notification-${user.id}`);
       };
     }
-  }, [pusher, user?.id]);
+  }, [coins, pusher, user?.id]);
 
   return <div></div>;
 };
