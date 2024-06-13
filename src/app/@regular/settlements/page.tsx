@@ -12,7 +12,7 @@ import { useAuthStore } from "@/stores/authStore";
 import { DUMMY_SETTLEMENTS_DATA, getDummySettlementsData } from "./data";
 import { coinService } from "@/services/coin.service";
 import { useMemo } from "react";
-import { cn } from "@/lib/utils";
+import { cn, isNavigator } from "@/lib/utils";
 import {
   Tooltip,
   TooltipContent,
@@ -123,8 +123,10 @@ const SettlementsTable = ({ coins }: Props) => {
               <Button
                 variant="ghost"
                 onClick={async () => {
-                  await navigator.clipboard.writeText(row.original.id);
-                  toast.success("Copied settlement ID to clipboard");
+                  if (isNavigator()) {
+                    await navigator.clipboard.writeText(row.original.id);
+                    toast.success("Copied settlement ID to clipboard");
+                  }
                 }}
               >
                 <CopyIcon />

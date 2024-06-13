@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist, PersistOptions } from "zustand/middleware";
 import enData from "@/dictionaries/en.json";
 import jaData from "@/dictionaries/ja.json";
+import { isNavigator } from "@/lib/utils";
 
 // Utility function to get the user's preferred language
 export const getUserPreferredLanguage = () => {
@@ -12,9 +13,11 @@ export const getUserPreferredLanguage = () => {
   // }
 
   // Fallback to browser settings
-  const browserLanguage = navigator.language || navigator.languages[0];
-  if (browserLanguage.startsWith("ja")) {
-    return "jp";
+  if (isNavigator()) {
+    const browserLanguage = navigator.language || navigator.languages[0];
+    if (browserLanguage.startsWith("ja")) {
+      return "jp";
+    }
   }
   return "en"; // Default to English
 };

@@ -46,6 +46,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { toast } from "sonner";
+import Loading from "@/components/custom/Loading";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const FormSchema = z.object({
   validity: z.date({
@@ -222,7 +224,7 @@ function AdminDashboardPage() {
               {t.adminLayout.totalActiveUsers}
             </CardHeader>
             <CardContent className="text-center font-bold text-[25px]">
-              {allUsers?.length}
+              {allUsers?.length ?? <Skeleton className="w-full h-12" />}
             </CardContent>
           </Card>
 
@@ -232,7 +234,7 @@ function AdminDashboardPage() {
               {t.adminLayout.totalIssuedCoins}
             </CardHeader>
             <CardContent className="text-center font-bold text-[25px]">
-              {totalBalance}
+              {totalBalance ?? <Skeleton className="w-full h-12" />}
             </CardContent>
           </Card>
 
@@ -242,7 +244,7 @@ function AdminDashboardPage() {
               {t.adminLayout.lastDayTransactions}
             </CardHeader>
             <CardContent className="text-center font-bold text-[25px]">
-              {recentTransactionCount}
+              {recentTransactionCount ?? <Skeleton className="w-full h-12" />}
             </CardContent>
           </Card>
         </div>

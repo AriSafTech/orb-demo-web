@@ -34,8 +34,10 @@ export function downloadCanvasAsImg(
 }
 
 export async function copyToClipboard(text: string, toastMsg?: string) {
-  await navigator.clipboard.writeText(text);
-  toast.info(toastMsg ?? "Copied to clipboard");
+  if (isNavigator()) {
+    await navigator.clipboard.writeText(text);
+    toast.info(toastMsg ?? "Copied to clipboard");
+  }
 }
 
 export const noop = () => {};
@@ -66,4 +68,4 @@ export function off<T extends Window | Document | HTMLElement | EventTarget>(
 
 export const isBrowser = typeof window !== "undefined";
 
-export const isNavigator = typeof navigator !== "undefined";
+export const isNavigator = () => typeof navigator !== "undefined";

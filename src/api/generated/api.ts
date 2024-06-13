@@ -428,10 +428,10 @@ export interface Recharge200ResponseData {
 export interface RechargeRequestAttribute {
   /**
    *
-   * @type {Numeric}
+   * @type {string}
    * @memberof RechargeRequestAttribute
    */
-  receiver_id?: Numeric;
+  receiver_id?: string;
   /**
    *
    * @type {number}

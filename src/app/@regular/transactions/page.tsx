@@ -30,7 +30,7 @@ import {
 import { coinService } from "@/services/coin.service";
 import { FaRegCopy as CopyIcon } from "react-icons/fa";
 import { toast } from "sonner";
-import { cn } from "@/lib/utils";
+import { cn, isNavigator } from "@/lib/utils";
 
 const TransactionsPage = () => {
   const { user } = useAuthStore();
@@ -265,10 +265,12 @@ const TransactionsPage = () => {
                       <Button
                         variant="ghost"
                         onClick={async () => {
-                          await navigator.clipboard.writeText(
-                            row.original.tx_id!,
-                          );
-                          toast.success("Copied transaction ID to clipboard");
+                          if (isNavigator()) {
+                            await navigator.clipboard.writeText(
+                              row.original.tx_id!,
+                            );
+                            toast.success("Copied transaction ID to clipboard");
+                          }
                         }}
                       >
                         <CopyIcon />
