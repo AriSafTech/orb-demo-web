@@ -7,6 +7,7 @@ export type NotificationItem = {
   id: string;
   title: string;
   is_seen: boolean;
+  coin_id: string;
   variant: "payment_sent" | "payment_received" | "recharged_received";
   created_at: string; // eg. 2024-06-13 10:04:58
   user: NotificationUser;

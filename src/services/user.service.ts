@@ -160,7 +160,6 @@ export const userService = {
 
         var channel = pusher.subscribe(`notification-${user?.id}`);
         channel.bind("notification-event", async function (data: any) {
-          console.log("data", data);
           if (data) {
             const coinName = coins ? coins[data.notification.coin_id] : null;
             // notifyUser(data.notification, coinName);
@@ -176,5 +175,26 @@ export const userService = {
     });
 
     return query;
+  },
+
+  useUpdateUserIsSeenNotifications(id: string) {
+    const queryClient = useQueryClient();
+    return useMutation({
+      mutationKey: [MUTATION_KEYS.userNotificationsSeen],
+      mutationFn: async ({ is_seen }: { is_seen: boolean }) => {
+        const client = await getApiClient();
+        const res = await client.updateNotification(
+          { id },
+          {
+            is_seen,
+          },
+        );
+
+        await queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.getUserNotifications],
+        });
+        return res.data.data;
+      },
+    });
   },
 };

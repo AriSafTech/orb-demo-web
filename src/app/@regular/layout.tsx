@@ -47,11 +47,24 @@ import PusherComponent from "@/components/custom/Echo";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SelectSeparator } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { coinService } from "@/services/coin.service";
+import { useEffect, useMemo } from "react";
+import {
+  getNotificationMessage,
+  NotificationItem,
+} from "@/lib/notirfication-utils";
 
 type NavItem = {
   label: string;
   path: string;
   icon: IconType;
+};
+
+const notifyUser = (
+  notification: NotificationItem,
+  coinNames: Record<string, string>,
+) => {
+  getNotificationMessage(notification, coinNames);
 };
 
 export default function RegularLayout({
@@ -98,11 +111,30 @@ export default function RegularLayout({
 
   const { mutateAsync: logout } = authService.useLogout();
   // notifications
+  const { data: coinsData } = coinService.useAllCoins();
+  const coins = useMemo(
+    () =>
+      coinsData
+        ? Object.fromEntries(coinsData.map((c) => [c.coin_id!, c.name!]))
+        : null,
+    [coinsData],
+  );
+
   const { data: userNotifications, status } =
     userService.useUserNotifications();
   // if (userNotifications) {
-  //   console.log("notifications", userNotifications.length);
+  //   console.log("notifications", userNotifications);
   // }
+
+  // update isSeen status
+  const { mutateAsync: updateIsSeenStatus } =
+    userService.useUpdateUserIsSeenNotifications(
+      "9c3842eb-c245-4018-805e-187aaab955f1",
+    );
+
+  useEffect(() => {
+    updateIsSeenStatus({ is_seen: true });
+  }, []);
 
   const router = useRouter();
   const renderNavItems = (inSheet?: boolean) => {
@@ -206,9 +238,13 @@ export default function RegularLayout({
                     <div className="absolute top-[-8px] right-[-13px] bg-primary text-white w-7 h-7 rounded-full flex justify-center items-center p-2">
                       {userNotifications && (
                         <div className="text-xs">
-                          {userNotifications?.length > 99
+                          {userNotifications.filter(
+                            (notification) => !notification.is_seen,
+                          ).length > 99
                             ? "99+"
-                            : userNotifications?.length}
+                            : userNotifications.filter(
+                                (notification) => !notification.is_seen,
+                              ).length}
                         </div>
                       )}
                     </div>
@@ -220,14 +256,31 @@ export default function RegularLayout({
                           {t.layout.notifications}
                         </h4>
                         {userNotifications &&
-                          userNotifications.map((notification) => (
-                            <>
-                              <div key={notification.id} className="text-sm">
-                                {notification.title}
+                          userNotifications.map((notification) => {
+                            const coinName = coins
+                              ? coins[notification.coin_id]
+                              : null;
+                            return (
+                              // coinName && (
+                              <div
+                                key={notification.id}
+                                className={cn({
+                                  "bg-secondary px-2": !notification.is_seen,
+                                })}
+                              >
+                                <div className="text-sm pt-1.5">
+                                  {getNotificationMessage(
+                                    notification,
+                                    coins as Record<string, string>,
+                                  )}
+                                  <div>{notification.created_at}</div>
+                                  {/* {notifyUser(notification, coins)} */}
+                                </div>
+                                <Separator className="my-2" />
                               </div>
-                              <Separator className="my-2" />
-                            </>
-                          ))}
+                              // )
+                            );
+                          })}
                       </div>
                     </ScrollArea>
                   </DropdownMenuContent>

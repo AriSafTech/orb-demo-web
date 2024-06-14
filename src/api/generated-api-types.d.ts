@@ -271,6 +271,50 @@ declare namespace Components {
              * true
              */
             is_seen?: boolean;
+            /**
+             * example:
+             * payment_sent
+             */
+            variant?: "payment_sent" | "payment_received" | "recharged_received";
+            /**
+             * example:
+             * 1
+             */
+            coin_id?: string;
+            /**
+             * example:
+             * 10.00
+             */
+            amount?: string;
+            /**
+             * example:
+             * 2024-06-14 03:19:09
+             */
+            created_at?: string;
+            sender?: {
+                /**
+                 * example:
+                 * 9c0fee7c-608f-4e88-8f17-0bac9a8014d9
+                 */
+                id?: string;
+                /**
+                 * example:
+                 * Hasib
+                 */
+                name?: string;
+            };
+            receiver?: {
+                /**
+                 * example:
+                 * 9c0fee7c-608f-4e88-8f17-0bac9a8014d9
+                 */
+                id?: string;
+                /**
+                 * example:
+                 * Hasib-01
+                 */
+                name?: string;
+            };
             user?: {
                 /**
                  * example:

@@ -2104,6 +2104,49 @@
             "type": "boolean",
             "example": "true"
           },
+          "variant": {
+            "type": "string",
+            "enum": ["payment_sent", "payment_received", "recharged_received"],
+            "example": "payment_sent"
+          },
+          "coin_id": {
+            "type": "string",
+            "example": "1"
+          },
+          "amount": {
+            "type": "string",
+            "example": "10.00"
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2024-06-14 03:19:09"
+          },
+          "sender": {
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "9c0fee7c-608f-4e88-8f17-0bac9a8014d9"
+              },
+              "name": {
+                "type": "string",
+                "example": "Hasib"
+              }
+            },
+            "type": "object"
+          },
+          "receiver": {
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "9c0fee7c-608f-4e88-8f17-0bac9a8014d9"
+              },
+              "name": {
+                "type": "string",
+                "example": "Hasib-01"
+              }
+            },
+            "type": "object"
+          },
           "user": {
             "properties": {
               "id": {

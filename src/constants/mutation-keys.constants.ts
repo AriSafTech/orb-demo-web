@@ -7,4 +7,5 @@ export const MUTATION_KEYS = {
   refund: "refund",
   myInfo: "self-info",
   userStatus: "user-status",
+  userNotificationsSeen: "is-seen-notifications",
 };
