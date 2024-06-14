@@ -1,5 +1,4 @@
 "use client";
-
 import { IconType } from "react-icons";
 import { GrTransaction as PaymentIcon } from "react-icons/gr";
 import { GrUser as UserIcon } from "react-icons/gr";
@@ -19,7 +18,6 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -36,35 +34,25 @@ import { MdLogout as LogoutIcon } from "react-icons/md";
 import { RxHamburgerMenu as MenuIcon } from "react-icons/rx";
 import { LuCodesandbox as PlaygroundIcon } from "react-icons/lu";
 import { RiMoneyCnyCircleLine as SettlementsIcon } from "react-icons/ri";
-
 import { getInitials } from "@/lib/name-utils";
 import { useLanguageStore } from "@/stores/languageStore";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuthStore } from "@/stores/authStore";
 import { userService } from "@/services/user.service";
-import LaravelEcho from "@/components/custom/Echo";
 import PusherComponent from "@/components/custom/Echo";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { SelectSeparator } from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
 import { coinService } from "@/services/coin.service";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import {
   getNotificationMessage,
   NotificationItem,
 } from "@/lib/notirfication-utils";
+import NotificationScrollItem from "@/components/custom/NotificationItemScroll";
 
 type NavItem = {
   label: string;
   path: string;
   icon: IconType;
-};
-
-const notifyUser = (
-  notification: NotificationItem,
-  coinNames: Record<string, string>,
-) => {
-  getNotificationMessage(notification, coinNames);
 };
 
 export default function RegularLayout({
@@ -122,19 +110,8 @@ export default function RegularLayout({
 
   const { data: userNotifications, status } =
     userService.useUserNotifications();
-  // if (userNotifications) {
-  //   console.log("notifications", userNotifications);
-  // }
 
-  // update isSeen status
-  const { mutateAsync: updateIsSeenStatus } =
-    userService.useUpdateUserIsSeenNotifications(
-      "9c3842eb-c245-4018-805e-187aaab955f1",
-    );
-
-  useEffect(() => {
-    updateIsSeenStatus({ is_seen: true });
-  }, []);
+  // const notificationRef = useUpdateIsSeenStatus(userNotifications, userService);
 
   const router = useRouter();
   const renderNavItems = (inSheet?: boolean) => {
@@ -182,6 +159,7 @@ export default function RegularLayout({
   const handlePushEvent = (event: any) => {
     console.log("Received event:", event);
   };
+
   return (
     <div className="h-full w-full grid grid-cols-12">
       <aside className="bg-primary/10 col col-span-0 hidden sm:col-span-3 lg:col-span-2 sm:flex flex-col items-start justify-start">
@@ -257,28 +235,31 @@ export default function RegularLayout({
                         </h4>
                         {userNotifications &&
                           userNotifications.map((notification) => {
-                            const coinName = coins
-                              ? coins[notification.coin_id]
-                              : null;
                             return (
-                              // coinName && (
-                              <div
+                              // <div
+                              //   key={notification.id}
+                              //   // ref={ref}
+                              //   className={cn({
+                              //     "bg-secondary ": !notification.is_seen,
+                              //   })}
+                              // >
+                              //   <div className="text-sm pt-1.5 px-2">
+                              //     {getNotificationMessage(
+                              //       notification,
+                              //       coins as Record<string, string>,
+                              //     )}
+                              //     <div className="text-xs">
+                              //       {notification.created_at}
+                              //     </div>
+                              //   </div>
+                              //   <Separator className="my-2" />
+                              // </div>
+                              <NotificationScrollItem
                                 key={notification.id}
-                                className={cn({
-                                  "bg-secondary px-2": !notification.is_seen,
-                                })}
-                              >
-                                <div className="text-sm pt-1.5">
-                                  {getNotificationMessage(
-                                    notification,
-                                    coins as Record<string, string>,
-                                  )}
-                                  <div>{notification.created_at}</div>
-                                  {/* {notifyUser(notification, coins)} */}
-                                </div>
-                                <Separator className="my-2" />
-                              </div>
-                              // )
+                                notification={notification}
+                                //@ts-ignore
+                                coins={coins}
+                              />
                             );
                           })}
                       </div>
