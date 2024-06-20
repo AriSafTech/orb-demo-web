@@ -1,6 +1,6 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 
 function OpenRedirect() {
   const router = useRouter();
@@ -21,4 +21,12 @@ function OpenRedirect() {
   return <></>;
 }
 
-export default OpenRedirect;
+function OpenRedirectPage() {
+  return (
+    <Suspense>
+      <OpenRedirect />
+    </Suspense>
+  );
+}
+
+export default OpenRedirectPage;

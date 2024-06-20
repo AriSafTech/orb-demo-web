@@ -18,7 +18,7 @@ import Link from "next/link";
 import { useLanguageStore } from "@/stores/languageStore";
 import { authService } from "@/services/auth.service";
 import { useAuthStore } from "@/stores/authStore";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const formSchema = z.object({
@@ -32,7 +32,7 @@ type Props = {
   isAdminPortal?: boolean;
 };
 
-const LoginForm = ({ isAdminPortal }: Props) => {
+const LoginFormInner = ({ isAdminPortal }: Props) => {
   const searchParams = useSearchParams();
   const redirectDirty = searchParams.get("redirectTo");
   const redirect = redirectDirty ? decodeURIComponent(redirectDirty) : null;
@@ -165,6 +165,14 @@ const LoginForm = ({ isAdminPortal }: Props) => {
         </Card>
       </div>
     </Form>
+  );
+};
+
+const LoginForm = (props: Props) => {
+  return (
+    <Suspense>
+      <LoginFormInner {...props} />
+    </Suspense>
   );
 };
 

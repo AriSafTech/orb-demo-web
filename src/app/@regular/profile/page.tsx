@@ -32,40 +32,33 @@ import { useAuthStore } from "@/stores/authStore";
 import Loading from "@/components/custom/Loading";
 import LanguageSwitcher from "@/components/custom/LanguageSwitcher";
 import { Label } from "@/components/ui/label";
+import { Components } from "@/api/generated-api-types";
 
-//   validation
-const formSchema = z.object({
-  name: z.string().min(1, "Name is required").max(50),
-  phone: z.string().max(50).optional(),
-
-  address: z.string().max(50).optional(),
-  bank_details: z.string().max(50).optional(),
-  gender: z.string().max(50).optional(),
-  avatar: z
-    .union([z.string().nullable(), z.instanceof(FileList), z.instanceof(File)])
-    .optional(),
-});
-
-//   type
-type FormData = z.infer<typeof formSchema>;
-
-const userDetails = () => {
-  const { data: selfInfo } = authService.useMe();
-  if (selfInfo) {
-    return <ProfilePage selfInfo={selfInfo} />;
-  } else {
-    return (
-      <div className="h-full flex items-center justify-center">
-        <div>
-          <Loading />
-        </div>
-      </div>
-    );
-  }
+type Props = {
+  selfInfo: Components.Schemas.UserResponseAttribute;
 };
 
-//@ts-ignore
-const ProfilePage = ({ selfInfo }) => {
+const Profile = ({ selfInfo }: Props) => {
+  //   validation
+  const formSchema = z.object({
+    name: z.string().min(1, "Name is required").max(50),
+    phone: z.string().max(50).optional(),
+
+    address: z.string().max(50).optional(),
+    bank_details: z.string().max(50).optional(),
+    gender: z.string().max(50).optional(),
+    avatar: z
+      .union([
+        z.string().nullable(),
+        z.instanceof(FileList),
+        z.instanceof(File),
+      ])
+      .optional(),
+  });
+
+  //   type
+  type FormData = z.infer<typeof formSchema>;
+
   const router = useRouter();
   const { data: t } = useLanguageStore();
   const { setData, user } = useAuthStore();
@@ -280,4 +273,19 @@ const ProfilePage = ({ selfInfo }) => {
   );
 };
 
-export default userDetails;
+const ProfilePage = () => {
+  const { data: selfInfo } = authService.useMe();
+  if (selfInfo) {
+    return <Profile selfInfo={selfInfo} />;
+  } else {
+    return (
+      <div className="h-full flex items-center justify-center">
+        <div>
+          <Loading />
+        </div>
+      </div>
+    );
+  }
+};
+
+export default ProfilePage;
