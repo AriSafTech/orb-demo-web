@@ -9,6 +9,25 @@ import {
   NotificationItem,
 } from "@/lib/notirfication-utils";
 import { Separator } from "@/components/ui/separator";
+import { formatDistanceToNow, parseISO } from "date-fns";
+
+const formatNotificationTime = (notificationTime: string) => {
+  const notificationDate = parseISO(notificationTime);
+  const now = new Date();
+  //@ts-ignore
+  const diffInMilliseconds = now - notificationDate;
+
+  const millisecondsInAnHour = 1000 * 60 * 60;
+  const millisecondsInADay = millisecondsInAnHour * 24;
+
+  if (diffInMilliseconds < millisecondsInADay) {
+    const hours = Math.floor(diffInMilliseconds / millisecondsInAnHour);
+    return `${hours} h`;
+  } else {
+    const days = Math.floor(diffInMilliseconds / millisecondsInADay);
+    return `${days} d`;
+  }
+};
 
 const NotificationScrollItem = ({
   notification,
@@ -39,7 +58,11 @@ const NotificationScrollItem = ({
     >
       <div className="text-sm pt-1.5 px-2">
         {getNotificationMessage(notification, coins)}
-        <div className="text-xs">{notification.created_at}</div>
+        <div className="text-xs text-primary">
+          {" "}
+          {formatNotificationTime(notification.created_at)}
+          {/* {notification.created_at} */}
+        </div>
       </div>
       <Separator className="my-2" />
     </div>

@@ -42,12 +42,13 @@ import { userService } from "@/services/user.service";
 import PusherComponent from "@/components/custom/Echo";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { coinService } from "@/services/coin.service";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   getNotificationMessage,
   NotificationItem,
 } from "@/lib/notirfication-utils";
 import NotificationScrollItem from "@/components/custom/NotificationItemScroll";
+import { Ghost } from "lucide-react";
 
 type NavItem = {
   label: string;
@@ -160,6 +161,11 @@ export default function RegularLayout({
     console.log("Received event:", event);
   };
 
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const unseenCount = userNotifications
+    ? userNotifications.filter((notification) => !notification.is_seen).length
+    : 0;
+
   return (
     <div className="h-full w-full grid grid-cols-12">
       <aside className="bg-primary/10 col col-span-0 hidden sm:col-span-3 lg:col-span-2 sm:flex flex-col items-start justify-start">
@@ -209,63 +215,51 @@ export default function RegularLayout({
           <div className="flex justify-between gap-8 items-center">
             <div className="flex">
               <div className="relative">
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="outline-none">
-                    {" "}
-                    <RxBell className="w-10" size={30} />
-                    <div className="absolute top-[-8px] right-[-13px] bg-primary text-white w-7 h-7 rounded-full flex justify-center items-center p-2">
-                      {userNotifications && (
-                        <div className="text-xs">
-                          {userNotifications.filter(
-                            (notification) => !notification.is_seen,
-                          ).length > 99
-                            ? "99+"
-                            : userNotifications.filter(
-                                (notification) => !notification.is_seen,
-                              ).length}
+                <>
+                  <DropdownMenu
+                    onOpenChange={(open) => setIsDropdownOpen(open)}
+                  >
+                    <DropdownMenuTrigger className="outline-none">
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        className={cn(
+                          "rounded-full",
+                          isDropdownOpen && "bg-secondary",
+                        )}
+                      >
+                        <RxBell className="w-10" size={30} />
+                      </Button>
+                      {unseenCount > 0 && (
+                        <div className="absolute top-[-8px] right-[-13px] bg-primary text-white w-7 h-7 rounded-full flex justify-center items-center p-2">
+                          <div className="text-xs">
+                            {unseenCount > 99 ? "99+" : unseenCount}
+                          </div>
                         </div>
                       )}
-                    </div>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <ScrollArea className="h-72 w-auto rounded-md">
-                      <div className="p-4">
-                        <h4 className="mb-4 text-sm font-medium leading-none text-center">
-                          {t.layout.notifications}
-                        </h4>
-                        {userNotifications &&
-                          userNotifications.map((notification) => {
-                            return (
-                              // <div
-                              //   key={notification.id}
-                              //   // ref={ref}
-                              //   className={cn({
-                              //     "bg-secondary ": !notification.is_seen,
-                              //   })}
-                              // >
-                              //   <div className="text-sm pt-1.5 px-2">
-                              //     {getNotificationMessage(
-                              //       notification,
-                              //       coins as Record<string, string>,
-                              //     )}
-                              //     <div className="text-xs">
-                              //       {notification.created_at}
-                              //     </div>
-                              //   </div>
-                              //   <Separator className="my-2" />
-                              // </div>
-                              <NotificationScrollItem
-                                key={notification.id}
-                                notification={notification}
-                                //@ts-ignore
-                                coins={coins}
-                              />
-                            );
-                          })}
-                      </div>
-                    </ScrollArea>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="mr-8 z-50 shadow-xl">
+                      <ScrollArea className="h-72 w-auto rounded-md">
+                        <div className="p-4">
+                          <h4 className="mb-4 text-xl font-medium leading-none text-center">
+                            {t.layout.notifications}
+                          </h4>
+                          <div className="border border-dashed p-2 rounded-md">
+                            {userNotifications &&
+                              userNotifications.map((notification) => (
+                                <NotificationScrollItem
+                                  key={notification.id}
+                                  notification={notification}
+                                  // @ts-ignore
+                                  coins={coins}
+                                />
+                              ))}
+                          </div>
+                        </div>
+                      </ScrollArea>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </>
               </div>
             </div>
 
