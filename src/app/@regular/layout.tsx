@@ -238,7 +238,7 @@ export default function RegularLayout({
                         </div>
                       )}
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="mr-8 z-50 shadow-xl">
+                    <DropdownMenuContent className="mr-8 z-50 shadow-xl w-[400px]">
                       <ScrollArea className="h-72 w-auto rounded-md">
                         <div className="p-4">
                           <h4 className="mb-4 text-xl font-medium leading-none text-center">

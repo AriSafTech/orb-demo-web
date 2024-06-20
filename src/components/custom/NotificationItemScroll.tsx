@@ -10,9 +10,12 @@ import {
 } from "@/lib/notirfication-utils";
 import { Separator } from "@/components/ui/separator";
 import { formatDistanceToNow, parseISO } from "date-fns";
+import { Card } from "../ui/card";
 
 const formatNotificationTime = (notificationTime: string) => {
   const notificationDate = parseISO(notificationTime);
+  // console.log(notificationDate);
+
   const now = new Date();
   //@ts-ignore
   const diffInMilliseconds = now - notificationDate;
@@ -49,23 +52,25 @@ const NotificationScrollItem = ({
   }, [inView, notification.is_seen, updateIsSeenStatus]);
 
   return (
-    <div
+    <Card
       key={notification.id}
       ref={ref}
-      className={cn({
-        "bg-secondary": !notification.is_seen,
-      })}
+      className={cn(
+        {
+          "bg-secondary": !notification.is_seen,
+        },
+        "my-1.5",
+      )}
     >
-      <div className="text-sm pt-1.5 px-2">
+      <div className="text-sm pt-1.5 p-2 ">
         {getNotificationMessage(notification, coins)}
         <div className="text-xs text-primary">
-          {" "}
           {formatNotificationTime(notification.created_at)}
           {/* {notification.created_at} */}
         </div>
       </div>
-      <Separator className="my-2" />
-    </div>
+      {/* <Separator className="my-2" /> */}
+    </Card>
   );
 };
 
