@@ -38,7 +38,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { useLanguageStore } from "@/stores/languageStore";
 import { coinService } from "@/services/coin.service";
-import { useSearchParams } from "next/navigation";
 import { userService } from "@/services/user.service";
 
 import { LuChevronsUpDown as ChevronUpDownIcon } from "react-icons/lu";

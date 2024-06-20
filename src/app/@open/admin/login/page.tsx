@@ -1,11 +1,13 @@
 "use client";
 import LoginForm from "@/components/custom/LoginForm";
-import React from "react";
+import React, { Suspense } from "react";
 
 const AdminLoginPage = () => {
   return (
     <div className="h-full flex items-center">
-      <LoginForm isAdminPortal />
+      <Suspense>
+        <LoginForm isAdminPortal />
+      </Suspense>
     </div>
   );
 };
