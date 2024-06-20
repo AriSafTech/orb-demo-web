@@ -11,8 +11,10 @@ type Tokens = {
 type AuthStoreData = {
   tokens: Tokens | null;
   user: {
+    id: string;
     name: string;
     email: string;
+    userName: string;
     role: AppRole;
   } | null;
 };

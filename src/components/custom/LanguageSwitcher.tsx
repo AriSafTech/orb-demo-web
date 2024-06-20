@@ -27,8 +27,10 @@ const LanguageSwitcher = () => {
   useEffect(() => {
     const initialLang = getUserPreferredLanguage();
 
-    setLanguage(initialLang);
-  }, [setLanguage]);
+    if (language == null) {
+      setLanguage(initialLang);
+    }
+  }, [language, setLanguage]);
 
   const handleChange = (val: string) => {
     setLanguage(val as keyof typeof translationData);

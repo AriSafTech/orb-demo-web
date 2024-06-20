@@ -1,6 +1,7 @@
 {
   "layout": {
-    "balance": "バランス"
+    "balance": "バランス",
+    "notifications": "通知"
   },
   "login": {
     "title": "ログイン",
@@ -23,21 +24,65 @@
     "merchant": "商人"
   },
 
+  "me": {
+    "title": "プロフィール",
+    "btn": "保存",
+    "name": "名前",
+    "phone": "電話番号",
+    "avatar": "アバター",
+    "address": "住所",
+    "bankDetails": "銀行詳細",
+    "gender": "性別",
+    "male": "男性",
+    "female": "女性",
+    "other": "その他",
+    "language": "言語"
+  },
+
   "users": {
     "title": "すべてのユーザー",
     "name": "名前",
     "email": "メール",
     "phone": "電話",
     "userId": "ユーザーID",
-    "balance": "均衡"
+    "balance": "均衡",
+    "role": "役割",
+    "consumer": "消費者",
+    "merchant": "商人",
+    "status": "アクティブ",
+    "bank_details": "銀行の詳細",
+    "address": "住所",
+    "gender": "性別",
+    "view_profile": "プロフィールを見る",
+    "user_profile": "ユーザープロフィール"
   },
   "adminLayout": {
     "dashboard": "ダッシュボード",
     "users": "ユーザー",
     "transactions": "取引",
     "chargeAccount": "口座にチャージ",
-    "owa": "オーブウォレット管理者",
-    "logOut": "ログアウト"
+    "owa": "ORB WALLET ADMIN",
+    "logOut": "ログアウト",
+    "coins": "コイン",
+    "coinName": "コイン名",
+    "totalActiveUsers": "総アクティブユーザー数",
+    "totalIssuedCoins": "発行済みコイン総数",
+    "lastDayTransactions": "過去24時間の総取引数",
+    "exchange_rate": "為替レート",
+    "validity": "有効性",
+    "save_changes": "変更を保存",
+    "update_validity": "更新の有効性"
+  },
+  "settlements": {
+    "title": "Settlements",
+    "id": "Settlment ID",
+    "coin": "Coin",
+    "currency": "Currency",
+    "coinAmount": "Coin amount",
+    "currencyAmount": "Currency amount",
+    "status": "Settlement status",
+    "createdAt": "Requested at",
+    "settledAt": "Settled at"
   },
   "transaction": {
     "title": "取引",
@@ -46,15 +91,48 @@
     "receiver": "受信者",
     "group": "グループ",
     "type": "タイプ",
-    "tx_date": "取引日"
+    "coin_name": "Coin",
+    "amount": "Amount",
+    "tx_date": "取引日",
+    "charge": "チャージ",
+    "payment": "支払い",
+    "refund_title": "Refund payment",
+    "refund_desc": "Are you sure you want to refund this payment?",
+    "refund_sender_id": "Sender ID",
+    "refund_coin_name": "Coin",
+    "refund_amount": "Amount"
   },
   "payment": {
-    "title": "Make payment",
+    "form_title": "Make payment",
+    "confirm_title": "Confirm payment",
     "coin": "Coin",
     "coin_placeholder": "Please select a coin",
     "receiverId": "Receiver ID",
     "receiverName": "Receiver Name",
-    "amount": "Amount"
+    "amount": "Amount",
+    "submit_helper": "Press and hold"
+  },
+  "receivePayment": {
+    "qr_basic_title": "Basic QR code",
+    "qr_basic_desc": "Requires sender to designate coin type and amount.",
+    "qr_details_title": "QR code with payment details",
+    "qr_details_desc": "Sender needs to confirm payment only.",
+    "coin": "Coin",
+    "coin_placeholder": "Please select a coin",
+    "amount": "Amount",
+    "amount_placeholder": "Please select amount",
+    "tooltip_download": "Download as image",
+    "tooltip_message": "Copy message",
+    "tooltip_link": "Copy link",
+    "qr_details_please_fill_out_form": "Please provide coin and amount to generate QR"
+  },
+  "vendors": {
+    "title": "Vendors",
+    "favourites": "Favourites",
+    "near_you": "Vendors near you",
+    "search": "Search vendor",
+    "fav_not_found": "No favourites found",
+    "near_you_not_found": "No vendors found near you"
   },
   "charge": {
     "title": "Charge Account",
@@ -63,7 +141,8 @@
     "receiver": "Receiver",
     "receiver_placeholder": "Please select receiver",
     "receiver_search": "Search accounts...",
-    "amount": "Amount"
+    "amount": "Amount",
+    "submit_helper": "Press and hold"
   },
   "errors": {
     "login_wrongCredentials_title": "ログインに失敗しました",
@@ -77,6 +156,12 @@
     "payment_paymentFailed_desc": "Failed to make payment. Please wait a while and try again.",
     "unprocessableContent": "処理できないコンテンツ"
   },
+  "success": {
+    "success_message": "更新に成功しました",
+    "profile_update": "Profile updated successfully",
+    "user_status_update": "User status updated successfully"
+  },
+
   "info": {
     "charge_chargeSuccess_title": "Charge account successful",
     "charge_chargeSuccess_desc": "Successfully charged account.",
@@ -88,5 +173,19 @@
     "search": "検索",
     "page": "ページ",
     "of": "の"
+  },
+  "enums": {
+    "none": "N/A",
+    "gender_male": "Male",
+    "gender_female": "Female",
+    "gender_other": "Others",
+    "role_consumer": "Consumer",
+    "role_merchant": "Merchant",
+    "role_admin": "Admin",
+    "transaction_type_charge": "Charge",
+    "transaction_type_payment": "Payment",
+    "transaction_type_payment_refunded": "Payment (refunded)",
+    "transaction_type_refund": "Refund",
+    "transaction_type_others": "Others"
   }
 }

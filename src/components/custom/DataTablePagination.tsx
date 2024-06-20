@@ -16,6 +16,7 @@ import {
 } from "../ui/select";
 import { Button } from "../ui/button";
 import { useLanguageStore } from "@/stores/languageStore";
+import { cn } from "@/lib/utils";
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;
@@ -52,13 +53,13 @@ export function DataTablePagination<TData>({
   const pageNumbers = getPageNumbers();
 
   return (
-    <div className="flex items-center justify-between px-2">
+    <div className="flex flex-wrap items-center justify-between px-2">
       {/* <div className="flex-1 text-sm text-muted-foreground">
         {table.getFilteredSelectedRowModel().rows.length} of{" "}
         {table.getFilteredRowModel().rows.length} row(s) selected.
       </div> */}
-      <div className="flex items-center space-x-6 lg:space-x-8">
-        <div className="flex items-center space-x-2">
+      <div className="flex flex-wrap items-center justify-end space-x-6 lg:space-x-8 gap-4">
+        <div className="flex flex-wrap items-center space-x-2">
           <p className="text-sm font-medium">{t.dataTable.rowsPerPage}</p>
           <Select
             value={`${selectedPageSize}`} // Use selectedPageSize here
@@ -108,11 +109,10 @@ export function DataTablePagination<TData>({
             <Button
               key={page}
               variant="outline"
-              className={`h-8 w-8 p-0 ${
-                page === pageIndex
-                  ? "bg-primary text-white" // Change this to your desired active color
-                  : "hover:shadow-lg"
-              }`}
+              className={cn("h-8 w-8 p-0 !opacity-100 select-none", {
+                "bg-primary text-white": page === pageIndex,
+                "hover:shadow-lg": page !== pageIndex,
+              })}
               onClick={() => page !== pageIndex && table.setPageIndex(page)}
               disabled={page === pageIndex}
             >

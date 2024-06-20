@@ -10,7 +10,7 @@ import { MUTATION_KEYS } from "@/constants/mutation-keys.constants";
 import { QUERY_KEYS } from "@/constants/query-keys.constants";
 import { ValueOf } from "@/lib/type-utils";
 import { useAuthStore } from "@/stores/authStore";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { coinService } from "./coin.service";
 import { useMemo } from "react";
 
@@ -32,9 +32,11 @@ export const authService = {
         if (user) {
           setData({
             user: {
+              id: user.id as string,
               email: user.email!,
               // @ts-ignore
               name: user.name!,
+              userName: user.username!,
               role: user.role!.name as AppRole,
             },
             tokens: {
@@ -75,8 +77,10 @@ export const authService = {
         if (user) {
           setData({
             user: {
+              id: user.id as string,
               email: user.email!,
               name: user.name!,
+              userName: user.username!,
               role: user.role!.name as AppRole,
             },
             tokens: {
@@ -148,11 +152,14 @@ export const authService = {
 
   useLogout() {
     const { reset } = useAuthStore();
+    const queryClient = useQueryClient();
     return useMutation({
       mutationKey: [MUTATION_KEYS.logout],
       mutationFn: async () => {
-        // TODO: call logout endpoint
+        const client = await getApiClient();
+        await client.logout();
         reset();
+        // queryClient.clear();
       },
     });
   },

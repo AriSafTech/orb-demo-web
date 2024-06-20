@@ -1,6 +1,7 @@
 {
   "layout": {
-    "balance": "Balance"
+    "balance": "Balance",
+    "notifications": "Notifications"
   },
   "login": {
     "title": "Login",
@@ -23,14 +24,36 @@
     "consumer": "Consumer",
     "merchant": "Merchant"
   },
-
+  "me": {
+    "title": "Profile",
+    "btn": "Save",
+    "name": "Name",
+    "phone": "Phone",
+    "avatar": "Avatar",
+    "address": "Address",
+    "bankDetails": "Bank Details",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "other": "Other",
+    "language": "Language"
+  },
   "users": {
     "title": "All Users",
     "name": "Name",
     "email": "Email",
     "phone": "Phone",
     "userId": "User ID",
-    "balance": "Balance"
+    "balance": "Balance",
+    "role": "Role",
+    "consumer": "Consumer",
+    "merchant": "Merchant",
+    "status": "Active",
+    "bank_details": "Bank Details",
+    "address": "Address",
+    "gender": "Gender",
+    "view_profile": "View Profile",
+    "user_profile": "User Profile"
   },
   "adminLayout": {
     "users": "Users",
@@ -38,7 +61,27 @@
     "transactions": "Transactions",
     "chargeAccount": "Charge Account",
     "owa": "Orb Wallet Admin",
-    "logOut": "Logout"
+    "logOut": "Logout",
+    "coins": "Coins",
+    "coinName": "Coin name",
+    "totalActiveUsers": "Total active users",
+    "totalIssuedCoins": "Total issued coins",
+    "lastDayTransactions": "Total transactions in last 24 hours",
+    "exchange_rate": "Exchange Rate",
+    "validity": "Validity",
+    "save_changes": "Save changes",
+    "update_validity": "Update Validity"
+  },
+  "settlements": {
+    "title": "Settlements",
+    "id": "Settlment ID",
+    "coin": "Coin",
+    "currency": "Currency",
+    "coinAmount": "Coin amount",
+    "currencyAmount": "Currency amount",
+    "status": "Settlement status",
+    "createdAt": "Requested at",
+    "settledAt": "Settled at"
   },
   "transaction": {
     "title": "Transactions",
@@ -47,15 +90,48 @@
     "receiver": "Receiver",
     "group": "Group",
     "type": "Type",
-    "tx_date": "Transaction Date"
+    "coin_name": "Coin",
+    "amount": "Amount",
+    "tx_date": "Transaction Date",
+    "charge": "Charge",
+    "payment": "Payment",
+    "refund_title": "Refund payment",
+    "refund_desc": "Are you sure you want to refund this payment?",
+    "refund_sender_id": "Sender ID",
+    "refund_coin_name": "Coin",
+    "refund_amount": "Amount"
   },
   "payment": {
-    "title": "Make payment",
+    "form_title": "Make payment",
+    "confirm_title": "Confirm payment",
     "coin": "Coin",
     "coin_placeholder": "Please select a coin",
     "receiverId": "Receiver ID",
     "receiverName": "Receiver Name",
-    "amount": "Amount"
+    "amount": "Amount",
+    "submit_helper": "Press and hold"
+  },
+  "receivePayment": {
+    "qr_basic_title": "Basic QR code",
+    "qr_basic_desc": "Requires sender to designate coin type and amount.",
+    "qr_details_title": "QR code with payment details",
+    "qr_details_desc": "Sender needs to confirm payment only.",
+    "coin": "Coin",
+    "coin_placeholder": "Please select a coin",
+    "amount": "Amount",
+    "amount_placeholder": "Please select amount",
+    "tooltip_download": "Download as image",
+    "tooltip_message": "Copy message",
+    "tooltip_link": "Copy link",
+    "qr_details_please_fill_out_form": "Please provide coin and amount to generate QR"
+  },
+  "vendors": {
+    "title": "Vendors",
+    "favourites": "Favourites",
+    "near_you": "Vendors near you",
+    "search": "Search vendor",
+    "fav_not_found": "No favourites found",
+    "near_you_not_found": "No vendors found near you"
   },
   "charge": {
     "title": "Charge Account",
@@ -64,7 +140,8 @@
     "receiver": "Receiver",
     "receiver_placeholder": "Please select receiver",
     "receiver_search": "Search accounts...",
-    "amount": "Amount"
+    "amount": "Amount",
+    "submit_helper": "Press and hold"
   },
   "errors": {
     "login_wrongCredentials_title": "Login Failed",
@@ -78,6 +155,11 @@
     "payment_paymentFailed_desc": "Failed to make payment. Please wait a while and try again.",
     "unprocessableContent": "Unprocessable Content"
   },
+  "success": {
+    "success_message": "Updated successfully",
+    "profile_update": "Profile updated successfully",
+    "user_status_update": "User status updated successfully"
+  },
   "info": {
     "charge_chargeSuccess_title": "Charge account successful",
     "charge_chargeSuccess_desc": "Successfully charged account.",
@@ -89,5 +171,19 @@
     "search": "Search",
     "page": "Page",
     "of": "of"
+  },
+  "enums": {
+    "none": "N/A",
+    "gender_male": "Male",
+    "gender_female": "Female",
+    "gender_other": "Others",
+    "role_consumer": "Consumer",
+    "role_merchant": "Merchant",
+    "role_admin": "Admin",
+    "transaction_type_charge": "Charge",
+    "transaction_type_payment": "Payment",
+    "transaction_type_payment_refunded": "Payment (refunded)",
+    "transaction_type_refund": "Refund",
+    "transaction_type_others": "Others"
   }
 }

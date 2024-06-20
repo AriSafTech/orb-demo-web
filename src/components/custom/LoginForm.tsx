@@ -18,7 +18,7 @@ import Link from "next/link";
 import { useLanguageStore } from "@/stores/languageStore";
 import { authService } from "@/services/auth.service";
 import { useAuthStore } from "@/stores/authStore";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const formSchema = z.object({
@@ -32,11 +32,11 @@ type Props = {
   isAdminPortal?: boolean;
 };
 
-const LoginForm = ({ isAdminPortal }: Props) => {
+const LoginFormInner = ({ isAdminPortal }: Props) => {
   const searchParams = useSearchParams();
   const redirectDirty = searchParams.get("redirectTo");
   const redirect = redirectDirty ? decodeURIComponent(redirectDirty) : null;
-  console.log("REDIR:", redirect);
+  // console.log("REDIR:", redirect);
 
   const { data: t } = useLanguageStore();
   const { user } = useAuthStore();
@@ -77,11 +77,11 @@ const LoginForm = ({ isAdminPortal }: Props) => {
         } else {
           router.push("/");
         }
-        console.log("loginValues", loginValues);
+        // console.log("loginValues", loginValues);
       } catch (e) {
         if (e) {
           // @ts-ignore
-          console.log("ERROS STAUS:", e.response.status);
+          // console.log("ERROS STAUS:", e.response.status);
           toast.error(t.errors.login_wrongCredentials_title, {
             description: t.errors.login_wrongCredentials_desc,
           });
@@ -165,6 +165,14 @@ const LoginForm = ({ isAdminPortal }: Props) => {
         </Card>
       </div>
     </Form>
+  );
+};
+
+const LoginForm = (props: Props) => {
+  return (
+    <Suspense>
+      <LoginFormInner {...props} />
+    </Suspense>
   );
 };
 

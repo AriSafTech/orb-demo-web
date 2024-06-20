@@ -38,7 +38,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { useLanguageStore } from "@/stores/languageStore";
 import { coinService } from "@/services/coin.service";
-import { useSearchParams } from "next/navigation";
 import { userService } from "@/services/user.service";
 
 import { LuChevronsUpDown as ChevronUpDownIcon } from "react-icons/lu";
@@ -47,14 +46,16 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { transactionService } from "@/services/transaction.service";
 import { toast } from "sonner";
+import LongPressButton from "@/components/custom/LongPressButton";
 
 function AdminChargePage() {
   const { data: coinsData, status: coinsStatus } = coinService.useAllCoins();
   const { data: usersData, status: usersStatus } = userService.useAllUsers();
+  // console.log("cm", coinsData);
 
   const coins = useMemo(
     () =>
-      coinsData?.map((coin) => ({ id: coin.coin_id, name: coin.name })) ?? [],
+      coinsData?.map((coin) => ({ id: coin.coin_id!, name: coin.name! })) ?? [],
     [coinsData],
   );
 
@@ -92,7 +93,9 @@ type ChargeFormProps = {
 
 function PaymentForm({ coins, users }: ChargeFormProps) {
   const { data: t } = useLanguageStore();
-  const { mutateAsync: charge } = transactionService.useChargeAccount();
+  const { mutateAsync: charge, isPending } =
+    transactionService.useChargeAccount();
+  const formRef = useRef<HTMLFormElement>(null);
   const formSchema = z.object({
     coinId: z.string().min(1, "Coin ID is required"),
     receiverId: z.string().min(1, "Receiver ID is required"),
@@ -141,7 +144,11 @@ function PaymentForm({ coins, users }: ChargeFormProps) {
       </div>
       <div className="max-w-xs">
         <Form {...form}>
-          <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+          <form
+            className="space-y-4"
+            onSubmit={form.handleSubmit(onSubmit)}
+            ref={formRef}
+          >
             {/* COIN */}
             <FormField
               control={form.control}
@@ -203,7 +210,7 @@ function PaymentForm({ coins, users }: ChargeFormProps) {
                         // @ts-ignore
                         filter={(value, search, keywords) => {
                           const extendedValue =
-                            value + " " + keywords.join(" ");
+                            value + " " + keywords?.join(" ");
                           if (extendedValue.includes(search)) return 1;
                           return 0;
                         }}
@@ -264,9 +271,19 @@ function PaymentForm({ coins, users }: ChargeFormProps) {
             />
 
             {/* SUBMIT */}
-            <Button variant="destructive" className="w-full" type="submit">
-              Send
-            </Button>
+            <div>
+              <LongPressButton
+                variant="default"
+                className="w-full mb-2 mt-8"
+                onStart={() => form.trigger()}
+                enabled={form.formState.isValid}
+                onLongPress={() => formRef.current!.requestSubmit()}
+                isLoading={isPending}
+              >
+                Send
+              </LongPressButton>
+              <p className="text-xs text-center">{t.payment.submit_helper}</p>
+            </div>
           </form>
         </Form>
       </div>

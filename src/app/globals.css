@@ -47,6 +47,23 @@
     --destructive-foreground: 0 0% 100%;
     --ring: 187 74% 46%;
   }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar-track {
+    border: 5px solid white;
+    background-color: #b2bec3;
+  }
+
+  ::-webkit-scrollbar {
+    width: 15px;
+    background-color: #dfe6e9;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--accent));
+    /* background-color: #74b9ff; */
+    border-radius: 10px;
+  }
 }
 
 @layer base {
@@ -56,4 +73,34 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@keyframes transitionFromLeft {
+  0% {
+    transform: translateX(-100%);
+    /* animation-timing-function: cubic-bezier(0.8, 0, 1, 1); */
+  }
+  100% {
+    transform: translateX(0%);
+    /* animation-timing-function: cubic-bezier(0, 0, 0.2, 1); */
+  }
+}
+
+/* Fixed the table header */
+
+.table-container {
+  position: relative;
+  height: calc(80vh - 6.5rem);
+  overflow: auto;
+}
+
+.table-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  color: #fff; /* Replace with your desired text color */
+}
+
+.table-body {
+  overflow: auto;
 }

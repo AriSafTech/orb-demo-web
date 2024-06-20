@@ -47,9 +47,47 @@
         "responses": {}
       }
     },
-    "/api/v1/coins": {
+    "/api/v1/logout": {
       "post": {
+        "operationId": "logout",
+        "responses": {}
+      }
+    },
+    "/api/v1/coins": {
+      "get": {
         "operationId": "coins",
+        "responses": {}
+      }
+    },
+    "/api/v1/notifications": {
+      "get": {
+        "operationId": "getAllNotifications",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/notifications/{id}": {
+      "put": {
+        "operationId": "updateNotification",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {}
+          }
+        },
         "responses": {}
       }
     },
@@ -90,6 +128,18 @@
         "responses": {}
       }
     },
+    "/api/v1/refunds": {
+      "post": {
+        "operationId": "refund",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {}
+          }
+        },
+        "responses": {}
+      }
+    },
     "/api/v1/users": {
       "get": {
         "operationId": "getAllUsers",
@@ -100,6 +150,68 @@
             "required": false
           }
         ],
+        "responses": {}
+      }
+    },
+    "/api/v1/users/{id}": {
+      "get": {
+        "operationId": "getSingleUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {}
+      },
+      "post": {
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {}
+          }
+        },
+        "responses": {}
+      }
+    },
+    "/api/v1/users/single/{username}": {
+      "get": {
+        "operationId": "getSingleUserByUsername",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/users/update-status/{id}": {
+      "put": {
+        "operationId": "updateStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {}
+          }
+        },
         "responses": {}
       }
     }

@@ -10,11 +10,11 @@ type Props = {
 
 function AuthWrapper({ allowedRoles, redirectTo, children }: Props) {
   const router = useRouter();
-  const { accessToken, user } = useAuthStore();
+  const { tokens, user } = useAuthStore();
 
   if (
     user == null ||
-    accessToken == null ||
+    tokens?.accessToken == null ||
     !allowedRoles.includes(user.role)
   ) {
     router.push(redirectTo);
