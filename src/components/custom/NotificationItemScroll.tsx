@@ -14,16 +14,18 @@ import { Card } from "../ui/card";
 
 const formatNotificationTime = (notificationTime: string) => {
   const notificationDate = parseISO(notificationTime);
-  // console.log(notificationDate);
 
   const now = new Date();
-  //@ts-ignore
-  const diffInMilliseconds = now - notificationDate;
+  const diffInMilliseconds = now.getTime() - notificationDate.getTime();
 
-  const millisecondsInAnHour = 1000 * 60 * 60;
+  const millisecondsInAMinute = 1000 * 60;
+  const millisecondsInAnHour = millisecondsInAMinute * 60;
   const millisecondsInADay = millisecondsInAnHour * 24;
 
-  if (diffInMilliseconds < millisecondsInADay) {
+  if (diffInMilliseconds < millisecondsInAnHour) {
+    const minutes = Math.floor(diffInMilliseconds / millisecondsInAMinute);
+    return `${minutes} min`;
+  } else if (diffInMilliseconds < millisecondsInADay) {
     const hours = Math.floor(diffInMilliseconds / millisecondsInAnHour);
     return `${hours} h`;
   } else {
