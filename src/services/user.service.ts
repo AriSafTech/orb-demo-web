@@ -92,7 +92,7 @@ export const userService = {
           { headers: { "Content-Type": "multipart/form-data" } },
         );
         await queryClient.invalidateQueries({
-          queryKey: [QUERY_KEYS.getProfile],
+          queryKey: [QUERY_KEYS.getProfile, QUERY_KEYS.getAllUsers],
         });
         return res.data.data?.user;
         // With form data

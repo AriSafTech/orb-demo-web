@@ -1,5 +1,4 @@
 "use client";
-
 import { IconType } from "react-icons";
 import { GrTransaction as PaymentIcon } from "react-icons/gr";
 import { GrUser as UserIcon } from "react-icons/gr";
@@ -19,7 +18,6 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -36,35 +34,26 @@ import { MdLogout as LogoutIcon } from "react-icons/md";
 import { RxHamburgerMenu as MenuIcon } from "react-icons/rx";
 import { LuCodesandbox as PlaygroundIcon } from "react-icons/lu";
 import { RiMoneyCnyCircleLine as SettlementsIcon } from "react-icons/ri";
-
 import { getInitials } from "@/lib/name-utils";
 import { useLanguageStore } from "@/stores/languageStore";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuthStore } from "@/stores/authStore";
 import { userService } from "@/services/user.service";
-import LaravelEcho from "@/components/custom/Echo";
 import PusherComponent from "@/components/custom/Echo";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { SelectSeparator } from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
 import { coinService } from "@/services/coin.service";
-import { useEffect, useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   getNotificationMessage,
   NotificationItem,
 } from "@/lib/notirfication-utils";
+import NotificationScrollItem from "@/components/custom/NotificationItemScroll";
+import { ChevronDown, Ghost } from "lucide-react";
 
 type NavItem = {
   label: string;
   path: string;
   icon: IconType;
-};
-
-const notifyUser = (
-  notification: NotificationItem,
-  coinNames: Record<string, string>,
-) => {
-  getNotificationMessage(notification, coinNames);
 };
 
 export default function RegularLayout({
@@ -122,19 +111,8 @@ export default function RegularLayout({
 
   const { data: userNotifications, status } =
     userService.useUserNotifications();
-  // if (userNotifications) {
-  //   console.log("notifications", userNotifications);
-  // }
 
-  // update isSeen status
-  const { mutateAsync: updateIsSeenStatus } =
-    userService.useUpdateUserIsSeenNotifications(
-      "9c3842eb-c245-4018-805e-187aaab955f1",
-    );
-
-  useEffect(() => {
-    updateIsSeenStatus({ is_seen: true });
-  }, []);
+  // const notificationRef = useUpdateIsSeenStatus(userNotifications, userService);
 
   const router = useRouter();
   const renderNavItems = (inSheet?: boolean) => {
@@ -182,6 +160,12 @@ export default function RegularLayout({
   const handlePushEvent = (event: any) => {
     console.log("Received event:", event);
   };
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const unseenCount = userNotifications
+    ? userNotifications.filter((notification) => !notification.is_seen).length
+    : 0;
+
   return (
     <div className="h-full w-full grid grid-cols-12">
       <aside className="bg-primary/10 col col-span-0 hidden sm:col-span-3 lg:col-span-2 sm:flex flex-col items-start justify-start">
@@ -231,67 +215,58 @@ export default function RegularLayout({
           <div className="flex justify-between gap-8 items-center">
             <div className="flex">
               <div className="relative">
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="outline-none">
-                    {" "}
-                    <RxBell className="w-10" size={30} />
-                    <div className="absolute top-[-8px] right-[-13px] bg-primary text-white w-7 h-7 rounded-full flex justify-center items-center p-2">
-                      {userNotifications && (
-                        <div className="text-xs">
-                          {userNotifications.filter(
-                            (notification) => !notification.is_seen,
-                          ).length > 99
-                            ? "99+"
-                            : userNotifications.filter(
-                                (notification) => !notification.is_seen,
-                              ).length}
+                <>
+                  <DropdownMenu
+                    onOpenChange={(open) => setIsDropdownOpen(open)}
+                  >
+                    <DropdownMenuTrigger className="outline-none">
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        className={cn(
+                          "rounded-full",
+                          isDropdownOpen && "bg-secondary",
+                        )}
+                      >
+                        <RxBell className="w-10" size={30} />
+                      </Button>
+                      {unseenCount > 0 && (
+                        <div className="absolute top-[-8px] right-[-13px] bg-primary text-white w-7 h-7 rounded-full flex justify-center items-center p-2">
+                          <div className="text-xs">
+                            {unseenCount > 99 ? "99+" : unseenCount}
+                          </div>
                         </div>
                       )}
-                    </div>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <ScrollArea className="h-72 w-auto rounded-md">
-                      <div className="p-4">
-                        <h4 className="mb-4 text-sm font-medium leading-none text-center">
-                          {t.layout.notifications}
-                        </h4>
-                        {userNotifications &&
-                          userNotifications.map((notification) => {
-                            const coinName = coins
-                              ? coins[notification.coin_id]
-                              : null;
-                            return (
-                              // coinName && (
-                              <div
-                                key={notification.id}
-                                className={cn({
-                                  "bg-secondary px-2": !notification.is_seen,
-                                })}
-                              >
-                                <div className="text-sm pt-1.5">
-                                  {getNotificationMessage(
-                                    notification,
-                                    coins as Record<string, string>,
-                                  )}
-                                  <div>{notification.created_at}</div>
-                                  {/* {notifyUser(notification, coins)} */}
-                                </div>
-                                <Separator className="my-2" />
-                              </div>
-                              // )
-                            );
-                          })}
-                      </div>
-                    </ScrollArea>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="mr-8 z-50 shadow-xl w-[400px]">
+                      <ScrollArea className="h-72 w-auto rounded-md">
+                        <div className="p-4">
+                          <h4 className="mb-4 text-xl font-medium leading-none text-center">
+                            {t.layout.notifications}
+                          </h4>
+                          <div className="border border-dashed p-2 rounded-md">
+                            {userNotifications &&
+                              userNotifications.map((notification) => (
+                                <NotificationScrollItem
+                                  key={notification.id}
+                                  notification={notification}
+                                  // @ts-ignore
+                                  coins={coins}
+                                />
+                              ))}
+                          </div>
+                        </div>
+                      </ScrollArea>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </>
               </div>
             </div>
 
             {userProfileFetchStatus === "success" && (
               <DropdownMenu>
                 <DropdownMenuTrigger className="outline-none select-none">
-                  <Avatar>
+                  <Avatar className="relative">
                     {userProfile?.avatar ? (
                       <AvatarImage
                         src={userProfile.avatar}
@@ -303,6 +278,11 @@ export default function RegularLayout({
                       </AvatarFallback>
                     )}
                   </Avatar>
+                  <div className="absolute right-2.5 top-[35px] bg-primary rounded-full">
+                    <div className="relative top-[0.7] text-white">
+                      <ChevronDown size={13} />
+                    </div>
+                  </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="bg-white/80 backdrop-blur-md">
                   <DropdownMenuLabel>
