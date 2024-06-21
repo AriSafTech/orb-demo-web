@@ -57,12 +57,12 @@ const NotificationScrollItem = ({
       ref={ref}
       className={cn(
         {
-          "bg-secondary": !notification.is_seen,
+          "bg-secondary border border-dashed": !notification.is_seen,
         },
         "my-1.5",
       )}
     >
-      <div className="text-sm pt-1.5 p-2 ">
+      <div className="text-sm pt-1.5 p-2">
         {getNotificationMessage(notification, coins)}
         <div className="text-xs text-primary">
           {formatNotificationTime(notification.created_at)}
