@@ -48,7 +48,7 @@ import {
   NotificationItem,
 } from "@/lib/notirfication-utils";
 import NotificationScrollItem from "@/components/custom/NotificationItemScroll";
-import { Ghost } from "lucide-react";
+import { ChevronDown, Ghost } from "lucide-react";
 
 type NavItem = {
   label: string;
@@ -266,7 +266,7 @@ export default function RegularLayout({
             {userProfileFetchStatus === "success" && (
               <DropdownMenu>
                 <DropdownMenuTrigger className="outline-none select-none">
-                  <Avatar>
+                  <Avatar className="relative">
                     {userProfile?.avatar ? (
                       <AvatarImage
                         src={userProfile.avatar}
@@ -278,6 +278,11 @@ export default function RegularLayout({
                       </AvatarFallback>
                     )}
                   </Avatar>
+                  <div className="absolute right-2.5 top-[35px] bg-primary rounded-full">
+                    <div className="relative top-[0.7] text-white">
+                      <ChevronDown size={13} />
+                    </div>
+                  </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="bg-white/80 backdrop-blur-md">
                   <DropdownMenuLabel>
