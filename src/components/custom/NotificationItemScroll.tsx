@@ -58,8 +58,9 @@ const NotificationScrollItem = ({
       key={notification.id}
       ref={ref}
       className={cn(
+        "relative bg-accent/10",
         {
-          "bg-secondary border border-dashed": !notification.is_seen,
+          "bg-accent border border-dashed": !notification.is_seen,
         },
         "my-1.5",
       )}
@@ -70,6 +71,9 @@ const NotificationScrollItem = ({
           {formatNotificationTime(notification.created_at)}
           {/* {notification.created_at} */}
         </div>
+        {!notification.is_seen && (
+          <div className="w-2 h-2 rounded-full bg-primary absolute right-2 bottom-2" />
+        )}
       </div>
       {/* <Separator className="my-2" /> */}
     </Card>
