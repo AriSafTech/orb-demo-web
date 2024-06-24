@@ -19,12 +19,17 @@ import { Button } from "@/components/ui/button";
 import LongPressButton from "@/components/custom/LongPressButton";
 import { transactionService } from "@/services/transaction.service";
 
+const useUserName = (userId: string) => {
+  const { data, status } = userService.useSingleUserName(userId);
+  return { userData: data, status };
+};
+
 const PaymentDetailsItem = ({
   label,
   value,
 }: {
   label: string;
-  value: string;
+  value: React.ReactNode;
 }) => {
   return (
     <div className="flex flex-col">
@@ -48,6 +53,7 @@ function ConfirmPayment({ amount, coinId, receiverId, senderId }: Props) {
 
   // const { data: users, status: usersStatus } = userService.useAllUsers();
   const { data: coinsData, status: coinsStatus } = coinService.useAllCoins();
+  const { userData, status } = useUserName(receiverId);
   const router = useRouter();
 
   const coins = useMemo(
@@ -94,6 +100,7 @@ function ConfirmPayment({ amount, coinId, receiverId, senderId }: Props) {
   if (coins == null) {
     return <Loading />;
   }
+
   return (
     <div className="max-w-sm px-4 mx-auto flex flex-col items-center sm:items-stretch">
       <Card className="w-full">
@@ -106,7 +113,18 @@ function ConfirmPayment({ amount, coinId, receiverId, senderId }: Props) {
             {/* TODO: show receiver's name instead */}
             <PaymentDetailsItem
               label={t.payment.receiverId}
-              value={receiverId}
+              // value={receiverId}
+
+              value={
+                <>
+                  {receiverId}
+                  {status === "success" && userData && (
+                    <span className="text-sm text-muted-foreground visible">
+                      ({userData.name})
+                    </span>
+                  )}
+                </>
+              }
             />
             <PaymentDetailsItem
               label={t.payment.coin}

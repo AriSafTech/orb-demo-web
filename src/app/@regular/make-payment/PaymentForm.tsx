@@ -134,6 +134,13 @@ function PaymentForm({
     }
   };
 
+  const useUserName = (userId: string) => {
+    const { data, status } = userService.useSingleUserName(userId);
+    return { userData: data, status };
+  };
+  const watchedReceiverId = form.watch("receiverId");
+  const { userData, status } = useUserName(watchedReceiverId);
+
   return (
     // <div className="max-w-sm flex flex-col items-center sm:items-stretch py-4">
     <div className="w-full h-full flex flex-col md:flex-row gap-10 md:gap-4 py-4 overflow-y-auto">
@@ -198,11 +205,16 @@ function PaymentForm({
                         <FormControl>
                           <Input {...field} />
                         </FormControl>
+
+                        {userData && (
+                          <span className="text-sm text-muted-foreground visible">
+                            User: {userData.name}
+                          </span>
+                        )}
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-
                   {/* AMOUNT */}
                   <FormField
                     control={form.control}
