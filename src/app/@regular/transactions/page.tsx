@@ -112,7 +112,10 @@ const TransactionsPage = () => {
           accessorKey: "participants.consumer",
           header: t.transaction.sender,
           cell: ({ row }) => {
-            const senderId = row.original.participants?.consumer;
+            const senderId =
+              row.original.participants?.consumer ??
+              // @ts-ignore
+              row.original.participants?.sender;
             if (senderId === user!.userName) {
               return (
                 <Badge variant="outline" className="text-primary">

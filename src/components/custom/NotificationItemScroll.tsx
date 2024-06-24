@@ -58,7 +58,7 @@ const NotificationScrollItem = ({
       key={notification.id}
       ref={ref}
       className={cn(
-        "relative bg-accent/10",
+        "relative bg-transparent",
         {
           "bg-accent border border-dashed": !notification.is_seen,
         },

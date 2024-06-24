@@ -73,11 +73,19 @@ const TransactionPage = () => {
       },
     },
     {
-      accessorKey: "participants.consumer",
+      accessorKey: "tx_id",
       header: t.transaction.sender,
+      cell: ({ row }) => {
+        return (
+          row.original.participants?.consumer ??
+          // @ts-ignore
+          row.original.participants?.sender ??
+          ""
+        );
+      },
     },
     {
-      accessorKey: "participants.merchant",
+      accessorKey: "tx_id",
       header: t.transaction.receiver,
       cell: ({ row }) => {
         return (
