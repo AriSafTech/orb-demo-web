@@ -120,11 +120,12 @@ function ConfirmPayment({ amount, coinId, receiverId, senderId }: Props) {
             <PaymentDetailsItem
               label={t.payment.receiverName}
               value={
-                <>
-                  {status === "success" && userData && (
-                    <span className="text-xl">{userData.name}</span>
-                  )}
-                </>
+                userData?.name
+                // <>
+                //   {status === "success" && userData && (
+                //     <span className="text-xl">{userData.name}</span>
+                //   )}
+                // </>
               }
             />
             <PaymentDetailsItem
