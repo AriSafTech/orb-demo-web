@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import LongPressButton from "@/components/custom/LongPressButton";
 import { transactionService } from "@/services/transaction.service";
 
+// Single user name
 const useUserName = (userId: string) => {
   const { data, status } = userService.useSingleUserName(userId);
   return { userData: data, status };
@@ -53,6 +54,7 @@ function ConfirmPayment({ amount, coinId, receiverId, senderId }: Props) {
 
   // const { data: users, status: usersStatus } = userService.useAllUsers();
   const { data: coinsData, status: coinsStatus } = coinService.useAllCoins();
+  // single user name
   const { userData, status } = useUserName(receiverId);
   const router = useRouter();
 
@@ -113,15 +115,14 @@ function ConfirmPayment({ amount, coinId, receiverId, senderId }: Props) {
             {/* TODO: show receiver's name instead */}
             <PaymentDetailsItem
               label={t.payment.receiverId}
-              // value={receiverId}
-
+              value={receiverId}
+            />
+            <PaymentDetailsItem
+              label={t.payment.receiverName}
               value={
                 <>
-                  {receiverId}
                   {status === "success" && userData && (
-                    <span className="text-sm text-muted-foreground visible">
-                      ({userData.name})
-                    </span>
+                    <span className="text-xl">{userData.name}</span>
                   )}
                 </>
               }

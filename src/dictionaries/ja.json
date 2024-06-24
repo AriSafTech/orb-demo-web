@@ -108,9 +108,11 @@
     "coin": "Coin",
     "coin_placeholder": "Please select a coin",
     "receiverId": "Receiver ID",
+    "receiver": "Receiver ID",
     "receiverName": "Receiver Name",
     "amount": "Amount",
     "submit_helper": "Press and hold"
+
   },
   "receivePayment": {
     "qr_basic_title": "Basic QR code",
