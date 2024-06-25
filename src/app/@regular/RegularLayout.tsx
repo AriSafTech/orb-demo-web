@@ -284,7 +284,7 @@ export default function RegularLayout({
                     </div>
                   </div>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-white/80 backdrop-blur-md">
+                <DropdownMenuContent className="backdrop-blur-md">
                   <DropdownMenuLabel>
                     <div className="flex flex-col w-full">
                       <h2 className="text-lg">{userProfile?.name!}</h2>
@@ -296,7 +296,7 @@ export default function RegularLayout({
                           {Object.entries(balance!).map(([id, coin]) => (
                             <Card
                               key={id}
-                              className="col-span-1 bg-white text-neutral-900 font-light uppercase"
+                              className="col-span-1 bg-primary/5 text-neutral-900 font-light uppercase"
                             >
                               <CardHeader>
                                 <h4 className="text-sm tracking-tighter text-center">
