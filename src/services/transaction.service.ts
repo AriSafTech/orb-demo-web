@@ -24,14 +24,10 @@ export const transactionService = {
     return query;
   },
 
-  // TODO: complete this for user (consumer, merchant)
   useSelfTransactions() {
-    const { user } = useAuthStore();
-    // console.log("user", user);
     const query = useQuery({
       queryKey: [QUERY_KEYS.getSelfTransactions],
       queryFn: async () => {
-        // const client = await getApiClient(accessToken)
         const client = await getApiClient();
         // const res = await client.getAllTransactions(user?.userName);
         const res = await client.getAllTransactions();
@@ -80,6 +76,7 @@ export const transactionService = {
     });
   },
   useChargeAccount() {
+    const queryClient = useQueryClient();
     return useMutation({
       mutationKey: [MUTATION_KEYS.chargeAccount],
       mutationFn: async ({
@@ -100,6 +97,9 @@ export const transactionService = {
             coin: coinId,
           },
         );
+        await queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.getAllTransactions],
+        });
         return res.data?.data?.transaction;
       },
     });
