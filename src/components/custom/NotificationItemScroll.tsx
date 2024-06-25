@@ -1,15 +1,12 @@
-import React, { useEffect } from "react";
-
+import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer"; // Import useInView if needed
-
 import { userService } from "@/services/user.service";
 import { cn } from "@/lib/utils";
 import {
   getNotificationMessage,
   NotificationItem,
 } from "@/lib/notirfication-utils";
-import { Separator } from "@/components/ui/separator";
-import { formatDistanceToNow, parseISO } from "date-fns";
+import { parseISO } from "date-fns";
 import { Card } from "../ui/card";
 
 const formatNotificationTime = (notificationTime: string) => {
@@ -37,9 +34,11 @@ const formatNotificationTime = (notificationTime: string) => {
 const NotificationScrollItem = ({
   notification,
   coins,
+  isDropdownOpen,
 }: {
   notification: NotificationItem;
   coins: Record<string, string>;
+  isDropdownOpen: boolean;
 }) => {
   const { mutateAsync: updateIsSeenStatus } =
     userService.useUpdateUserIsSeenNotifications(notification.id);
@@ -47,11 +46,40 @@ const NotificationScrollItem = ({
     threshold: 0.2,
   });
 
+  const [hasBeenInView, setHasBeenInView] = useState(false);
+  const [hasBeenOpened, setHasBeenOpened] = useState(false);
+
   useEffect(() => {
-    if (inView && !notification.is_seen) {
+    // Check if the notification has been in view
+    if (inView) {
+      setHasBeenInView(true);
+    }
+  }, [inView]);
+
+  useEffect(() => {
+    // Check if the dropdown has been opened
+    if (isDropdownOpen) {
+      setHasBeenOpened(true);
+    }
+
+    // Mark as seen if it has been in view and the dropdown has been closed after being opened
+    if (
+      hasBeenInView &&
+      hasBeenOpened &&
+      !isDropdownOpen &&
+      !notification.is_seen
+    ) {
       updateIsSeenStatus({ is_seen: true });
     }
-  }, [inView, notification.is_seen, updateIsSeenStatus]);
+  }, [
+    isDropdownOpen,
+    hasBeenInView,
+    hasBeenOpened,
+    notification.is_seen,
+    updateIsSeenStatus,
+  ]);
+
+  // ... rest of your component ...
 
   return (
     <Card
@@ -69,13 +97,11 @@ const NotificationScrollItem = ({
         {getNotificationMessage(notification, coins)}
         <div className="text-xs text-primary">
           {formatNotificationTime(notification.created_at)}
-          {/* {notification.created_at} */}
         </div>
         {!notification.is_seen && (
           <div className="w-2 h-2 rounded-full bg-primary absolute right-2 bottom-2" />
         )}
       </div>
-      {/* <Separator className="my-2" /> */}
     </Card>
   );
 };
