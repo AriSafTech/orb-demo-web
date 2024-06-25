@@ -6,4 +6,5 @@ export const QUERY_KEYS = {
   getSelfTransactions: "get-self-transactions",
   getAllCoins: "get-all-coins",
   getUserNotifications: "get-user-notifications",
+  getSingleUserName: "get-single-user-name",
 };

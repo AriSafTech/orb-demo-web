@@ -59,6 +59,7 @@ import LongPressButton from "@/components/custom/LongPressButton";
 import Vendors from "./Vendors";
 import { Separator } from "@radix-ui/react-select";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type CoinId = string;
 
@@ -91,6 +92,7 @@ function PaymentForm({
     .object({
       coinId: z.string().min(1, "Coin ID is required"),
       receiverId: z.string().min(1, "Receiver ID is required"),
+      // receiverName: z.string().min(1, "Receiver Name is required"),
       amount: z.coerce.number().gt(0, "Amount must be more than 0"),
     })
     // .refine((data) => coins[data.coinId] != null, {
@@ -111,6 +113,7 @@ function PaymentForm({
       coinId,
       receiverId,
       amount,
+      // receiverName: "",
     },
   });
 
@@ -133,6 +136,21 @@ function PaymentForm({
       });
     }
   };
+
+  const useUserName = (userId: string) => {
+    const { data, status } = userService.useSingleUserName(userId);
+    return { userData: data, status };
+  };
+  const watchedReceiverId = form.watch("receiverId");
+  const { userData, status } = useUserName(watchedReceiverId);
+
+  // useEffect(() => {
+  //   if (userData) {
+  //     form.setValue("receiverName", userData?.name as string);
+  //   } else {
+  //     form.setValue("receiverName", "");
+  //   }
+  // }, [userData, form]);
 
   return (
     // <div className="max-w-sm flex flex-col items-center sm:items-stretch py-4">
@@ -182,7 +200,7 @@ function PaymentForm({
                             visible: !!field.value,
                           })}
                         >
-                          Balance: {coins[field.value]?.balance}
+                          {t.layout.balance}: {coins[field.value]?.balance}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -198,11 +216,37 @@ function PaymentForm({
                         <FormControl>
                           <Input {...field} />
                         </FormControl>
+
+                        <div>
+                          {field.value ? (
+                            userData ? (
+                              <span className="text-sm text-muted-foreground visible mt-1 block">
+                                {t.payment.receiverName}: {userData.name}
+                              </span>
+                            ) : (
+                              <Skeleton className="w-full h-6" />
+                            )
+                          ) : null}
+                        </div>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
 
+                  {/* RECEIVER Name */}
+                  {/* <FormField
+                    control={form.control}
+                    name="receiverName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t.payment.receiverName}</FormLabel>
+                        <FormControl>
+                          <Input {...field} readOnly />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  /> */}
                   {/* AMOUNT */}
                   <FormField
                     control={form.control}

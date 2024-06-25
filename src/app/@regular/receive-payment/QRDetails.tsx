@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { QRCodeCanvas } from "qrcode.react";
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/stores/authStore";
@@ -47,6 +47,7 @@ import { Label } from "@/components/ui/label";
 import { useLanguageStore } from "@/stores/languageStore";
 import { Input } from "@/components/ui/input";
 import QRCommon from "./QRCommon";
+import { userService } from "@/services/user.service";
 
 type CoinData = {
   id: string;
@@ -104,7 +105,7 @@ const QRDetails = ({ receiverId, receiverName, coins }: Props) => {
   );
 
   return (
-    <Card>
+    <Card className="overflow-auto h-[450px]">
       <CardHeader>
         <CardTitle>{t.receivePayment.qr_details_title}</CardTitle>
       </CardHeader>

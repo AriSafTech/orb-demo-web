@@ -95,7 +95,7 @@ function AdminDashboardPage() {
       {/* COINS SUMMARY */}
       <div id="coins" className="w-full flex flex-col gap-2">
         <h2 className="text-2xl uppercase">{t.adminLayout.coins}</h2>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           {/* {new Array(4).fill(0).map((_, ind) => (
             <Card key={ind} className="bg-secondary w-40 min-h-40">
               <CardHeader>{t.adminLayout.coinName}</CardHeader>
@@ -217,7 +217,7 @@ function AdminDashboardPage() {
       <div id="usage" className="w-full flex flex-col gap-2">
         <h2 className="text-2xl uppercase">{t.adminLayout.users}</h2>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           {/* TOTAL ACTIVE USERS */}
           <Card className="bg-secondary w-auto min-h-40">
             <CardHeader className="text-[13px] text-center">

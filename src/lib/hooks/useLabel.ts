@@ -45,7 +45,10 @@ export const useLabel = () => {
   ): TransactionType => {
     if (transaction.type!.includes("charge")) {
       return { type: "charge", label: t.enums.transaction_type_charge };
-    } else if (transaction.type === "ctom-payment") {
+    } else if (
+      transaction.type === "ctom-payment" ||
+      transaction.type === "event-coin-transfer"
+    ) {
       // @ts-ignore
       if (transaction["reversed_by_id"]) {
         return {

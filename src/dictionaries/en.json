@@ -1,7 +1,8 @@
 {
   "layout": {
     "balance": "Balance",
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "appName": "AST Wallet"
   },
   "login": {
     "title": "Login",
@@ -60,7 +61,7 @@
     "dashboard": "Dashboard",
     "transactions": "Transactions",
     "chargeAccount": "Charge Account",
-    "owa": "Orb Wallet Admin",
+    "appName": "AST Wallet Admin",
     "logOut": "Logout",
     "coins": "Coins",
     "coinName": "Coin name",

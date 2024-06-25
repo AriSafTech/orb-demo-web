@@ -156,8 +156,6 @@ export const userService = {
         };
         const res = await client.getAllNotifications(params);
 
-        console.log("NOTIFICATIONS:", res.data);
-
         var channel = pusher.subscribe(`notification-${user?.id}`);
         channel.bind("notification-event", async function (data: any) {
           if (data) {
@@ -196,5 +194,18 @@ export const userService = {
         return res.data.data;
       },
     });
+  },
+
+  // Single user name from id
+  useSingleUserName(username: string | null) {
+    const query = useQuery({
+      queryKey: [QUERY_KEYS.getSingleUserName, username],
+      queryFn: async () => {
+        const client = await getApiClient();
+        const res = await client.getSingleUserByUsername(username);
+        return res?.data?.data?.user;
+      },
+    });
+    return query;
   },
 };
