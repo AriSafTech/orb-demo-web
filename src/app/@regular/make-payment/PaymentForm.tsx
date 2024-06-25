@@ -59,6 +59,7 @@ import LongPressButton from "@/components/custom/LongPressButton";
 import Vendors from "./Vendors";
 import { Separator } from "@radix-ui/react-select";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type CoinId = string;
 
@@ -215,11 +216,18 @@ function PaymentForm({
                         <FormControl>
                           <Input {...field} />
                         </FormControl>
-                        {userData && (
-                          <span className="text-sm text-muted-foreground visible mt-1 block">
-                            {t.payment.receiverName}: {userData.name}
-                          </span>
-                        )}
+
+                        <div>
+                          {field.value ? (
+                            userData ? (
+                              <span className="text-sm text-muted-foreground visible mt-1 block">
+                                {t.payment.receiverName}: {userData.name}
+                              </span>
+                            ) : (
+                              <Skeleton className="w-full h-6" />
+                            )
+                          ) : null}
+                        </div>
                         <FormMessage />
                       </FormItem>
                     )}
