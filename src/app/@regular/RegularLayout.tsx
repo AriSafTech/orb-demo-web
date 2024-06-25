@@ -79,11 +79,11 @@ export default function RegularLayout({
       icon: SettlementsIcon,
     },
     { label: "Profile", path: "/profile", icon: UserIcon },
-    {
-      label: "Playground (dev)",
-      path: "/playground",
-      icon: PlaygroundIcon,
-    },
+    // {
+    //   label: "Playground (dev)",
+    //   path: "/playground",
+    //   icon: PlaygroundIcon,
+    // },
   ];
   const pathname = usePathname();
   const isActive = (path: string) => path === pathname;
