@@ -1,13 +1,13 @@
 import React, { PropsWithChildren } from "react";
-import RegularLayout from "./RegularLayout";
+import AdminLayout from "./AdminLayout";
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "AST Wallet App",
+  title: "AST Wallet Admin",
 };
 
 function Layout({ children }: PropsWithChildren) {
-  return <RegularLayout>{children}</RegularLayout>;
+  return <AdminLayout>{children}</AdminLayout>;
 }
 
 export default Layout;

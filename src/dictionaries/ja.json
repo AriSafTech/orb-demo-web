@@ -1,7 +1,8 @@
 {
   "layout": {
     "balance": "バランス",
-    "notifications": "通知"
+    "notifications": "通知",
+    "appName": "AST Wallet"
   },
   "login": {
     "title": "ログイン",
@@ -61,7 +62,7 @@
     "users": "ユーザー",
     "transactions": "取引",
     "chargeAccount": "口座にチャージ",
-    "owa": "ORB WALLET ADMIN",
+    "appName": "AST WALLET ADMIN",
     "logOut": "ログアウト",
     "coins": "コイン",
     "coinName": "コイン名",
@@ -112,7 +113,6 @@
     "receiverName": "Receiver Name",
     "amount": "Amount",
     "submit_helper": "Press and hold"
-
   },
   "receivePayment": {
     "qr_basic_title": "Basic QR code",

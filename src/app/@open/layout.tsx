@@ -1,5 +1,4 @@
 import React, { PropsWithChildren } from "react";
-import RegularLayout from "./RegularLayout";
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,7 +6,7 @@ export const metadata: Metadata = {
 };
 
 function Layout({ children }: PropsWithChildren) {
-  return <RegularLayout>{children}</RegularLayout>;
+  return <>{children}</>;
 }
 
 export default Layout;
