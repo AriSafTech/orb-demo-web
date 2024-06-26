@@ -252,6 +252,7 @@ export default function RegularLayout({
                                   notification={notification}
                                   // @ts-ignore
                                   coins={coins}
+                                  isDropdownOpen={isDropdownOpen}
                                 />
                               ))}
                           </div>

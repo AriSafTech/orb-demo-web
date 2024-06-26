@@ -118,7 +118,7 @@ function PaymentForm({
   });
 
   const onSubmit = async (values: FormData) => {
-    console.log("VALUES:", values);
+    // console.log("VALUES:", values);
     const { amount, coinId, receiverId } = values;
     try {
       await makePayment({
@@ -217,16 +217,17 @@ function PaymentForm({
                           <Input {...field} />
                         </FormControl>
 
-                        <div>
-                          {field.value ? (
-                            userData ? (
-                              <span className="text-sm text-muted-foreground visible mt-1 block">
-                                {t.payment.receiverName}: {userData.name}
-                              </span>
-                            ) : (
-                              <Skeleton className="w-full h-6" />
-                            )
-                          ) : null}
+                        <div className="">
+                          {field.value && (
+                            <span className="text-sm text-muted-foreground visible mt-1 block">
+                              {t.payment.receiverName}:{" "}
+                              {userData ? (
+                                userData.name
+                              ) : (
+                                <Skeleton className="inline-block w-20 h-4 relative top-[5px]" />
+                              )}
+                            </span>
+                          )}
                         </div>
                         <FormMessage />
                       </FormItem>
