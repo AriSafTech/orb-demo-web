@@ -22,12 +22,14 @@ import QRBasic from "./QRBasic";
 import QRDetails from "./QRDetails";
 import { coinService } from "@/services/coin.service";
 import Loading from "@/components/custom/Loading";
+import { useLanguageStore } from "@/stores/languageStore";
 
 const ReceivePaymentPage = () => {
+  const { data: t } = useLanguageStore();
   const { tokens, user } = useAuthStore();
   const { data: coinsData, status: coinsStatus } = coinService.useAllCoins();
 
-  console.log("USER:", user);
+  // console.log("USER:", user);
 
   const coins = useMemo(
     () => coinsData?.map((cd) => ({ id: cd.coin_id!, name: cd.name! })) ?? [],
@@ -47,8 +49,12 @@ const ReceivePaymentPage = () => {
         className="px-4 max-w-sm mx-auto flex flex-col items-center sm:items-start"
       >
         <TabsList className="mx-auto">
-          <TabsTrigger value="qr-basic">QR (basic)</TabsTrigger>
-          <TabsTrigger value="qr-with-details">QR (with details)</TabsTrigger>
+          <TabsTrigger value="qr-basic">
+            {t.receivePayment.qr_basic}
+          </TabsTrigger>
+          <TabsTrigger value="qr-with-details">
+            {t.receivePayment.qr_with_details}
+          </TabsTrigger>
         </TabsList>
         {/* QR BASIC */}
         <TabsContent value="qr-basic">

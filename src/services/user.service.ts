@@ -175,6 +175,27 @@ export const userService = {
     return query;
   },
 
+  // useUpdateUserIsSeenNotifications(id: string) {
+  //   const queryClient = useQueryClient();
+  //   return useMutation({
+  //     mutationKey: [MUTATION_KEYS.userNotificationsSeen],
+  //     mutationFn: async ({ is_seen }: { is_seen: boolean }) => {
+  //       const client = await getApiClient();
+  //       const res = await client.updateNotification(
+  //         { id },
+  //         {
+  //           is_seen,
+  //         },
+  //       );
+
+  //       await queryClient.invalidateQueries({
+  //         queryKey: [QUERY_KEYS.getUserNotifications],
+  //       });
+  //       return res.data.data;
+  //     },
+  //   });
+  // },
+
   useUpdateUserIsSeenNotifications(id: string) {
     const queryClient = useQueryClient();
     return useMutation({
@@ -187,11 +208,45 @@ export const userService = {
             is_seen,
           },
         );
-
-        await queryClient.invalidateQueries({
+        return res.data.data;
+      },
+      onMutate: async ({ is_seen }: { is_seen: boolean }) => {
+        await queryClient.cancelQueries({
           queryKey: [QUERY_KEYS.getUserNotifications],
         });
-        return res.data.data;
+
+        const previousNotifications = queryClient.getQueryData([
+          QUERY_KEYS.getUserNotifications,
+        ]);
+
+        // Optimistically update to the new value
+        queryClient.setQueryData(
+          [QUERY_KEYS.getUserNotifications],
+          (old: { id: string }) => {
+            if (Array.isArray(old)) {
+              return old.map((notification) =>
+                notification.id === id
+                  ? { ...notification, is_seen }
+                  : notification,
+              );
+            }
+            return old;
+          },
+        );
+
+        // Return a context object with the snapshotted value
+        return { previousNotifications };
+      },
+      onError: (err, newTodo, context) => {
+        queryClient.setQueryData(
+          [QUERY_KEYS.getUserNotifications],
+          context?.previousNotifications,
+        );
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.getUserNotifications],
+        });
       },
     });
   },

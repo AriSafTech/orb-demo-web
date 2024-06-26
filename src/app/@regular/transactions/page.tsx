@@ -224,9 +224,8 @@ const TransactionsPage = () => {
                   <DialogTrigger
                     className={cn("invisible", {
                       visible:
-                        //  TODO: change for receiverId === user!.userName
-                        receiverId !== user!.userName &&
-                        row.original.group === "payment",
+                        receiverId === user!.userName &&
+                        geTransactionType(row.original).type === "payment",
                     })}
                   >
                     <Button size="icon" variant="ghost">
