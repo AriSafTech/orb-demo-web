@@ -105,7 +105,7 @@ const QRDetails = ({ receiverId, receiverName, coins }: Props) => {
   );
 
   return (
-    <Card className="overflow-auto h-[450px]">
+    <Card className="h-[calc(100vh-25vh)] overflow-auto">
       <CardHeader>
         <CardTitle>{t.receivePayment.qr_details_title}</CardTitle>
       </CardHeader>

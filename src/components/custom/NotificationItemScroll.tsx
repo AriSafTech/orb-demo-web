@@ -79,8 +79,6 @@ const NotificationScrollItem = ({
     updateIsSeenStatus,
   ]);
 
-  // ... rest of your component ...
-
   return (
     <Card
       key={notification.id}
