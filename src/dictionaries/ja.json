@@ -119,6 +119,8 @@
     "submit_helper": "押して保持"
   },
   "receivePayment": {
+    "qr_basic": "QR（基本）",
+    "qr_with_details": "QR（詳細付き）",
     "qr_basic_title": "基本QRコード",
     "qr_basic_desc": "送信者がコインの種類と金額を指定する必要があります。",
     "qr_details_title": "支払い詳細付きQRコード",

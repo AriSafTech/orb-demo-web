@@ -119,6 +119,8 @@
     "submit_helper": "Press and hold"
   },
   "receivePayment": {
+     "qr_basic": "QR (basic)",
+    "qr_with_details": "QR (with details)",
     "qr_basic_title": "Basic QR code",
     "qr_basic_desc": "Requires sender to designate coin type and amount.",
     "qr_details_title": "QR code with payment details",
