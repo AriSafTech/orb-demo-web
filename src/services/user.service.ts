@@ -238,14 +238,12 @@ export const userService = {
         return { previousNotifications };
       },
       onError: (err, newTodo, context) => {
-        // If the mutation fails, use the context returned from onMutate to roll back
         queryClient.setQueryData(
           [QUERY_KEYS.getUserNotifications],
           context?.previousNotifications,
         );
       },
       onSettled: () => {
-        // Always refetch after error or success:
         queryClient.invalidateQueries({
           queryKey: [QUERY_KEYS.getUserNotifications],
         });
