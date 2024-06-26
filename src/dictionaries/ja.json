@@ -2,7 +2,13 @@
   "layout": {
     "balance": "バランス",
     "notifications": "通知",
-    "appName": "AST Wallet"
+    "appName": "AST Wallet",
+     "make_payment": "支払いを行う",
+    "receive_payment": "支払いを受ける",
+    "transactions": "取引",
+    "settlements": "決済",
+    "profile": "プロフィール",
+    "logout": "ログアウト"
   },
   "login": {
     "title": "ログイン",
@@ -24,7 +30,6 @@
     "consumer": "消費者",
     "merchant": "商人"
   },
-
   "me": {
     "title": "プロフィール",
     "btn": "保存",
@@ -39,7 +44,6 @@
     "other": "その他",
     "language": "言語"
   },
-
   "users": {
     "title": "すべてのユーザー",
     "name": "名前",
@@ -75,15 +79,15 @@
     "update_validity": "更新の有効性"
   },
   "settlements": {
-    "title": "Settlements",
-    "id": "Settlment ID",
-    "coin": "Coin",
-    "currency": "Currency",
-    "coinAmount": "Coin amount",
-    "currencyAmount": "Currency amount",
-    "status": "Settlement status",
-    "createdAt": "Requested at",
-    "settledAt": "Settled at"
+    "title": "決済",
+    "id": "決済ID",
+    "coin": "コイン",
+    "currency": "通貨",
+    "coinAmount": "コイン量",
+    "currencyAmount": "通貨量",
+    "status": "決済ステータス",
+    "createdAt": "リクエスト日",
+    "settledAt": "決済日"
   },
   "transaction": {
     "title": "取引",
@@ -92,83 +96,84 @@
     "receiver": "受信者",
     "group": "グループ",
     "type": "タイプ",
-    "coin_name": "Coin",
-    "amount": "Amount",
+    "coin_name": "コイン",
+    "amount": "金額",
     "tx_date": "取引日",
     "charge": "チャージ",
     "payment": "支払い",
-    "refund_title": "Refund payment",
-    "refund_desc": "Are you sure you want to refund this payment?",
-    "refund_sender_id": "Sender ID",
-    "refund_coin_name": "Coin",
-    "refund_amount": "Amount"
+    "refund_title": "払い戻し",
+    "refund_desc": "この支払いを払い戻ししてもよろしいですか？",
+    "refund_sender_id": "送信者ID",
+    "refund_coin_name": "コイン",
+    "refund_amount": "金額"
   },
   "payment": {
-    "form_title": "Make payment",
-    "confirm_title": "Confirm payment",
-    "coin": "Coin",
-    "coin_placeholder": "Please select a coin",
-    "receiverId": "Receiver ID",
-    "receiver": "Receiver ID",
-    "receiverName": "Receiver Name",
-    "amount": "Amount",
-    "submit_helper": "Press and hold"
+    "form_title": "支払いを行う",
+    "confirm_title": "支払いの確認",
+    "coin": "コイン",
+    "coin_placeholder": "コインを選択してください",
+    "receiverId": "受信者ID",
+    "receiver": "受信者ID",
+    "receiverName": "受信者名",
+    "amount": "金額",
+    "submit_helper": "押して保持"
   },
   "receivePayment": {
-    "qr_basic_title": "Basic QR code",
-    "qr_basic_desc": "Requires sender to designate coin type and amount.",
-    "qr_details_title": "QR code with payment details",
-    "qr_details_desc": "Sender needs to confirm payment only.",
-    "coin": "Coin",
-    "coin_placeholder": "Please select a coin",
-    "amount": "Amount",
-    "amount_placeholder": "Please select amount",
-    "tooltip_download": "Download as image",
-    "tooltip_message": "Copy message",
-    "tooltip_link": "Copy link",
-    "qr_details_please_fill_out_form": "Please provide coin and amount to generate QR"
+    "qr_basic": "QR（基本）",
+    "qr_with_details": "QR（詳細付き）",
+    "qr_basic_title": "基本QRコード",
+    "qr_basic_desc": "送信者がコインの種類と金額を指定する必要があります。",
+    "qr_details_title": "支払い詳細付きQRコード",
+    "qr_details_desc": "送信者は支払いを確認するだけです。",
+    "coin": "コイン",
+    "coin_placeholder": "コインを選択してください",
+    "amount": "金額",
+    "amount_placeholder": "金額を選択してください",
+    "tooltip_download": "画像としてダウンロード",
+    "tooltip_message": "メッセージをコピー",
+    "tooltip_link": "リンクをコピー",
+    "qr_details_please_fill_out_form": "QRコードを生成するには、コインと金額を入力してください"
   },
   "vendors": {
-    "title": "Vendors",
-    "favourites": "Favourites",
-    "near_you": "Vendors near you",
-    "search": "Search vendor",
-    "fav_not_found": "No favourites found",
-    "near_you_not_found": "No vendors found near you"
+    "title": "ベンダー",
+    "favourites": "お気に入り",
+    "near_you": "あなたの近くのベンダー",
+    "search": "ベンダー検索",
+    "fav_not_found": "お気に入りが見つかりません",
+    "near_you_not_found": "近くのベンダーが見つかりません"
   },
   "charge": {
-    "title": "Charge Account",
-    "coin": "Coin",
-    "coin_placeholder": "Please select a coin",
-    "receiver": "Receiver",
-    "receiver_placeholder": "Please select receiver",
-    "receiver_search": "Search accounts...",
-    "amount": "Amount",
-    "submit_helper": "Press and hold"
+    "title": "口座にチャージ",
+    "coin": "コイン",
+    "coin_placeholder": "コインを選択してください",
+    "receiver": "受信者",
+    "receiver_placeholder": "受信者を選択してください",
+    "receiver_search": "アカウントを検索...",
+    "amount": "金額",
+    "submit_helper": "押して保持"
   },
   "errors": {
     "login_wrongCredentials_title": "ログインに失敗しました",
     "login_wrongCredentials_desc": "資格情報を確認してください。",
     "login_wrongRole_title": "ログイン失敗",
     "login_wrongRole_desc": "管理者は通常のダッシュボードにログインすることはできません。",
-    "charge_accountNotFound": "Account with ID/Name not found.",
-    "charge_chargeFailed_title": "Charge account process failed",
-    "charge_chargeFailed_desc": "Failed to charge account. Please wait a while and try again.",
-    "payment_paymentFailed_title": "Payment failed",
-    "payment_paymentFailed_desc": "Failed to make payment. Please wait a while and try again.",
+    "charge_accountNotFound": "ID/名前のアカウントが見つかりません。",
+    "charge_chargeFailed_title": "アカウントチャージに失敗しました",
+    "charge_chargeFailed_desc": "アカウントのチャージに失敗しました。しばらく待ってからもう一度お試しください。",
+    "payment_paymentFailed_title": "支払いに失敗しました",
+    "payment_paymentFailed_desc": "支払いに失敗しました。しばらく待ってからもう一度お試しください。",
     "unprocessableContent": "処理できないコンテンツ"
   },
   "success": {
     "success_message": "更新に成功しました",
-    "profile_update": "Profile updated successfully",
-    "user_status_update": "User status updated successfully"
+    "profile_update": "プロフィールが正常に更新されました",
+    "user_status_update": "ユーザーステータスが正常に更新されました"
   },
-
   "info": {
-    "charge_chargeSuccess_title": "Charge account successful",
-    "charge_chargeSuccess_desc": "Successfully charged account.",
-    "payment_paymentSuccess_title": "Payment successful",
-    "payment_paymentSuccess_desc": "Successfully executed payment transaction"
+    "charge_chargeSuccess_title": "アカウントチャージ成功",
+    "charge_chargeSuccess_desc": "アカウントのチャージに成功しました。",
+    "payment_paymentSuccess_title": "支払い成功",
+    "payment_paymentSuccess_desc": "支払い取引が正常に実行されました"
   },
   "dataTable": {
     "rowsPerPage": "ページあたりの行数",
@@ -178,16 +183,16 @@
   },
   "enums": {
     "none": "N/A",
-    "gender_male": "Male",
-    "gender_female": "Female",
-    "gender_other": "Others",
-    "role_consumer": "Consumer",
-    "role_merchant": "Merchant",
-    "role_admin": "Admin",
-    "transaction_type_charge": "Charge",
-    "transaction_type_payment": "Payment",
-    "transaction_type_payment_refunded": "Payment (refunded)",
-    "transaction_type_refund": "Refund",
-    "transaction_type_others": "Others"
+    "gender_male": "男性",
+    "gender_female": "女性",
+    "gender_other": "その他",
+    "role_consumer": "消費者",
+    "role_merchant": "商人",
+    "role_admin": "管理者",
+    "transaction_type_charge": "チャージ",
+    "transaction_type_payment": "支払い",
+    "transaction_type_payment_refunded": "支払い（払い戻し済み）",
+    "transaction_type_refund": "払い戻し",
+    "transaction_type_others": "その他"
   }
 }

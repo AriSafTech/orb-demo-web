@@ -61,24 +61,25 @@ export default function RegularLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { data: t } = useLanguageStore();
   const NAV_ITEMS = [
-    { label: "Make Payment", path: "/make-payment", icon: PaymentIcon },
+    { label: t.layout.make_payment, path: "/make-payment", icon: PaymentIcon },
     {
-      label: "Receive Payment",
+      label: t.layout.receive_payment,
       path: "/receive-payment",
       icon: QR,
     },
     {
-      label: "Transactions",
+      label: t.layout.transactions,
       path: "/transactions",
       icon: TransactionListIcon,
     },
     {
-      label: "Settlements",
+      label: t.layout.settlements,
       path: "/settlements",
       icon: SettlementsIcon,
     },
-    { label: "Profile", path: "/profile", icon: UserIcon },
+    { label: t.layout.profile, path: "/profile", icon: UserIcon },
     // {
     //   label: "Playground (dev)",
     //   path: "/playground",
@@ -87,7 +88,7 @@ export default function RegularLayout({
   ];
   const pathname = usePathname();
   const isActive = (path: string) => path === pathname;
-  const { data: t } = useLanguageStore();
+
   const { tokens, user } = useAuthStore();
   // console.log("user", user);
 
@@ -322,7 +323,7 @@ export default function RegularLayout({
                     }}
                   >
                     <LogoutIcon />
-                    Logout
+                    {t.layout.logout}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
