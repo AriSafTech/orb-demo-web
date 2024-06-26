@@ -2,7 +2,13 @@
   "layout": {
     "balance": "Balance",
     "notifications": "Notifications",
-    "appName": "AST Wallet"
+    "appName": "AST Wallet",
+    "make_payment":"Make Payment",
+    "receive_payment":"Receive Payment",
+    "transactions":"Transactions",
+    "settlements":"Settlements",
+    "profile":"Profile",
+    "logout":"Logout"
   },
   "login": {
     "title": "Login",
