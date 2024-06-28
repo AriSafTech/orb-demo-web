@@ -18,7 +18,7 @@ import jaData from "@/dictionaries/ja.json";
 
 const translationData = {
   en: enData,
-  jp: jaData,
+  ja: jaData,
 };
 
 const LanguageSwitcher = () => {
@@ -43,7 +43,7 @@ const LanguageSwitcher = () => {
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="en">English</SelectItem>
-        <SelectItem value="jp">日本語</SelectItem>
+        <SelectItem value="ja">日本語</SelectItem>
       </SelectContent>
     </Select>
   );
