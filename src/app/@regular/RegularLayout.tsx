@@ -239,7 +239,7 @@ export default function RegularLayout({
                         </div>
                       )}
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="mr-8 z-50 shadow-xl w-[400px]">
+                    <DropdownMenuContent className="mr-8 z-50 shadow-xl w-screen sm:w-[400px]">
                       <ScrollArea className="h-72 w-auto rounded-md">
                         <div className="p-4">
                           <h4 className="mb-4 text-xl font-medium leading-none text-center">
@@ -286,7 +286,7 @@ export default function RegularLayout({
                     </div>
                   </div>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="backdrop-blur-md">
+                <DropdownMenuContent className="backdrop-blur-md w-screen sm:w-auto">
                   <DropdownMenuLabel>
                     <div className="flex flex-col w-full">
                       <h2 className="text-lg">{userProfile?.name!}</h2>
