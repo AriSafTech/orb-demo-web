@@ -38,7 +38,7 @@ const ReceivePaymentPage = () => {
 
   useEffect(() => {
     if (coinsStatus === "error") {
-      toast.error("Failed to fetch coin data.");
+      toast.error(t.errors.failed_to_fetch_coin);
     }
   }, [coinsStatus]);
 

@@ -125,7 +125,7 @@ const SettlementsTable = ({ coins }: Props) => {
                 onClick={async () => {
                   if (isNavigator()) {
                     await navigator.clipboard.writeText(row.original.id);
-                    toast.success("Copied settlement ID to clipboard");
+                    toast.success(t.success.copied_settlement_to_clip_board);
                   }
                 }}
               >

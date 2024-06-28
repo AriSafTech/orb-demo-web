@@ -162,12 +162,17 @@
     "charge_chargeFailed_desc": "アカウントのチャージに失敗しました。しばらく待ってからもう一度お試しください。",
     "payment_paymentFailed_title": "支払いに失敗しました",
     "payment_paymentFailed_desc": "支払いに失敗しました。しばらく待ってからもう一度お試しください。",
-    "unprocessableContent": "処理できないコンテンツ"
+    "unprocessableContent": "処理できないコンテンツ",
+     "failed_to_fetch_coin": "コインデータの取得に失敗しました。"
   },
   "success": {
     "success_message": "更新に成功しました",
     "profile_update": "プロフィールが正常に更新されました",
-    "user_status_update": "ユーザーステータスが正常に更新されました"
+    "user_status_update": "ユーザーステータスが正常に更新されました",
+    "registered_successfully": "登録が成功しました。",
+    "copied_transaction_to_clip_board": "取引IDをクリップボードにコピーしました。",
+    "copied_settlement_to_clip_board": "決済IDをクリップボードにコピーしました。"
+
   },
   "info": {
     "charge_chargeSuccess_title": "アカウントチャージ成功",

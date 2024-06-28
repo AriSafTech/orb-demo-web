@@ -94,7 +94,7 @@ function ConfirmPayment({ amount, coinId, receiverId, senderId }: Props) {
   //   router.push("/");
   // }
   if (coinsStatus === "error") {
-    toast.error("Failed to fetch coins data.");
+    toast.error(t.errors.failed_to_fetch_coin);
     router.push("/");
   }
 

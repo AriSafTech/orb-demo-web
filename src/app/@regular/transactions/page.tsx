@@ -299,7 +299,9 @@ const TransactionsPage = () => {
                             await navigator.clipboard.writeText(
                               row.original.tx_id!,
                             );
-                            toast.success("Copied transaction ID to clipboard");
+                            toast.success(
+                              t.success.copied_transaction_to_clip_board,
+                            );
                           }
                         }}
                       >

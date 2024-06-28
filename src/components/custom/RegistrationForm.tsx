@@ -67,7 +67,7 @@ const RegistrationForm = () => {
       try {
         const registerValue = await register(values);
         // console.log("registerValue", registerValue);
-        toast.success("Registered successfully");
+        toast.success(t.success.registered_successfully);
         router.push("/");
       } catch (e: any) {
         // @ts-ignore

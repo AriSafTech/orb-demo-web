@@ -162,12 +162,17 @@
     "charge_chargeFailed_desc": "Failed to charge account. Please wait a while and try again.",
     "payment_paymentFailed_title": "Payment failed",
     "payment_paymentFailed_desc": "Failed to make payment. Please wait a while and try again.",
-    "unprocessableContent": "Unprocessable Content"
+    "unprocessableContent": "Unprocessable Content",
+     "failed_to_fetch_coin":"Failed to fetch coin data."
   },
   "success": {
     "success_message": "Updated successfully",
     "profile_update": "Profile updated successfully",
-    "user_status_update": "User status updated successfully"
+    "user_status_update": "User status updated successfully",
+    "registered_successfully":"Registered successfully",
+    "copied_transaction_to_clip_board":"Copied transaction ID to clipboard",
+    "copied_settlement_to_clip_board":"Copied settlement ID to clipboard"
+    
   },
   "info": {
     "charge_chargeSuccess_title": "Charge account successful",
