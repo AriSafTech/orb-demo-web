@@ -5,18 +5,35 @@ import jaData from "@/dictionaries/ja.json";
 import { isNavigator } from "@/lib/utils";
 
 // Utility function to get the user's preferred language
-export const getUserPreferredLanguage = () => {
-  // Check localStorage first
-  // const storedLanguage = localStorage.getItem("preferredLanguage");
-  // if (storedLanguage === "jp" || storedLanguage === "en") {
-  //   return storedLanguage;
-  // }
+// export const getUserPreferredLanguage = () => {
+//   const storedLanguage = localStorage.getItem("preferredLanguage");
+//   if (storedLanguage === "ja" || storedLanguage === "en") {
+//     return storedLanguage;
+//   }
 
-  // Fallback to browser settings
-  if (isNavigator()) {
-    const browserLanguage = navigator.language || navigator.languages[0];
-    if (browserLanguage.startsWith("ja")) {
-      return "jp";
+//   if (isNavigator()) {
+//     const browserLanguage = navigator.language || navigator.languages[0];
+//     if (browserLanguage.startsWith("ja")) {
+//       return "ja";
+//     }
+//   }
+//   return "en";
+// };
+
+export const getUserPreferredLanguage = () => {
+  if (typeof window !== "undefined") {
+    // Check localStorage first
+    const storedLanguage = localStorage.getItem("preferredLanguage");
+    if (storedLanguage === "ja" || storedLanguage === "en") {
+      return storedLanguage;
+    }
+
+    // Fallback to browser settings
+    if (isNavigator()) {
+      const browserLanguage = navigator.language || navigator.languages[0];
+      if (browserLanguage.startsWith("ja")) {
+        return "ja";
+      }
     }
   }
   return "en"; // Default to English
@@ -24,7 +41,7 @@ export const getUserPreferredLanguage = () => {
 
 const translationData = {
   en: enData,
-  jp: jaData, // Ensure consistent use of 'jp' for Japanese
+  ja: jaData, // Ensure consistent use of 'jp' for Japanese
 };
 
 type TranslationData = typeof translationData;
@@ -43,13 +60,13 @@ export const useLanguageStore = create(
       language: initialLanguage,
       data: translationData[initialLanguage],
       setLanguage: (lang) => {
-        if (lang !== "jp" && lang !== "en") {
+        if (lang !== "ja" && lang !== "en") {
           lang = "en"; // Default to English if the provided language is invalid
         }
         const data = translationData[lang];
         set({ language: lang, data });
         // Save the preferred language to localStorage
-        // localStorage.setItem("preferredLanguage", lang);
+        localStorage.setItem("preferredLanguage", lang);
       },
     }),
     {
