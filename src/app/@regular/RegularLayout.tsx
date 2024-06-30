@@ -232,7 +232,7 @@ export default function RegularLayout({
                         <RxBell className="w-10" size={30} />
                       </Button>
                       {unseenCount > 0 && (
-                        <div className="absolute top-[-8px] right-[-13px] bg-primary text-white w-7 h-7 rounded-full flex justify-center items-center p-2">
+                        <div className="absolute -top-1 -right-1 bg-primary text-white w-fit h-6 rounded-full flex justify-center items-center p-2">
                           <div className="text-xs">
                             {unseenCount > 99 ? "99+" : unseenCount}
                           </div>
