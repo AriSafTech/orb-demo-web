@@ -91,9 +91,17 @@ export const userService = {
           },
           { headers: { "Content-Type": "multipart/form-data" } },
         );
+        // await queryClient.invalidateQueries({
+        //   queryKey: [QUERY_KEYS.getProfile, QUERY_KEYS.getAllUsers],
+        // });
+
         await queryClient.invalidateQueries({
-          queryKey: [QUERY_KEYS.getProfile, QUERY_KEYS.getAllUsers],
+          queryKey: [QUERY_KEYS.getProfile],
         });
+        await queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.getAllUsers],
+        });
+
         return res.data.data?.user;
         // With form data
         // const formData = new FormData();
